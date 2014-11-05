@@ -1,13 +1,12 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
-    <div data-options="region:'north',border:false" style="height:70px;">
-        <h1 style="padding:20px 0 0 10px; margin: 0;">EasyUI+CodeIgniter</h1>
+    <div data-options="region:'north',border:true" style="height:52px; line-height: 50px;">
+        <div style="font-size: 26px; padding-left: 10px; font-weight: bold;"> EasyUI+CodeIgniter</div>
     </div>
-    <div data-options="region:'west',split:true,title:'West'" style="width:150px;">
-
-        <ul class="easyui-tree">
+    <div data-options="region:'west'" title="菜单栏" style="width:12%;padding:5px">
+        <ul class="easyui-tree" data-options="lines:true,url:'/home/menu'">
             <li>
-                <span>My Documents</span>
+                <span>主菜单</span>
                 <ul>
                     <li><a href="javascript:App.addTab('iframeTest1', '/home/gird')">添加文章</a></li>
                     <li><a href="javascript:App.addTab('iframeTest2', '/home/test/2?m=ddd')">添加文章</a></li>
@@ -18,6 +17,11 @@
                     <li><a href="javascript:App.addTab('iframeTest7', '/home/test/7')">添加文章</a></li>
                     <li><a href="javascript:App.addTab('iframeTest8', '/home/test/8')">添加文章</a></li>
                     <li><a href="javascript:App.addTab('iframeTest9', '/home/test/9')">添加文章</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>主菜单</span>
+                <ul>
                     <li><a href="javascript:App.addTab('iframeTest10', '/home/test/10')">添加文章</a></li>
                     <li><a href="javascript:App.addTab('iframeTest11', '/home/test/11')">添加文章</a></li>
                     <li><a href="javascript:App.addTab('iframeTest12', '/home/test/12')">添加文章</a></li>
@@ -25,17 +29,20 @@
                     <li><a href="javascript:App.addTab('iframeTest14', '/home/test/14')">添加文章</a></li>
                 </ul>
             </li>
-
+            </li>
         </ul>
     </div>
-    <div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
-    <div data-options="region:'center'">
+    <div data-options="region:'center',border:true" title="">
         <div id="easyui-tabs" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
-            <div class="panel" title="iframe">
+            <div class="panel" title="系统首页">
                 <div style="padding: 10px">test</div>
             </div>
         </div>
     </div>
+
+    </div>
+    <!--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>-->
+
 {/block}
 {block name="head"}
     <script type="text/javascript">
@@ -57,8 +64,8 @@
                     })
                     .tabs('add', {
                         title: title,
-                        content: '<div style="padding:10px"><iframe scrolling="no" frameborder="0"  src="' + url
-                        + '" style="width:100%;height:99%;"></iframe></div>',
+                        content: '<iframe scrolling="no" frameborder="0"  src="' + url
+                        + '" style="width:100%;height:99%;"></iframe>',
                         closable: true
                     });
                 self.setTabsStorage(title, url);
@@ -88,14 +95,36 @@
                 ,  tabs =  self.getLocalStorage()
                 ,  select;
             for(var title in tabs) {
-                self.addTab(title, tabs[title].replace('#',''));
-                if(url == tabs[title]) select = title;
+                if(url == tabs[title]) {
+                    select = title
+
+                } else {
+                    self.addTab(title, tabs[title].replace('#',''));
+                }
             }
             $('#easyui-tabs').tabs('select', select);
         }
     };
     $(function(){
         App.run();
+        $(window).resize(function () {
+            try {
+                var currentTab = $('#easyui-tabs').tabs('getSelected');
+                if (currentTab && currentTab.find('iframe').length > 0) {
+                    var currentIframe = currentTab.find('iframe')[0];
+                    currentIframe.contentWindow.datagrid('resize');
+                }
+            } catch (error) {
+
+            }
+
+            try {
+                $("#accordion_menu_center").height($("body").height() - 105);
+            } catch (error) {
+
+            }
+
+        });
     });
     </script>
 {/block}

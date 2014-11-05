@@ -1,7 +1,7 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
-    <table id="dg" class="easyui-datagrid" title="CheckBox Selection on DataGrid" style="width:100%; height: 100%;"
-           data-options="rownumbers:true,singleSelect:true,url:'/home/get_json',method:'get'">
+    <table class="easyui-datagrid"
+           data-options="fitColumns:true,fit:true,muliteSelect:true,border:false,collapsible:true,rownumbers:false,singleSelect:false,url:'/home/get_json',method:'get',pagination:true" width="100%">
         <thead>
         <tr>
             <th data-options="field:'ck',checkbox:true"></th>
