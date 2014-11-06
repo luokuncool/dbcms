@@ -32,7 +32,7 @@ var App = {
                 });
             self.setTabsStorage(title, url);
         }
-        select && mainTab.tabs('select', title);
+        select || mainTab.tabs('select', title);
         var iFrame = mainTab.tabs('getSelected').find('iframe');
         if (iFrame.length) iFrame[0].contentWindow.location.href = url;
     },

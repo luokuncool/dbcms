@@ -26,7 +26,7 @@ class Node extends HOME_Controller {
 	public function create()
 	{
 		if ($_POST) {
-			echo 'd';
+			echo json_encode(array('d'));
 		} else {
 			$this->smarty->view('home/node/create.tpl');
 		}

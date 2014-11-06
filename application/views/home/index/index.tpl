@@ -8,30 +8,29 @@
             <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-lock'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">修改密码</a>
         </div>
     </div>
-    <div data-options="region:'west'" title="菜单栏" style="width:12%;padding:5px">
+    <div data-options="region:'west', collapsed:false" title="菜单栏" style="width:10%;padding:5px">
         <ul class="easyui-tree" data-options="lines:true">
-            <li>
+            <li data-options="state:'closed'">
                 <span>节点管理</span>
                 <ul>
-                    <li><a href="javascript:App.addTab('节点列表', '/node/index')">节点列表</a></li>
-                    <li><a href="javascript:App.addTab('添加节点', '/node/create')">添加节点</a></li>
+                    <li><a onclick="App.addTab('节点列表', '/node/index');">节点列表</a></li>
+                    <li iconCls="icon-add"><a onclick="App.addTab('添加节点', '/node/create');">添加节点</a></li>
                 </ul>
             </li>
-            <li>
+            <li data-options="state:'closed'">
                 <span>历史记录</span>
                 <ul>
-                    <li><a href="javascript:App.addTab('iframeTest10', '/home/test/10')">添加文章</a></li>
-                    <li><a href="javascript:App.addTab('iframeTest14', '/home/test/14')">添加文章</a></li>
+                    <li><a onclick="App.addTab('节点列表', '/node/index');">节点列表</a></li>
+                    <li><a onclick="App.addTab('添加节点', '/node/create');">添加节点</a></li>
                 </ul>
             </li>
             <li>
                 <span>系统设置</span>
                 <ul>
-                    <li><a href="javascript:App.addTab('iframeTest10', '/home/test/10')">添加文章</a></li>
-                    <li><a href="javascript:App.addTab('iframeTest14', '/home/test/14')">添加文章</a></li>
+                    <li><a onclick="App.addTab('用户管理', '/user/index');">用户管理</a></li>
                 </ul>
             </li>
-            <li><a href="javascript:App.addTab('待办事项', '/home/test/10')">待办事项</a></li>
+            <li><a onclick="App.addTab('待办事项', '/home/test/10')">待办事项</a></li>
         </ul>
     </div>
     <div data-options="region:'center',border:true" title="">
@@ -41,10 +40,6 @@
             </div>
         </div>
     </div>
-
-    </div>
-    <!--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>-->
-
 {/block}
 {block name="head"}
     <script type="text/javascript" src="{$base_path}/public/home/js/common.js"></script>
