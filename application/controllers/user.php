@@ -15,9 +15,7 @@ class User extends Home_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(
-		//array('admin_model', 'admin_router_model')
-		);
+
 	}
 
 	/**
@@ -126,7 +124,8 @@ class User extends Home_Controller
 	{
 		if ($_POST)
 		{
-			parent::set_json_header();
+            echo json_encode(array('a')); exit();
+			//parent::set_json_header();
 			$this->load->library('form_validation');
 			$this->load->helper('array_helper');
 			$POST = deep_htmlspecialchars($_POST);
@@ -144,18 +143,44 @@ class User extends Home_Controller
 		}
 		else
 		{
-			parent::set_html_header();
-			$data['group_list'] = $this->admin_model->get_admin_group_list();
-			$this->smarty->view('admin/admin/add_admin.tpl', $data);
+			$this->smarty->view('home/user/create.tpl');
 		}
 	}
 
 	public function index()
 	{
-		parent::set_html_header();
-		$data['page_title'] = '前台首页';
-		$data['data_grid_url'] = '/home/get_json';
-		$this->smarty->view('home/user/index.tpl', $data);
+		if (!IS_AJAX)
+        {
+            parent::set_html_header();
+            $data['page_title'] = '前台首页';
+            $data['data_grid_url'] = '/user/index';
+            $this->smarty->view('home/user/index.tpl', $data);
+            return;
+        }
+
+        $this->load->model(
+            array('user_model')
+        );
+        $map = array();
+        $sort = $this->input->get('sort');
+        $order = $this->input->get('order');
+        $sort && $order && $map['order_by'] = array($sort, $order);
+
+        $uName = $this->input->get('uName');
+        $uName && $map[] = 'uName LIKE "%'.$uName.'%"';
+
+        $status = $this->input->get('status');
+        $status != '' && $map[] = array('status'=>intval($status));
+        $name = $this->input->get('name');
+        $name != '' && $map[] = 'name LIKE "%'.$name.'%"';
+
+        $page = intval($this->input->get('page'));
+        $rows = intval($this->input->get('rows'));
+        $map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
+        $list = $this->user_model->get_list($map);
+        $list['sql'] = $this->user_model->last_query();
+        $list['map'] = $map;
+        echo json_encode($list);
 	}
 
 	/**

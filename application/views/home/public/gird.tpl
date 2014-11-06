@@ -5,7 +5,7 @@
     </div>
     <div data-options="region:'center',border:false">
         <table id="dataGrid" class="easyui-datagrid"
-               data-options="fitColumns:true,fit:true,muliteSelect:true,border:false,collapsible:true,rownumbers:false,singleSelect:false,url:'{$data_grid_url}',method:'get',pagination:true" width="100%">
+               data-options="fitColumns:true,fit:true,muliteSelect:true,border:false,collapsible:true,rownumbers:false,singleSelect:false,url:'{$data_grid_url}',method:'get',pagination:true,pageSize:15,pageList:[15,20,25,30,50]" width="100%">
             <thead>
             {block name="row_list"}{/block}
             </thead>
@@ -18,6 +18,22 @@
         $(window).resize(function(){
             $('#datagrid').datagrid('resize');
         });
+        var searchButton = $('#searchButton'),
+            searchBlock  = $('#searchBlock'),
+            dataGrid     = $('#dataGrid'),
+            queryParams  = dataGrid.datagrid('options').queryParams,
+            searchFun    = function(){
+                $(searchBlock).find('[name]').each(function(){
+                    console.log(this);
+                    if($(this).val() !== '') {
+                        queryParams[$(this).attr('name')] = $(this).val();
+                    } else {
+                        delete queryParams[$(this).attr('name')];
+                    }
+                });
+                dataGrid.datagrid('reload');
+            };
+        searchButton.click(searchFun);
     });
     </script>
     {block name="script"}{/block}

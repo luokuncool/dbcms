@@ -2,9 +2,9 @@
 {block name="search_block"}
     <table id="searchBlock" width="100%">
         <tr>
-            <td width="70" align="right">节点代码：</td>
-            <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="code" /></td>
-            <td width="100" align="right">显示名：</td>
+            <td width="70" align="right">账号：</td>
+            <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="uName" /></td>
+            <td width="100" align="right">真实姓名：</td>
             <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
             <td align="right">
                 <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加用户', '/user/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
@@ -14,14 +14,14 @@
         <tr>
             <td width="100" align="right">状态：</td>
             <td width="70">
-                <select class="easyui-combobox" data-options="editable:false" name="groupId" style="width: 200px;">
+                <select class="easyui-combobox" data-options="editable:false" name="status" style="width: 200px;">
                     <option value="">请选择</option>
                     <option value="1">启用</option>
                     <option value="0">禁用</option>
                 </select>
             </td>
             <td>&nbsp;</td>
-            <td colspan="2"><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">检索</a></td>
+            <td colspan="2"><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 18px 0 10px; border-radius: 2px 2px 2px;">检索</a></td>
 
         </tr>
     </table>
@@ -41,19 +41,5 @@
     </tr>
 {/block}
 {block name="script"}
-    <script type="text/javascript">
-    $(function(){
-        var searchButton = $('#searchButton'),
-            searchBlock  = $('#searchBlock'),
-            dataGrid     = $('#dataGrid'),
-            queryParams  = dataGrid.datagrid('options').queryParams,
-            searchFun    = function(){
-                $(searchBlock).find('[name]').each(function(){
-                    if($(this).val() !== '') queryParams[$(this).attr('name')] = $(this).val();
-                });
-                dataGrid.datagrid('reload');
-            };
-        searchButton.click(searchFun);
-    });
-    </script>
+
 {/block}

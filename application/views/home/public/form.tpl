@@ -23,7 +23,9 @@
             postForm.form('submit', {
                 success : function(data) {
                     try {
-                        data = eval(data);
+                        data = eval('('+data+')');
+                        data.success ? $.messager.alert(data.message, 'info') : $.messager.alert(data.message, 'error');
+                        data.reloadMain && parent.window.location.reload(true);
                         console.log(data);
                     } catch (e) {
                         $.messager.alert('提交失败', '程序出错', 'error');

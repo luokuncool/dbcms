@@ -30,6 +30,12 @@
                     <li><a onclick="App.addTab('用户管理', '/user/index');">用户管理</a></li>
                 </ul>
             </li>
+            <li>
+                <span>个人设置</span>
+                <ul>
+                    <li><a onclick="App.addTab('主题设置', '/setting/theme');">主题设置</a></li>
+                </ul>
+            </li>
             <li><a onclick="App.addTab('待办事项', '/home/test/10')">待办事项</a></li>
         </ul>
     </div>
