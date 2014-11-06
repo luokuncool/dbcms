@@ -6,16 +6,17 @@ var App = {
      * 新打开选项卡
      * @param title
      * @param url
+     * @param select
      */
-    addTab : function(title, url){
+    addTab : function(title, url, select){
         var self    = this,
             mainTab = self.getMainTab();
         if (!mainTab.tabs('exists', title)){
             mainTab
                 .tabs({
                     onSelect: function (title) {
-                        location.hash = self.getLocalStorage(title);
-                        self.setTabsStorage(title, location.hash.replace('#',''));
+                        location.hash = title;
+                        //self.setTabsStorage(title, location.hash.replace('#',''));
                     },
                     onClose: function(thisTitle){
                         self.setTabsStorage(thisTitle, '', true);
@@ -31,8 +32,7 @@ var App = {
                 });
             self.setTabsStorage(title, url);
         }
-        mainTab.tabs('select', title);
-        //mainTab.tabs('refresh', url);
+        select && mainTab.tabs('select', title);
         var iFrame = mainTab.tabs('getSelected').find('iframe');
         if (iFrame.length) iFrame[0].contentWindow.location.href = url;
     },
@@ -65,16 +65,15 @@ var App = {
      * 初始化应用
      */
     run : function(){
-        var url = location.hash.replace('#',''),
+        var currentTab = location.hash.replace('#',''),
             self = this,
             tabs =  self.getLocalStorage(),
             mainTab = self.getMainTab(),
             select;
         for(var title in tabs) {
-            //self.addTab(title, tabs[title].replace('#',''));
-            if(url == tabs[title].replace('#','')) select = title;
+            //self.addTab(title, tabs[title].replace('#',''), false);
+            if(currentTab == title) select = { title : title, url : tabs[title]};
         }
-        select && self.addTab(select, url);
-        //mainTab.tabs('select', select);
+        select && self.addTab(select.title, select.url);
     }
 };

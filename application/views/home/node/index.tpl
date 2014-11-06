@@ -2,16 +2,27 @@
 {block name="search_block"}
     <table id="searchBlock" width="100%">
         <tr>
-            <td width="60">开始日期：</td>
-            <td width="70"><input class="easyui-datebox" type="text" name="startDate" /></td>
-            <td width="100" align="right">结束日期：</td>
-            <td width="70"><input class="easyui-datebox" type="text" name="endDate" /></td>
-            <td>&nbsp;&nbsp;<a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">检索</a></td>
-            <td>{widget path='widget/test/dd' args=array($data_grid_url)}{'asdfadf'|print_r}</td>
+            <td width="70" align="right">节点代码：</td>
+            <td width="70"><input class="easyui-textbox" data-options="width:150" type="text" name="code" /></td>
+            <td width="100" align="right">显示名：</td>
+            <td width="70"><input class="easyui-textbox" data-options="width:150" type="text" name="name" /></td>
             <td align="right">
-                <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '/node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
-                <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-remove'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '/node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
             </td>
+        </tr>
+        <tr>
+            <td width="100" align="right">状态：</td>
+            <td width="70">
+                <select class="easyui-combobox" name="groupId" style="width: 150px;">
+                    <option value="">请选择</option>
+                    <option value="1">启用</option>
+                    <option value="0">禁用</option>
+                </select>
+            </td>
+            <td>&nbsp;</td>
+            <td colspan="2"><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">检索</a></td>
+
         </tr>
     </table>
 {/block}
@@ -39,8 +50,8 @@
             searchFun    = function(){
                 $(searchBlock).find('[name]').each(function(){
                     if($(this).val() !== '') queryParams[$(this).attr('name')] = $(this).val();
-                    dataGrid.datagrid('reload');
                 });
+                dataGrid.datagrid('reload');
             };
         searchButton.click(searchFun);
     });

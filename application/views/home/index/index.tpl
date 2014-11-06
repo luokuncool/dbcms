@@ -1,7 +1,7 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
     <div data-options="region:'north',border:true" style="height:52px;">
-        <div style="float:left; font-size: 26px; padding-left: 10px; font-weight: bold; line-height: 50px;"> EasyUI+CodeIgniter</div>
+        <div style="float:left; font-size: 26px; padding-left: 10px; font-weight: bold; line-height: 50px;">jQuery EasyUI</div>
         <div style="float: right; padding: 10px 10px 0 0;">
             <a class="easyui-linkbutton" id="searchButton" data-options="" style="padding:0 5px; border-radius: 2px 2px 2px;">站内消息<span style="color: #ff9e00;font-weight: bold; padding-left: 5px;">15</span></a>
             <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-man'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">退出登录</a>
@@ -18,22 +18,26 @@
                 </ul>
             </li>
             <li>
-                <span>主菜单</span>
+                <span>历史记录</span>
                 <ul>
                     <li><a href="javascript:App.addTab('iframeTest10', '/home/test/10')">添加文章</a></li>
-                    <li><a href="javascript:App.addTab('iframeTest11', '/home/test/11')">添加文章</a></li>
-                    <li><a href="javascript:App.addTab('iframeTest12', '/home/test/12')">添加文章</a></li>
-                    <li><a href="javascript:App.addTab('iframeTest13', '/home/test/13')">添加文章</a></li>
                     <li><a href="javascript:App.addTab('iframeTest14', '/home/test/14')">添加文章</a></li>
                 </ul>
             </li>
+            <li>
+                <span>系统设置</span>
+                <ul>
+                    <li><a href="javascript:App.addTab('iframeTest10', '/home/test/10')">添加文章</a></li>
+                    <li><a href="javascript:App.addTab('iframeTest14', '/home/test/14')">添加文章</a></li>
+                </ul>
             </li>
+            <li><a href="javascript:App.addTab('待办事项', '/home/test/10')">待办事项</a></li>
         </ul>
     </div>
     <div data-options="region:'center',border:true" title="">
         <div id="easyui-tabs" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
-            <div class="panel" title="系统首页" data-options="href:'/home/test'">
-                <div style="padding: 10px">test</div>
+            <div class="panel" title="系统首页" data-options="" style="padding: 10px">
+                <p>欢迎使用本系统！</p>
             </div>
         </div>
     </div>

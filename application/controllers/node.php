@@ -25,7 +25,11 @@ class Node extends HOME_Controller {
 	 */
 	public function create()
 	{
-		$this->smarty->view('home/node/create.tpl');
+		if ($_POST) {
+			echo 'd';
+		} else {
+			$this->smarty->view('home/node/create.tpl');
+		}
 	}
 
 }
