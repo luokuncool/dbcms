@@ -9,8 +9,7 @@
             <td>&nbsp;&nbsp;<a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">检索</a></td>
             <td>{widget path='widget/test/dd' args=array($data_grid_url)}{'asdfadf'|print_r}</td>
             <td align="right">
-                <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-add'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
-                <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-add'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
+                <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '/node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
                 <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-remove'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
             </td>
         </tr>
