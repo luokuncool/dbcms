@@ -77,7 +77,7 @@ class Role extends HOME_Controller {
 			'code' => $code,
 			'name' => $name,
 			'status' => intval($this->input->post('status')),
-			'remark' => $this->input->post('status'),
+			'remark' => $this->input->post('remark'),
 			'sort' => $this->input->post('sort'),
 			'groupId' => intval($this->input->post('groupId')),
 			'pId' => $pId,
@@ -108,20 +108,17 @@ class Role extends HOME_Controller {
 			$this->smarty->view('home/role/edit.tpl', $data);
 			return;
 		}
-		$code = $this->input->post('code');
 		$name = $this->input->post('name');
 		$currentTime = time();
-		regex($code, 'require') OR exit('{"message":"请填写操作代码！"}');
-		regex($name, 'require') OR exit('{"message":"请填写显示名！"}');
+
+		regex($name, 'require') OR ajax_exit('请填写角色名！');
+		$exist = $this->role_model->check_name($name.' AND id<>'.$id);
+		$exist && ajax_exit('角色名已经存在！');
+
 		$data = array(
-			'code' => $code,
 			'name' => $name,
 			'status' => intval($this->input->post('status')),
-			'remark' => $this->input->post('status'),
-			'sort' => $this->input->post('sort'),
-			'groupId' => intval($this->input->post('groupId')),
-			'level' => $this->input->post('level'),
-			'type' => $this->input->post('type'),
+			'remark' => $this->input->post('remark'),
 			'updateTime' => $currentTime,
 			'updateUid' => 1,
 		);
@@ -129,7 +126,53 @@ class Role extends HOME_Controller {
 		$res['message'] = $result ? '保存成功' : '保存失败';
 		$result && $res['success'] = 1;
 		$result && $res['reload'] = 1;
-		echo json_encode($res);
+		echo_json($res);
+	}
+
+	/**
+	 * 禁用角色
+	 */
+	public function disable()
+	{
+		if (!$_POST) {
+			return;
+		}
+		$roleIds = $this->input->post('roleId');
+		regex($roleIds, 'require') OR ajax_exit('请选择角色!');
+		$result = $this->set_status('id in('.$roleIds.')', 0);
+		$res = array(
+			'message' => $result  !== false  ? '操作成功' : '操作失败',
+			'success' => $result  !== false  ? 1 : 0,
+		);
+		echo_json($res);
+	}
+
+	/**
+	 * 启用角色
+	 */
+	public function enable()
+	{
+		if (!$_POST) {
+			return;
+		}
+		$roleIds = $this->input->post('roleId');
+		regex($roleIds, 'require') OR ajax_exit('请选择角色!');
+		$result = $this->set_status('id in('.$roleIds.')', 1);
+		$res = array(
+			'message' => $result  !== false ? '操作成功' : '操作失败',
+			'success' => $result  !== false  ? 1 : 0,
+		);
+		echo_json($res);
+	}
+
+	/**
+	 * 设置角色状态
+	 * @param $where
+	 * @param $status
+	 * @return mixed
+	 */
+	private function set_status($where, $status) {
+		return $this->role_model->update($where, array('status'=>$status));
 	}
 
 }

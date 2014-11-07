@@ -5,7 +5,8 @@
  * Date: 14-7-25
  * Time: 上午10:28
  */
-class Node_Model extends Base_Model {
+class Node_Model extends Base_Model
+{
 
 	public $table = 'node';
 

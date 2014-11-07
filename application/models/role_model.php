@@ -18,4 +18,16 @@ class Role_Model extends Base_Model {
 		$this->load->database();
 	}
 
+	/**
+	 * 检测名字唯一
+	 * @param      $name
+	 * @return bool
+	 */
+	public function check_name($name)
+	{
+		$where = array();
+		$where['name'] = $name;
+		return $this->exists($where);
+	}
+
 }

@@ -22,4 +22,14 @@ class Setting extends HOME_Controller {
         echo json_encode(array('message'=>'设置成功', 'reloadMain'=>1, 'success'=>1));
     }
 
+	/**
+	 * 常用菜单
+	 */
+	public function favorite_menu()
+	{
+		$this->load->model('node_model');
+		$data = $this->node_model->get_list();
+		$this->smarty->view('home/setting/favorite_menu.tpl', $data);
+	}
+
 }

@@ -16,7 +16,7 @@
     <script type="text/javascript">
     $(function(){
         $(window).resize(function(){
-            $('#datagrid').datagrid('resize');
+            $('#dataGrid').datagrid('resize');
         });
         var searchButton = $('#searchButton'),
             searchBlock  = $('#searchBlock'),

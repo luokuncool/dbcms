@@ -477,3 +477,13 @@ function set_config($array) {
   if ($string != '') { $string = '|'.$string.',';}
   return $string;
 }
+
+function ajax_exit($message) {
+	$res = array();
+	$res['message'] = $message;
+	exit(json_encode($res));
+}
+
+function echo_json($res) {
+	exit(json_encode($res));
+}

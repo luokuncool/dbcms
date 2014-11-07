@@ -1,6 +1,8 @@
 <?php
 class Node extends HOME_Controller {
 
+	public $model_name = 'node_model';
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -127,6 +129,70 @@ class Node extends HOME_Controller {
 		$id && $res['closeSelf'] = 1;
 		$id && $res['success'] = 1;
 		echo json_encode($res);
+	}
+
+	/**
+	 * 删除
+	 */
+	public function remove()
+	{
+		if (!$_POST) {
+			return;
+		}
+		$ids = $this->input->post('ids');
+		regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
+		$result = $this->{$this->model_name}->delete(array('id in('.$ids.')'));
+		$res = array(
+			'message' => $result  !== false  ? '操作成功' : '操作失败',
+			'success' => $result  !== false  ? 1 : 0,
+		);
+		echo_json($res);
+	}
+
+	/**
+	 * 禁用角色
+	 */
+	public function disable()
+	{
+		if (!$_POST) {
+			return;
+		}
+		$ids = $this->input->post('ids');
+		regex($ids, 'require') OR ajax_exit('请选择要禁用的行！');
+		$result = $this->set_status('id in('.$ids.')', 0);
+		$res = array(
+			'message' => $result  !== false  ? '操作成功' : '操作失败',
+			'success' => $result  !== false  ? 1 : 0,
+		);
+		echo_json($res);
+	}
+
+	/**
+	 * 启用角色
+	 */
+	public function enable()
+	{
+		if (!$_POST) {
+			return;
+		}
+		$ids = $this->input->post('ids');
+		regex($ids, 'require') OR ajax_exit('请选择要启用的行!');
+		$result = $this->set_status('id in('.$ids.')', 1);
+		$res = array(
+			'message' => $result  !== false ? '操作成功' : '操作失败',
+			'success' => $result  !== false  ? 1 : 0,
+		);
+		echo_json($res);
+	}
+
+	/**
+	 * 设置角色状态
+	 * @param $where
+	 * @param $status
+	 * @return mixed
+	 */
+	private function set_status($where, $status) {
+		return $this->{$this->model_name}->update($where, array('status'=>$status));
 	}
 
 }
