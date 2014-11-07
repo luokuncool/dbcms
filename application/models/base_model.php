@@ -46,7 +46,7 @@ class Base_model extends CI_Model
      * Table primary key column name
      *
      */
-    public $pk_name = NULL;
+    public $pk_name = 'id';
 
     /*
      * Lang table of elements
@@ -292,7 +292,7 @@ class Base_model extends CI_Model
         $this->db->where($this->pk_name, $id);
         $query = $this->db->get($this->table);
 
-        return $query->row();
+        return $query->row_array();
     }
 
 
@@ -408,11 +408,12 @@ class Base_model extends CI_Model
      * @return	array		Array of records
      *
      */
-    public function get_list($where = NULL, $table = NULL)
+    public function get_list($where = NULL, $field = NULL, $table = NULL)
     {
         $data = array();
 
         $table = (!is_null($table)) ? $table : $this->table;
+		$field = is_null($field) ? $table.'.*' : $field;
         $this->db->start_cache();
 
         // Perform conditions from the $where array
@@ -459,7 +460,7 @@ class Base_model extends CI_Model
                 unset($where[$key]);
             }
         }
-        $this->db->select($table.'.*', FALSE);
+        $this->db->select($field, FALSE);
 
         //	log_message('app', print_r($this->db->get_compile_select() , TRUE));
         $query = $this->db->get($table);

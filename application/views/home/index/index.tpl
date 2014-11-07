@@ -10,39 +10,22 @@
     </div>
     <div data-options="region:'west', collapsed:false" title="菜单栏" style="width:10%;padding:5px">
         <ul class="easyui-tree" data-options="lines:true">
-            <li data-options="state:'closed'">
-                <span>节点管理</span>
-                <ul>
-                    <li><a onclick="App.addTab('节点列表', '/node/index');">节点列表</a></li>
-                    <li iconCls="icon-add"><a onclick="App.addTab('添加节点', '/node/create');">添加节点</a></li>
-                </ul>
-            </li>
-            <li data-options="state:'closed'">
-                <span>历史记录</span>
-                <ul>
-                    <li><a onclick="App.addTab('节点列表', '/node/index');">节点列表</a></li>
-                    <li><a onclick="App.addTab('添加节点', '/node/create');">添加节点</a></li>
-                </ul>
-            </li>
-            <li>
-                <span>系统设置</span>
-                <ul>
-                    <li><a onclick="App.addTab('用户管理', '/user/index');">用户管理</a></li>
-                </ul>
-            </li>
-            <li>
-                <span>个人设置</span>
-                <ul>
-                    <li><a onclick="App.addTab('主题设置', '/setting/theme');">主题设置</a></li>
-                </ul>
-            </li>
-            <li><a onclick="App.addTab('待办事项', '/home/test/10')">待办事项</a></li>
+            {foreach $menuGroupList as $menuGroup}
+                <li>
+                    <span>{$menuGroup.menuName}</span>
+                    <ul>
+                        {foreach $menuGroup['menuList'] as $menu}
+                            <li><a onclick="App.addTab('{$menu.name}', '{$menu.code}');">{$menu.name}</a></li>
+                        {/foreach}
+                    </ul>
+                </li>
+            {/foreach}
         </ul>
     </div>
     <div data-options="region:'center',border:true" title="">
-        <div id="easyui-tabs" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
-            <div class="panel" title="系统首页" data-options="" style="padding: 10px">
-                <p>欢迎使用本系统！</p>
+        <div id="mainTabs" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
+            <div class="panel" title="系统首页" style="padding: 10px;">
+                {widget path="widget/test/dd" args=array(1)}
             </div>
         </div>
     </div>

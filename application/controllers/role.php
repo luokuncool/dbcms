@@ -1,28 +1,28 @@
 <?php
-class Node extends HOME_Controller {
+class Role extends HOME_Controller {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model(
-        	array('node_model')
+        	array('role_model')
         );
     }
 
     /**
-     * 节点列表
+     * 角色列表
      */
     public function index()
     {
-		$data['groupList']   = $this->config->config['node_group'];
+		$data['groupList']   = $this->config->config['role_group'];
 		$data['editable']    = 0;
-		$data['editHandler'] = 'Node.editHandler';
+		$data['editHandler'] = 'role.editHandler';
 		if (!IS_AJAX)
 		{
 			parent::set_html_header();
 			$data['page_title'] = '前台首页';
-			$data['data_grid_url'] = '/node/index';
-			$this->smarty->view('home/node/index.tpl', $data);
+			$data['data_grid_url'] = '/role/index';
+			$this->smarty->view('home/role/index.tpl', $data);
 			return;
 		}
 
@@ -43,13 +43,13 @@ class Node extends HOME_Controller {
 		$rows = intval($this->input->get('rows'));
 		$map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
 
-		$field = $this->node_model->table.'.*, '.'(select name form '.$this->db->dbprefix.$this->node_model->table.' pTable where pTable.id='.$this->node_model->table.'.pId)';
-		$list = $this->node_model->get_list($map);
-		$list['sql'] = $this->node_model->last_query();
+		$field = $this->role_model->table.'.*, '.'(select name form '.$this->db->dbprefix.$this->role_model->table.' pTable where pTable.id='.$this->role_model->table.'.pId)';
+		$list = $this->role_model->get_list($map);
+		$list['sql'] = $this->role_model->last_query();
 		$list['map'] = $map;
 		foreach($list['rows'] as $key=>$value)
 		{
-			//$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/node/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
+			//$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/role/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
 		}
 		echo json_encode($list);
     }
@@ -61,10 +61,10 @@ class Node extends HOME_Controller {
 	{
 		$pId = intval($this->input->get('pId'));
 		$data['pId'] = $pId;
-		$data['node_group_list'] = $this->config->config['node_group'];
+		$data['role_group_list'] = $this->config->config['role_group'];
 		if (!$_POST)
 		{
-			$this->smarty->view('home/node/create.tpl', $data);
+			$this->smarty->view('home/role/create.tpl', $data);
 			return;
 		}
 		$code = $this->input->post('code');
@@ -87,10 +87,10 @@ class Node extends HOME_Controller {
 			'createUid' => 1,
 			'updateUid' => 1,
 		);
-		$id = $this->node_model->insert($data);
+		$id = $this->role_model->insert($data);
 		$res['message'] = $id ? '添加成功' : '添加失败';
-		$id && $res['closeSelf'] = 1;
 		$id && $res['success'] = 1;
+		$id && $res['reload'] = 1;
 		echo json_encode($res);
 	}
 
@@ -100,11 +100,11 @@ class Node extends HOME_Controller {
 	public function edit($id)
 	{
 		$id = intval($id);
-		$data['node_group_list'] = $this->config->config['node_group'];
-		$data['data'] = $this->node_model->get_row($id);
+		$data['role_group_list'] = $this->config->config['role_group'];
+		$data['data'] = $this->role_model->get_row($id);
 		if (!$_POST)
 		{
-			$this->smarty->view('home/node/edit.tpl', $data);
+			$this->smarty->view('home/role/edit.tpl', $data);
 			return;
 		}
 		$code = $this->input->post('code');
@@ -124,10 +124,10 @@ class Node extends HOME_Controller {
 			'updateTime' => $currentTime,
 			'updateUid' => 1,
 		);
-		$result = $this->node_model->update(array('id'=>$id), $data);
+		$result = $this->role_model->update(array('id'=>$id), $data);
 		$res['message'] = $result ? '保存成功' : '保存失败';
-		$id && $res['closeSelf'] = 1;
-		$id && $res['success'] = 1;
+		$result && $res['success'] = 1;
+		$result && $res['reload'] = 1;
 		echo json_encode($res);
 	}
 
