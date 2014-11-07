@@ -7,7 +7,7 @@
  */
 class Role_Model extends Base_Model {
 
-	public $table = 'node';
+	public $table = 'role';
 
 	/**
 	 * 构造函数

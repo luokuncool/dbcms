@@ -8,14 +8,14 @@
             <a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-lock'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">修改密码</a>
         </div>
     </div>
-    <div data-options="region:'west', collapsed:false" title="菜单栏" style="width:10%;padding:5px">
+    <div data-options="region:'west', collapsed:true" title="菜单栏" style="width:10%;padding:5px">
         <ul class="easyui-tree" data-options="lines:true">
             {foreach $menuGroupList as $menuGroup}
                 <li>
                     <span>{$menuGroup.menuName}</span>
                     <ul>
                         {foreach $menuGroup['menuList'] as $menu}
-                            <li><a onclick="App.addTab('{$menu.name}', '{$menu.code}');">{$menu.name}</a></li>
+                            <li><a onclick="App.addTab('{$menu.name}', '{$baseUrl}{$menu.code}');">{$menu.name}</a></li>
                         {/foreach}
                     </ul>
                 </li>
@@ -25,7 +25,7 @@
     <div data-options="region:'center',border:true" title="">
         <div id="mainTabs" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
             <div class="panel" title="系统首页" style="padding: 10px;">
-                {widget path="widget/test/dd" args=array(1)}
+                {widget path="widget/favorite/menu" args= $nodeList}
             </div>
         </div>
     </div>

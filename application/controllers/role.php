@@ -29,7 +29,7 @@ class Role extends HOME_Controller {
 		$map = array();
 		$sort = $this->input->get('sort');
 		$order = $this->input->get('order');
-		$map['order_by'] = ($sort && $order) ? array($sort, $order) : array('code', 'asc');
+		$map['order_by'] = ($sort && $order) ? array($sort, $order) : array('id', 'asc');
 
 		$code = $this->input->get('code');
 		$code && $map[] = 'code LIKE "%'.$code.'%"';

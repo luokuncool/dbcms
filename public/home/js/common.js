@@ -25,7 +25,7 @@ App.addTab = function(){
         url = args[1],
         select = args[2],
         mainTab = App.getMainTab();
-        select  = select === undefined ? true : select;
+    select  = select === undefined ? true : select;
     var onSelectHandler = function (title) {
         location.hash = title;
         if (App.queue[title] !== undefined) {
@@ -58,8 +58,9 @@ App.addTab = function(){
         } else {
             App.queue[title] = url;
         }
-
         App.setTabsStorage(title, url);
+    } else {
+        mainTab.tabs('select', title);
     }
 
     //var iFrame = mainTab.tabs('getSelected').find('iframe');

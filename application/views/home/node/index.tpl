@@ -7,7 +7,7 @@
             <td width="100" align="right">显示名：</td>
             <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '/node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
                 <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
             </td>
         </tr>
@@ -71,10 +71,20 @@
         dataGrid.datagrid('beginEdit', index);
     };
 
+    /**
+     * 格式化操作栏
+	 * @param field
+     * @param row
+     * @returns { string }
+     */
     Node.formatOpt = function(field, row) {
         var tools = '';
-        tools += '<a href="javascript:parent.App.addTab(\'编辑节点【'+row.id+'】\', \'/node/edit/'+row.id+'\')" onclick="">编辑</a>';
+        tools += '<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}node/edit/'+row.id+'\')" onclick="">编辑</a>';
         return tools;
-    }
-    </script>
+    };
+
+	$(function(){
+		window.App = parent.App;
+	});
+	</script>
 {/block}

@@ -1,24 +1,23 @@
 <?php
 class Node extends HOME_Controller {
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model(
-        	array('node_model')
-        );
-    }
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model(
+			array('node_model')
+		);
+	}
 
-    /**
-     * 节点列表
-     */
-    public function index()
-    {
-		$data['groupList']   = $this->config->config['node_group'];
-		$data['editable']    = 0;
-		$data['editHandler'] = 'Node.editHandler';
-		if (!IS_AJAX)
-		{
+	/**
+	 * 节点列表
+	 */
+	public function index()
+	{
+		$data['groupList']     = $this->config->config['node_group'];
+		$data['editable']        = 0;
+		$data['editHandler']  = 'Node.editHandler';
+		if  (!IS_AJAX) {
 			parent::set_html_header();
 			$data['page_title'] = '前台首页';
 			$data['data_grid_url'] = '/node/index';
@@ -47,30 +46,28 @@ class Node extends HOME_Controller {
 		$list = $this->node_model->get_list($map);
 		$list['sql'] = $this->node_model->last_query();
 		$list['map'] = $map;
-		foreach($list['rows'] as $key=>$value)
-		{
+		foreach ($list['rows'] as $key=>$value) {
 			//$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/node/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
 		}
 		echo json_encode($list);
-    }
+	}
 
 	/**
 	 * 创建节点
 	 */
 	public function create()
 	{
-		$pId = intval($this->input->get('pId'));
-		$data['pId'] = $pId;
+		$pId                                     = intval($this->input->get('pId'));
+		$data['pId']                         = $pId;
 		$data['node_group_list'] = $this->config->config['node_group'];
-		if (!$_POST)
-		{
+		if  (!$_POST) {
 			$this->smarty->view('home/node/create.tpl', $data);
 			return;
 		}
-		$code = $this->input->post('code');
+		$code  = $this->input->post('code');
 		$name = $this->input->post('name');
 		$currentTime = time();
-		regex($code, 'require') OR exit('{"message":"请填写操作代码！"}');
+		regex($code, 'require')  OR exit('{"message":"请填写操作代码！"}');
 		regex($name, 'require') OR exit('{"message":"请填写显示名！"}');
 		$data = array(
 			'code' => $code,
@@ -110,7 +107,7 @@ class Node extends HOME_Controller {
 		$code = $this->input->post('code');
 		$name = $this->input->post('name');
 		$currentTime = time();
-		regex($code, 'require') OR exit('{"message":"请填写操作代码！"}');
+		regex($code, 'require')  OR exit('{"message":"请填写操作代码！"}');
 		regex($name, 'require') OR exit('{"message":"请填写显示名！"}');
 		$data = array(
 			'code' => $code,

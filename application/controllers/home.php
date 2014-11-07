@@ -18,7 +18,9 @@ class Home extends HOME_Controller {
 		$data['page_title'] = '前台首页';
 		$data['menuGroupList'] = $this->config->config['node_group'];
 		$map[] = array('type'=>1);
+		$map['order_by'] = array('sort', 'asc');
 		$nodeList  = $this->node_model->get_list($map);
+		$data['nodeList'] = $nodeList['rows'];
 		foreach($data['menuGroupList'] as $groupId => $menuGroup)
 		{
 			$menuList = array();
