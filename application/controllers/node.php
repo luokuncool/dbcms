@@ -16,7 +16,7 @@ class Node extends HOME_Controller {
 	{
 		$data['groupList']     = $this->config->config['node_group'];
 		$data['editable']        = 0;
-		$data['searchBlockHeight'] = 42;
+		//$data['searchBlockHeight'] = 42;
 		$data['editHandler']  = 'Node.editHandler';
 		if  (!IS_AJAX) {
 			parent::set_html_header();

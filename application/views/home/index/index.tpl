@@ -24,7 +24,7 @@
     </div>
     <div data-options="region:'center',border:true" title="">
         <div id="mainTabs" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
-            <div class="panel" title="系统首页" style="padding: 10px;">
+            <div class="panel" title="系统首页" style="padding: 10px; height: 100%">
                 {widget path="widget/favorite/menu" args= $nodeList}
             </div>
         </div>

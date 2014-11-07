@@ -24,7 +24,6 @@
             queryParams  = dataGrid.datagrid('options').queryParams,
             searchFun    = function(){
                 $(searchBlock).find('[name]').each(function(){
-                    console.log(this);
                     if($(this).val() !== '') {
                         queryParams[$(this).attr('name')] = $(this).val();
                     } else {
