@@ -1,6 +1,6 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
-    <div data-options="region:'north'" style="overflow:hidden; padding:5px;border-left: none; border-right: none; border-top:none;">
+    <div data-options="region:'north'" style="height:{$searchBlockHeight}px; overflow:hidden; padding:5px;border-left: none; border-right: none; border-top:none;">
         {block name="search_block"}{/block}
     </div>
     <div data-options="region:'center',border:false">

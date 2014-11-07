@@ -16,6 +16,7 @@ class Role extends HOME_Controller {
     {
 		$data['groupList']   = $this->config->config['role_group'];
 		$data['editable']    = 0;
+		$data['searchBlockHeight'] = 42;
 		$data['editHandler'] = 'role.editHandler';
 		if (!IS_AJAX)
 		{
