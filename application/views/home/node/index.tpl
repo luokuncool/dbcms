@@ -61,7 +61,7 @@
      */
     Node.formatOpt = function(field, row) {
         var tools = '';
-		tools += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}node/edit/'+row.id+'/'+row.level+'\')" onclick="">编辑</a>';
+		tools += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}node/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
 		row.level == 1 && (tools += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:App.addTab(\'添加操作【'+row.name+'】\', \'{$baseUrl}node/create_method/'+row.id+'\')" onclick="">添加操作</a>');
         return tools;
     };

@@ -21,18 +21,18 @@ class Cli extends Home_Controller
 	//todo 完善缓存更新
 	public function update_cache()
 	{
+		$table = 'node';
 		$this->load->driver('cache', array('adapter'=>'redis'));
 		while($ids = $this->cache->get('node')) {
 			foreach($ids as $key=>$id) {
+				$cacheKey = $table.$id;
 				$row = $this->db->from('node')->where($id)->get()->row_array();
-				$this->cache->delete('node'.$id['id']);
-				$row && $result = $this->cache->save('node'.$id['id'], $row, 0);
+				$this->cache->delete($cacheKey);
+				$row && $result = $this->cache->save($cacheKey, $row, 0);
 				if (!$row OR $result) {
-					echo 'unset'.$id['id'], "\n";
 					unset($ids[$key]);
 				}
 				//file_put_contents('test', date('Y-m-d H:i:s'), "\n");
-				//echo date('Y-m-d H:i:s'), "\n">>'/var/www/whatEver/text.txt';
 			}
 			$this->cache->delete('node');
 			$this->cache->save('node', $ids, 0);
