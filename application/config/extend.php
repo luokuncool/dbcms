@@ -50,7 +50,7 @@ $config['default_filter'] = '';
 $config['data_cache_type'] = 'memcache';
 
 //缓存时间
-$config['data_cache_time'] = 30;
+$config['data_cache_time'] = 3600;
 
 //系统名称
 $config['system_name'] = 'EasyUI System';

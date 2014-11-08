@@ -22,10 +22,10 @@ class Cli extends Home_Controller
 	public function update_cache()
 	{
 		$table = 'node';
-		$this->load->driver('cache', array('adapter'=>'redis'));
-		while($ids = $this->cache->get('node')) {
+		$this->load->driver('cache', array('adapter'=>'file'));
+		while($ids = $this->cache->get($table)) {
 			foreach($ids as $key=>$id) {
-				$cacheKey = $table.$id;
+				$cacheKey = $table.$id['id'];
 				$row = $this->db->from('node')->where($id)->get()->row_array();
 				$this->cache->delete($cacheKey);
 				$row && $result = $this->cache->save($cacheKey, $row, 0);
