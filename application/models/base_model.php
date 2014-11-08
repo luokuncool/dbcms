@@ -150,6 +150,9 @@ class Base_model extends CI_Model
      */
     protected $_list_fields = array();
 
+	//是否缓存
+	public $is_cache = FALSE;
+
 
     // ------------------------------------------------------------------------
 
@@ -162,7 +165,7 @@ class Base_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-
+		if ($this->is_cache) $this->load->driver('Cache', array('adapter' => 'redis'));
         /*if (is_null($this->db_group))
         {
           $active_group = 'default';
@@ -289,12 +292,19 @@ class Base_model extends CI_Model
      */
     public function get_row($id = NULL)
     {
-        $this->db->where($this->pk_name, $id);
-        $query = $this->db->get($this->table);
-
-        return $query->row_array();
+		if ($this->is_cache) {
+			$cachekey = $this->table.$id;
+			$cacheRow = $this->cache->get($cachekey);
+		}
+		//print_r($cacheRow);
+		if (!$this->is_cache OR !$cacheRow) {
+			$this->db->where($this->pk_name, $id);
+			$row = $this->db->get($this->table)->row_array();
+		} else {
+			$row = $cacheRow;
+		}
+        return $row;
     }
-
 
     // ------------------------------------------------------------------------
 
@@ -466,12 +476,16 @@ class Base_model extends CI_Model
         $query = $this->db->get($table);
         if ( $query->num_rows > 0 )
             $data = $query->result_array();
+		$this->db->stop_cache();
+		$this->db->flush_cache();
 
+		$rows = array();
+		foreach($data as $key=>$value) {
+			$rows[$key] = $this->get_row($value['id']);
+		}
         $query->free_result();
-        $this->db->stop_cache();
-        $this->db->flush_cache();
 
-        return array('total'=>$total, 'rows'=>$data);
+        return array('total'=>$total, 'rows'=>$rows);
     }
 
 
@@ -1541,39 +1555,6 @@ class Base_model extends CI_Model
         return $nb;
     }
 
-
-    // ------------------------------------------------------------------------
-
-
-    /**
-     * Unlink one parent and one child
-     *
-     * TODO : Replace function "delete_joined_keys" by this
-     *
-     * @param	Mixed	Parent table PK value
-     * @param	String	Child table name
-     * @param	Mixed	Child table PK value
-     * @param	String	Link table prefix.
-     *
-     */
-    public function delete_simple_link($parent_table, $id_parent, $child_table, $id_child, $prefix='')
-    {
-        // N to N table
-        $link_table = $prefix.$parent_table.'_'.$child_table;
-
-        // PK fields
-        $parent_pk_name = $this->get_pk_name($parent_table);
-        $child_pk_name = $this->get_pk_name($child_table);
-
-        $this->db->where($parent_pk_name, $id_parent);
-        $this->db->where($child_pk_name, $id_child);
-
-        return (int) $this->db->delete($link_table);
-    }
-
-    // ------------------------------------------------------------------------
-
-
     /**
      * Add all media for one element to an array and returns this array
      *
@@ -2142,6 +2123,15 @@ class Base_model extends CI_Model
 
         $this->db->insert($table, $data);
 
+		$insertId =$this->db->insert_id();
+		//更新缓存
+		if ($this->is_cache && $insertId) {
+			$idsNew = (array)$this->db->where(array($this->pk_name=>$insertId))->select($this->pk_name)->get($table)->result_array();
+			$idsOld = (array)$this->cache->get($this->table);
+			$this->cache->delete($this->table);
+			$this->cache->save($this->table, array_merge($idsNew, $idsOld), 0);
+		}
+
         return $this->db->insert_id();
     }
 
@@ -2191,6 +2181,14 @@ class Base_model extends CI_Model
         }
 
         $this->db->update($table, $data);
+		$affected =$this->db->affected_rows();
+		//更新缓存
+		if ($this->is_cache && $affected) {
+			$idsNew = (array)$this->db->where($where)->select($this->pk_name)->get($table)->result_array();
+			$idsOld = (array)$this->cache->get($this->table);
+			$this->cache->delete($this->table);
+			$this->cache->save($this->table, array_merge($idsNew, $idsOld), 0);
+		}
 
         return (int) $this->db->affected_rows();
     }

@@ -66,7 +66,7 @@ define('IS_AJAX', isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_R
  * as this file.
  *
  */
-$system_path = $_SERVER['DOCUMENT_ROOT'].'/system';
+$system_path = __DIR__.'/system';
 
 /*
  *---------------------------------------------------------------
@@ -82,7 +82,7 @@ $system_path = $_SERVER['DOCUMENT_ROOT'].'/system';
  * NO TRAILING SLASH!
  *
  */
-$application_folder = $_SERVER['DOCUMENT_ROOT'].'/application';
+$application_folder = __DIR__.'/application';
 
 /*
  * --------------------------------------------------------------------

@@ -1,8 +1,6 @@
 <?php
 class Node extends HOME_Controller {
 
-	public $model_name = 'node_model';
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -12,7 +10,7 @@ class Node extends HOME_Controller {
 	}
 
 	/**
-	 * 节点列表
+	 * 列表 /usr/bin/X11/php-config
 	 */
 	public function index()
 	{
@@ -46,7 +44,7 @@ class Node extends HOME_Controller {
 		$map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
 
 		$field = $this->node_model->table.'.*, '.'(select name form '.$this->db->dbprefix.$this->node_model->table.' pTable where pTable.id='.$this->node_model->table.'.pId)';
-		$list = $this->node_model->get_list($map);
+		$list = $this->node_model->get_list($map, 'id,status');
 		$list['sql'] = $this->node_model->last_query();
 		$list['map'] = $map;
 		foreach ($list['rows'] as $key=>$value) {
@@ -56,37 +54,19 @@ class Node extends HOME_Controller {
 	}
 
 	/**
-	 * 创建节点
+	 * 创建
+	 * @param $pId
 	 */
-	public function create()
+	public function create($pId)
 	{
-		$pId                                     = intval($this->input->get('pId'));
-		$data['pId']                         = $pId;
-		$data['node_group_list'] = $this->config->config['node_group'];
+		$pId                          = intval($pId);
+		$assign['pId']           = $pId;
+		$assign['page_title'] = '创建节点';
 		if  (!$_POST) {
-			$this->smarty->view('home/node/create.tpl', $data);
+			$this->smarty->view('home/node/create.tpl', $assign);
 			return;
 		}
-		$code  = $this->input->post('code');
-		$name = $this->input->post('name');
-		$currentTime = time();
-		regex($code, 'require')  OR exit('{"message":"请填写操作代码！"}');
-		regex($name, 'require') OR exit('{"message":"请填写显示名！"}');
-		$data = array(
-			'code' => $code,
-			'name' => $name,
-			'status' => intval($this->input->post('status')),
-			'remark' => $this->input->post('status'),
-			'sort' => $this->input->post('sort'),
-			'groupId' => intval($this->input->post('groupId')),
-			'pId' => $pId,
-			'level' => $this->input->post('level'),
-			'type' => $this->input->post('type'),
-			'createTime' => $currentTime,
-			'updateTime' => $currentTime,
-			'createUid' => 1,
-			'updateUid' => 1,
-		);
+		$data = $this->validation(0, $pId);
 		$id = $this->node_model->insert($data);
 		$res['message'] = $id ? '添加成功' : '添加失败';
 		$id && $res['closeSelf'] = 1;
@@ -95,9 +75,12 @@ class Node extends HOME_Controller {
 	}
 
 	/**
-	 * 修改节点
+	 * 修改
+	 * @param $id
+	 * @param $pId
+	 * @param $level
 	 */
-	public function edit($id)
+	public function edit($id, $pId, $level)
 	{
 		$id = intval($id);
 		$data['node_group_list'] = $this->config->config['node_group'];
@@ -107,27 +90,27 @@ class Node extends HOME_Controller {
 			$this->smarty->view('home/node/edit.tpl', $data);
 			return;
 		}
-		$code = $this->input->post('code');
-		$name = $this->input->post('name');
-		$currentTime = time();
-		regex($code, 'require')  OR exit('{"message":"请填写操作代码！"}');
-		regex($name, 'require') OR exit('{"message":"请填写显示名！"}');
-		$data = array(
-			'code' => $code,
-			'name' => $name,
-			'status' => intval($this->input->post('status')),
-			'remark' => $this->input->post('status'),
-			'sort' => $this->input->post('sort'),
-			'groupId' => intval($this->input->post('groupId')),
-			'level' => $this->input->post('level'),
-			'type' => $this->input->post('type'),
-			'updateTime' => $currentTime,
-			'updateUid' => 1,
-		);
+		$data = $this->validation($id, $pId, $level);
 		$result = $this->node_model->update(array('id'=>$id), $data);
 		$res['message'] = $result ? '保存成功' : '保存失败';
 		$id && $res['closeSelf'] = 1;
 		$id && $res['success'] = 1;
+		echo json_encode($res);
+	}
+
+	public function create_method($pId){
+		$data['node_group_list'] = $this->config->config['node_group'];
+		$data['page_titlee'] = '添加操作';
+		if (!$_POST)
+		{
+			$this->smarty->view('home/node/edit.tpl', $data);
+			return;
+		}
+		$data = $this->validation(0, $pId, 2);
+		$result = $this->node_model->insert($data);
+		$res['message'] = $result ? '保存成功' : '保存失败';
+		$result && $res['closeSelf'] = 1;
+		$result && $res['success'] = 1;
 		echo json_encode($res);
 	}
 
@@ -141,7 +124,7 @@ class Node extends HOME_Controller {
 		}
 		$ids = $this->input->post('ids');
 		regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
-		$result = $this->{$this->model_name}->delete(array('id in('.$ids.')'));
+		$result = $this->node_model->delete(array('id in('.$ids.')'));
 		$res = array(
 			'message' => $result  !== false  ? '操作成功' : '操作失败',
 			'success' => $result  !== false  ? 1 : 0,
@@ -150,7 +133,7 @@ class Node extends HOME_Controller {
 	}
 
 	/**
-	 * 禁用角色
+	 * 禁用
 	 */
 	public function disable()
 	{
@@ -168,7 +151,7 @@ class Node extends HOME_Controller {
 	}
 
 	/**
-	 * 启用角色
+	 * 启用
 	 */
 	public function enable()
 	{
@@ -186,13 +169,48 @@ class Node extends HOME_Controller {
 	}
 
 	/**
-	 * 设置角色状态
+	 * 设置状态
 	 * @param $where
 	 * @param $status
 	 * @return mixed
 	 */
 	private function set_status($where, $status) {
-		return $this->{$this->model_name}->update($where, array('status'=>$status));
+		return $this->node_model->update($where, array('status'=>$status));
+	}
+
+	/**
+	 * 增删验证
+	 * @param int $id
+	 * @param int $pId
+	 * @param int $level
+	 * @return array
+	 */
+	private function validation($id=0, $pId=0, $level=1){
+		$code = I('post.code', '', 'strip_tags');
+		$name = I('post.name', '', 'strip_tags');
+		$currentTime = time();
+		regex($code, 'require')  OR ajax_exit('请填写节点代码');
+		$existCode = $this->node_model->check_code($id ? $code.' AND id<>'.$id : $code);
+		$existCode && ajax_exit('节点代码已经存在！');
+		regex($name, 'require') OR ajax_exit('请填写显示名');
+		$existName = $this->node_model->check_code($id ? $name.' AND id<>'.$id : $name);
+		$existName && ajax_exit('显示名已经存在！');
+		$data = array(
+			'code' => $code,
+			'name' => $name,
+			'status' => I('post.status', '', 'intval'), //intval($this->input->post('status')),
+			'remark' => I('post.remark', '', 'htmlspecialchars'), //$this->input->post('status'),
+			'sort' => I('post.sort', 0, 'intval'), //$this->input->post('sort'),
+			'groupId' => I('post.groupId', 0, 'intval'), //intval($this->input->post('groupId')),
+			'level' => $level, //$this->input->post('level'),
+			'type' => I('post.type', 0, 'intval'), //$this->input->post('type'),
+			'updateTime' => $currentTime,
+			'updateUid' => 1,
+		);
+		$id OR $data['createTime'] = $currentTime;
+		$id OR $data['createUid'] = '1';
+		$pId && $data['pId'] = $pId;
+		return $data;
 	}
 
 }

@@ -1,7 +1,7 @@
 {extends file="../public/form.tpl"}
 {block name="form"}
     <tr>
-        <td align="right" valign="top"><font color="red">*</font> 操作代码：</td>
+        <td align="right" valign="top"><font color="red">*</font> 节点代码：</td>
         <td valign="top"><input class="easyui-textbox" type="text" name="code" data-options="width:200, required:false"></td>
     </tr>
     <tr>

@@ -39,3 +39,19 @@ $config['theme_list'] = array(
 	'ui-pepper-grinder',
 	'ui-sunny',
 );
+
+//全局过滤过滤
+$config['var_filters'] = 'intval';
+
+//默认过滤
+$config['default_filter'] = '';
+
+//缓存类型
+$config['data_cache_type'] = 'memcache';
+
+//缓存时间
+$config['data_cache_time'] = 30;
+
+//系统名称
+$config['system_name'] = 'EasyUI System';
+

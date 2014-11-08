@@ -2,15 +2,15 @@
 {block name="row_list"}
     <tr width="100%">
         <th data-options="field:'id',align:'center',checkbox:true"></th>
-        <th data-options="field:'code',align:'left',sortable:true,editor:'text'" width="15%">节点代码</th>
+        <th data-options="field:'code',align:'left',sortable:true,editor:'text'" width="20%">节点代码</th>
         <th data-options="field:'name',align:'center',sortable:true,editor:'text'" width="10%">显示名</th>
         <th data-options="field:'pnodename',align:'center',sortable:false" width="10%">所属模块</th>
-        <th formatter="Node.formatGroupName" data-options="field:'groupId',align:'center',sortable:false" width="10%">所属菜单组</th>
-        <th formatter="Node.formatLevel" data-options="field:'level',align:'center',sortable:true" width="10%">节点类型</th>
-        <th formatter="Node.formatType" data-options="field:'type',align:'center',sortable:true" width="10%">是否菜单</th>
-        <th data-options="field:'sort',align:'center',sortable:true,editor:'numberspinner'" width="10%">序号</th>
-        <th formatter="Node.formatStatus" data-options="field:'status',align:'center',sortable:true" width="10%">状态</th>
-        <th formatter="Node.formatOpt" data-options="field:'opt',align:'center'" width="13.5%">操作</th>
+        <th formatter="Node.formatGroupName" data-options="field:'groupId',align:'center',sortable:false" width="15%">所属菜单组</th>
+        <th formatter="Node.formatLevel" data-options="field:'level',align:'center',sortable:true" width="5%">节点类型</th>
+        <th formatter="Node.formatType" data-options="field:'type',align:'center',sortable:true" width="5%">是否菜单</th>
+        <th data-options="field:'sort',align:'center',sortable:true,editor:'numberspinner'" width="5%">序号</th>
+        <th formatter="Node.formatStatus" data-options="field:'status',align:'center',sortable:true" width="5%">状态</th>
+        <th formatter="Node.formatOpt" data-options="field:'opt',align:'left'" width="23.5%">&nbsp;&nbsp;&nbsp;&nbsp;操作</th>
     </tr>
 {/block}
 {block name="script"}
@@ -61,7 +61,8 @@
      */
     Node.formatOpt = function(field, row) {
         var tools = '';
-        tools += '<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}node/edit/'+row.id+'\')" onclick="">编辑</a>';
+		tools += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}node/edit/'+row.id+'/'+row.level+'\')" onclick="">编辑</a>';
+		row.level == 1 && (tools += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:App.addTab(\'添加操作【'+row.name+'】\', \'{$baseUrl}node/create_method/'+row.id+'\')" onclick="">添加操作</a>');
         return tools;
     };
 
@@ -143,7 +144,7 @@
 			<td width="100" align="right">显示名：</td>
 			<td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
 			<td align="right">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加模块</a>
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Node.remove();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Node.enable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Node.disable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
@@ -160,7 +161,6 @@
 			</td>
 			<td>&nbsp;</td>
 			<td colspan="2"><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">检索</a></td>
-
 		</tr>
 	</table>
 {/block}

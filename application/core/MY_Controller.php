@@ -121,6 +121,7 @@ class Home_Controller extends MY_Controller {
     parent::__construct();
       $data['my_theme'] = isset($_COOKIE['my_theme']) ? $_COOKIE['my_theme'] : 'default';
 	  $data['baseUrl']      = $this->config->config['base_url'];
+	  $data['systemName'] = $this->config->config['system_name'];
       $this->smarty->assign($data);
 	return;
     $this->load->model(
