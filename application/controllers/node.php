@@ -44,10 +44,10 @@ class Node extends HOME_Controller {
 		$map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
 
 		$field = $this->node_model->table.'.*, '.'(select name form '.$this->db->dbprefix.$this->node_model->table.' pTable where pTable.id='.$this->node_model->table.'.pId)';
-		$list = $this->node_model->get_list($map, 'id,status');
-		$list['sql'] = $this->node_model->last_query();
-		$list['map'] = $map;
+		$list = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId');
 		foreach ($list['rows'] as $key=>$value) {
+			$pNode = $this->node_model->get_row($value['pId']);
+			$list['rows'][$key]['pNodeName'] = $pNode['name'];
 			//$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/node/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
 		}
 		echo json_encode($list);
@@ -94,16 +94,21 @@ class Node extends HOME_Controller {
 		$result = $this->node_model->update(array('id'=>$id), $data);
 		$res['message'] = $result ? '保存成功' : '保存失败';
 		$id && $res['closeSelf'] = 1;
+		$id && $res['reload'] = 1;
 		$id && $res['success'] = 1;
 		echo json_encode($res);
 	}
 
+	/**
+	 * 创建操作
+	 * @param $pId
+	 */
 	public function create_method($pId){
-		$data['node_group_list'] = $this->config->config['node_group'];
-		$data['page_titlee'] = '添加操作';
+		$assign['group'] = $this->node_model->get_row($pId, 'code');
+		$assign['node_group_list'] = $this->config->config['node_group'];
 		if (!$_POST)
 		{
-			$this->smarty->view('home/node/edit.tpl', $data);
+			$this->smarty->view('home/node/create.tpl', $assign);
 			return;
 		}
 		$data = $this->validation(0, $pId, 2);
@@ -198,12 +203,12 @@ class Node extends HOME_Controller {
 		$data = array(
 			'code' => $code,
 			'name' => $name,
-			'status' => I('post.status', '', 'intval'), //intval($this->input->post('status')),
-			'remark' => I('post.remark', '', 'htmlspecialchars'), //$this->input->post('status'),
+			'status' => I('post.status', '', 'intval'),
+			'remark' => I('post.remark', '', 'htmlspecialchars'),
 			'sort' => I('post.sort', 0, 'intval'), //$this->input->post('sort'),
-			'groupId' => I('post.groupId', 0, 'intval'), //intval($this->input->post('groupId')),
-			'level' => $level, //$this->input->post('level'),
-			'type' => I('post.type', 0, 'intval'), //$this->input->post('type'),
+			'groupId' => I('post.groupId', 0, 'intval'),
+			'level' => $level,
+			'type' => I('post.type', 0, 'intval'),
 			'updateTime' => $currentTime,
 			'updateUid' => 1,
 		);

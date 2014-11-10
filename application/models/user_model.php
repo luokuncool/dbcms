@@ -7,15 +7,17 @@
  */
 class User_Model extends Base_Model {
 
-  public $table = 'users';
+	public $table = 'user';
 
-  /**
-   * 构造函数
-   */
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->database();
-  }
+	public $is_cache = FALSE;
+
+	/**
+	 * 构造函数
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
 
 }

@@ -128,15 +128,15 @@
 		<tr>
 			<td width="70" align="right">角色名称：</td>
 			<td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
-			<td width="100" align="right">状态：</td>
-			<td width="70">
-				<select class="easyui-combobox" data-options="editable:false" name="status" style="width: 200px;">
+			<td width="60" align="right">状态：</td>
+			<td width="210">
+				<select class="easyui-combobox" data-options="editable:false,width:200,height:24" name="status">
 					<option value="">请选择</option>
 					<option value="1">启用</option>
 					<option value="0">禁用</option>
 				</select>
 			</td>
-			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">检索</a></td>
+			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
 			<td align="right">
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:App.addTab('添加节点', '{$baseUrl}role/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>

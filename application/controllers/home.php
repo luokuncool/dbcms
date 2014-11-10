@@ -19,7 +19,7 @@ class Home extends HOME_Controller {
 		$data['menuGroupList'] = $this->config->config['node_group'];
 		$map[] = array('type'=>1);
 		$map['order_by'] = array('sort', 'asc');
-		$nodeList  = $this->node_model->get_list($map);
+		$nodeList  = $this->node_model->get_list($map, 'id,name,code,groupId');
 		$data['nodeList'] = $nodeList['rows'];
 		foreach($data['menuGroupList'] as $groupId => $menuGroup)
 		{

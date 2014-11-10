@@ -3,12 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{$systemName}</title>
-    <link rel="stylesheet" type="text/css" href="{$base_path}/public/static/jquery-easy-ui/themes/{$my_theme}/easyui.css">
-    <link rel="stylesheet" type="text/css" href="{$base_path}/public/static/jquery-easy-ui/themes/color.css">
-    <link rel="stylesheet" type="text/css" href="{$base_path}/public/static/jquery-easy-ui/themes/icon.css">
-    <script type="text/javascript" src="{$base_path}/themes/public/js/jquery.js"></script>
-    <script type="text/javascript" src="{$base_path}/public/static/jquery-easy-ui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="{$base_path}/public/static/jquery-easy-ui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/jquery-easy-ui/themes/{$myTheme}/easyui.css">
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/jquery-easy-ui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/jquery-easy-ui/themes/icon.css">
+    <script type="text/javascript" src="{$basePath}/public/static/jquery.js"></script>
+    <script type="text/javascript" src="{$basePath}/public/static/jquery-easy-ui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="{$basePath}/public/static/jquery-easy-ui/locale/easyui-lang-zh_CN.js"></script>
     {block name="head"}{/block}
 </head>
 <body class="easyui-layout">

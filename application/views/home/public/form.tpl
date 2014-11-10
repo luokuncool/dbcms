@@ -22,53 +22,11 @@
 	$(function(){
 		var submitForm = $('#submitForm'),
 			postForm   = $('#postForm'),
-			closeSelfHandler = function() {
-				var  mainTab = parent.App.getMainTab(),
-					selectedTab = mainTab.tabs('getSelected'),
-					selectedIndex = mainTab.tabs('getTabIndex', selectedTab);
-				mainTab.tabs('close', selectedIndex);
-				mainTab.tabs('select',selectedIndex-1);
-			},
-			successHandler = function(res){
-				$.messager.progress('close');
-				try {
-					res = eval('('+res+')');
-					if (res.success) {
-						$.messager.show({
-							title:'提示',
-							msg:res.message,
-							showType:'fade',
-							timeout:1500,
-							style:{
-								right:'',
-								bottom:''
-							}
-						});
-						res.closeSelf && setTimeout(closeSelfHandler, 1400);
-						res.reloadMain && setTimeout(function(){
-							parent.window.location.reload(true);
-						}, 1500);
-						res.reload &&location.reload(true);
-					} else {
-						$.messager.alert('错误', res.message, 'error');
-					}
-
-				} catch (e) {
-					$.messager.alert('错误', '程序出错', 'error');
-				}
-			};
+            App = App ? App : parent.App;
 		submitForm.click(function(){
 			postForm.form('submit', {
-				onSubmit : function(){
-					$.messager.progress({
-						title : '提示',
-						text : '数据处理中，请稍后....',
-						interval : 1000
-					});
-				},
-				success : function(data) {
-					successHandler(data);
-				}
+				onSubmit : App.submitBefore,
+				success : App.successHandler
 			});
 		});
 	});

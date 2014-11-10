@@ -165,7 +165,7 @@ class Base_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-		if ($this->is_cache) $this->load->driver('Cache', array('adapter' => 'file'));
+		if ($this->is_cache) $this->load->driver('Cache', $this->config->config['cache_type']);
         /*if (is_null($this->db_group))
         {
           $active_group = 'default';
@@ -290,7 +290,7 @@ class Base_model extends CI_Model
      * @return	object	A row object
      *
      */
-    public function get_row($id = NULL)
+    public function get_row($id = NULL, $field='*')
     {
 		if ($this->is_cache) {
 			$cachekey = $this->table.$id;
@@ -303,6 +303,8 @@ class Base_model extends CI_Model
 		} else {
 			$row = $cacheRow;
 		}
+		$this->load->helper('array_helper');
+		$field != '*' && $row = elements(explode(',', $field), $row);
         return $row;
     }
 
@@ -470,7 +472,7 @@ class Base_model extends CI_Model
                 unset($where[$key]);
             }
         }
-        $this->db->select($field, FALSE);
+        $this->db->select($this->pk_name, FALSE);
 
         //	log_message('app', print_r($this->db->get_compile_select() , TRUE));
         $query = $this->db->get($table);
@@ -481,7 +483,7 @@ class Base_model extends CI_Model
 
 		$rows = array();
 		foreach($data as $key=>$value) {
-			$rows[$key] = $this->get_row($value['id']);
+			$rows[$key] = $this->get_row($value['id'], $field);
 		}
         $query->free_result();
 
@@ -2185,10 +2187,10 @@ class Base_model extends CI_Model
 		//更新缓存
 		if ($this->is_cache && $affected) {
 			$idsNew = $this->db->where($where)->select($this->pk_name)->get($table)->result_array();
-			$idsOld = $this->cache->get($this->table);
-			$this->cache->delete($this->table);
-			$ids = $idsOld ? array_merge($idsNew, $idsOld) : $idsNew;
-			$this->cache->save($this->table, $ids, $this->config->config['data_cache_time']);
+			$idsOld = $this->cache->get($this->config->config['changed_row']);
+			$ids = $idsOld[$this->table] ? array_merge($idsNew, $idsOld[$this->table]) : $idsNew;
+			$idsOld[$this->table] = $ids;
+			$this->cache->save($this->config->config['changed_row'], $idsOld, 0);
 		}
 
         return (int) $this->db->affected_rows();

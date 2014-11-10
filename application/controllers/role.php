@@ -45,9 +45,7 @@ class Role extends HOME_Controller {
 		$map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
 
 		$field = $this->role_model->table.'.*, '.'(select name form '.$this->db->dbprefix.$this->role_model->table.' pTable where pTable.id='.$this->role_model->table.'.pId)';
-		$list = $this->role_model->get_list($map);
-		$list['sql'] = $this->role_model->last_query();
-		$list['map'] = $map;
+		$list = $this->role_model->get_list($map, 'id,name,status,remark');
 		foreach($list['rows'] as $key=>$value)
 		{
 			//$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/role/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';

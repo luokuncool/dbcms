@@ -4,12 +4,21 @@
         <div style="float:left; font-size: 22px; color: #666666;  padding-left: 10px; font-family:'宋体';  line-height: 40px;text-shadow: #dbdbdb 1px 2px 3px;">{$systemName}</div>
         <div style="float: right; padding: 5px 10px 0 0;">
             <a class="easyui-linkbutton" id="" style="padding:0 5px; border-radius: 2px 2px 2px;">站内消息<span style="font-weight: bold; padding-left: 5px;">15</span></a>
-            <a class="easyui-linkbutton" id="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">退出登录</a>
             <a class="easyui-linkbutton" id="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">修改密码</a>
+            <a class="easyui-linkbutton" id="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">退出登录</a>
         </div>
     </div>
-    <div data-options="region:'west', collapsed:true" title="菜单栏" style="width:10%;padding:5px">
-        <ul class="easyui-tree" data-options="lines:true">
+    <div data-options="region:'west',collapsed:false,split:true" title="菜单栏" style="width:10%;">
+        <div class="easyui-accordion" data-options="border:false" style="width:100%;display: none;">
+            {foreach $menuGroupList as $menuGroup}
+                <div title="{$menuGroup.menuName}" data-options="collapsible:true" style="padding: 0 5px;">
+                    {foreach $menuGroup['menuList'] as $menu}
+                    <p><a href="javascript:App.addTab('{$menu.name}', '{$baseUrl}{$menu.code}')">{$menu.name}</a></p>
+                    {/foreach}
+                </div>
+            {/foreach}
+        </div>
+        <ul class="easyui-tree" data-options="lines:true" style="display: block;">
             {foreach $menuGroupList as $menuGroup}
                 <li>
                     <span>{$menuGroup.menuName}</span>

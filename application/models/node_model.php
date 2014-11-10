@@ -10,7 +10,7 @@ class Node_Model extends Base_Model
 
 	public $table = 'node';
 
-	public $is_cache = TRUE;
+	public $is_cache = FALSE;
 
 	/**
 	 * 构造函数

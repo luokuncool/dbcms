@@ -79,6 +79,7 @@ $route['admin/add_admin'] = 'admin/admin/add_admin';
 $route['admin/delete_admin'] = 'admin/admin/delete_admin';
 $route['admin/edit_admin/(:num)'] = 'admin/admin/edit_admin/$1';
 
-
+//EasyUI
+$route['login'] = 'home/login';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -1,5 +1,6 @@
 <?php
 function smarty_function_widget($params,&$smarty){
+	define('WIDGET', 1);
 	$path = $params['path'];
 	$args = isset($params['args']) ? $params['args'] : NULL;
 	if($path){

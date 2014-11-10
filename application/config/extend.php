@@ -55,3 +55,13 @@ $config['data_cache_time'] = 3600;
 //系统名称
 $config['system_name'] = 'EasyUI System';
 
+$config['cache_type'] = array('adapter'=>'redis');
+
+$config['changed_row'] = 'changedRow';
+
+//分页配置
+$config['pageSetting'] = array(
+	'pageSize'=>20,
+	'pageList'=>'[10,20,30,40,50,60]'
+);
+

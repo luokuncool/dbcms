@@ -13,6 +13,7 @@ class Favorite extends HOME_Controller {
 	public function menu($data)
 	{
 		$assign['nodeList'] = $data;
+		$assign['width'] = '100';
 		$this->smarty->view('widget/favorite/menu.tpl', $assign);
 	}
 }

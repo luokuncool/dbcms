@@ -7,6 +7,7 @@ var App = {};
 App.getMainTab = function(){
     return $('#mainTabs');
 };
+
 /**
  * 待载入的页面
  * @type {{}}
@@ -62,9 +63,6 @@ App.addTab = function(){
     } else {
         mainTab.tabs('select', title);
     }
-
-    //var iFrame = mainTab.tabs('getSelected').find('iframe');
-    //if (iFrame.length) iFrame[0].contentWindow.location.href = url;
 };
 
 /**
@@ -94,8 +92,108 @@ App.getLocalStorage = function(title){
     return title ? (tabs[title] ?  tabs[title] : '') : tabs;
 };
 
+/**
+ * 获取location.hash
+ * @returns {string}
+ */
 App.getCurrentHash = function(){
     return location.hash.replace('#','');
+};
+
+/**
+ * AJAX请求成功回调函数
+ * @param res
+ */
+App.successHandler = function(res) {
+    $.messager.progress('close');
+    try {
+        res = eval('('+res+')');
+        if (res.success) {
+            $.messager.show({
+                title:'提示',
+                msg:res.message,
+                showType:'fade',
+                timeout:1500,
+                style:{
+                    right:'',
+                    bottom:''
+                }
+            });
+            res.closeSelf && setTimeout(App.closeSelfHandler, 1400);
+            res.reload && setTimeout(function(){
+                location.reload(true);
+            }, 1500);
+        } else {
+            $.messager.alert('错误', res.message, 'error');
+        }
+
+    } catch (e) {
+        $.messager.alert('错误', '程序出错', 'error');
+    }
+};
+
+/**
+ * 关闭选项卡回调
+ */
+App.closeSelfHandler = function() {
+    var  mainTab = App.getMainTab(),
+         selectedTab = mainTab.tabs('getSelected'),
+         selectedIndex = mainTab.tabs('getTabIndex', selectedTab);
+    mainTab.tabs('close', selectedIndex);
+    mainTab.tabs('select',selectedIndex-1);
+};
+
+/**
+ * 获取当前选项卡文档
+ * @returns {*|jQuery|HTMLElement}
+ */
+App.getSelectDoc = function(){
+    var  mainTab = App.getMainTab(),
+         selectedTab = mainTab.tabs('getSelected'),
+         iFrame = selectedTab.find('iframe');
+    return iFrame.length ? $(iFrame[0].contentDocument) : $();
+};
+
+/**
+ * 获取表格对象
+ * @returns {*}
+ */
+App.getGrid = function(){
+    return App.getSelectDoc().find('#dataGrid');
+};
+
+/**
+ * 获取dataGrid选中行Ids
+ * @returns {string}
+ */
+App.getIds = function(){
+    var checkedRow = App.getGrid().datagrid('getChecked'),
+        ids = '';
+    for(var i=0; i<checkedRow.length; i++){
+        ids += (ids === '') ? checkedRow[i].id : ','+checkedRow[i].id;
+    }
+    return ids;
+};
+
+/**
+ * 表单提交前函数
+ */
+App.submitBefore = function(){
+    $.messager.progress({
+        title : '提示',
+        text : '数据处理中，请稍后....',
+        interval : 1000
+    });
+};
+
+/**
+ * 格式化状态
+ * @param field
+ * @param row
+ * @returns { string }
+ */
+App.formatStatus = function(field, row) {
+    return field == 1 ? '<font color="green">启用</font>' : '<font color="red">禁用</font>'
 };
 
 /**
