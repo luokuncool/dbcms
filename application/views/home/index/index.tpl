@@ -1,7 +1,7 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
     <div data-options="region:'north',border:true" style="height: 42px;">
-        <div style="float:left; font-size: 22px; color: #666666;  padding-left: 10px; font-family:'宋体';  line-height: 40px;text-shadow: #dbdbdb 1px 2px 3px;">{$systemName}</div>
+        <div class="easyui-text" style="float:left; font-size: 22px; padding-left: 10px; font-family:'宋体','Arial Narrow';  line-height: 40px;">{$systemName}</div>
         <div style="float: right; padding: 5px 10px 0 0;">
             <a class="easyui-linkbutton" id="" style="padding:0 5px; border-radius: 2px 2px 2px;">站内消息<span style="font-weight: bold; padding-left: 5px;">15</span></a>
             <a class="easyui-linkbutton" id="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">修改密码</a>

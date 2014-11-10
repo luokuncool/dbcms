@@ -5,7 +5,7 @@
             <div class="easyui-panel" data-options="reigin:'center', collapsible:true, border: false" style="padding:10px;">
                 <table>
                     <tr>
-                        <td align="right">选择主题：</td>
+                        <td align="right">主题：</td>
                         <td>
                             <select class="easyui-combobox" name="myTheme"  data-options="editable:true,width:200,height:24">
                                 {foreach $themeList as $theme}
@@ -17,7 +17,7 @@
                     <tr>
                         <td class="&nbsp;"></td>
                         <td>
-                            <a class="easyui-linkbutton" id="submitForm" data-options="iconCls:'icon-save'" href="javascript:;" style="padding:0 5px; border-radius: 2px 2px 2px;">提交保存</a>
+                            <a class="easyui-linkbutton" id="submitForm" data-options="iconCls:'icon-save'" href="javascript:;" style="padding:0 5px; border-radius: 2px 2px 2px;">提交主题</a>
                         </td>
                     </tr>
                 </table>

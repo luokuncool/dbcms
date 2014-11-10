@@ -1,8 +1,8 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
-    <div id="w" class="easyui-window" title="登陆系统" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:false" style="width:324px;height:164px;padding:10px 31px;">
+    <div id="w" class="easyui-window" title="登陆系统" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:true,resizeable:false,width:324,height:164" style="padding:10px 31px;">
         <form id="loginForm" method="post">
-            <table style="margin-bottom: 0 auto;">
+            <table>
                 <tr>
                     <td align="right">用&nbsp;户&nbsp;名：</td>
                     <td><input class="easyui-textbox"  type="text" name="name" data-options="iconCls:'icon-man',width:180" /></td>

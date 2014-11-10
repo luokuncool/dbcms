@@ -163,6 +163,26 @@ class Role extends HOME_Controller {
 		echo_json($res);
 	}
 
+	public function set_rights($id)
+	{
+		$this->load->model('node_model');
+		$where = array();
+		$where[] = array('status'=>1);
+		$where[] = array('level'=>1);
+
+		$nodeList = $this->node_model->get_list($where, '*');
+		print_r($nodeList); exit();
+		$rightsList = array();
+		while($nodeList) {
+			foreach($nodeList as $key=>$node) {
+				if ($node['level'] == 1) $rightsList = array_splice($nodeList, $key, 1);
+			}
+		}
+		$node = $this->role_model->get_row($id);
+		$assign['node'] = $node;
+		$this->smarty->view('home/role/set_rights.tpl', $assign);
+	}
+
 	/**
 	 * 设置角色状态
 	 * @param $where
