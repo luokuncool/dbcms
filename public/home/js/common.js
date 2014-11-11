@@ -34,6 +34,7 @@ App.addTab = function(){
                 tab: App.getMainTab().tabs('getSelected'),
                 options: {
                     title: title,
+                    //href: App.queue[title]
                     content: '<iframe scrolling="no" frameborder="0" width="100%" height="99%" src="' + App.queue[title]+ '"></iframe>'
                 }
             });
@@ -51,6 +52,7 @@ App.addTab = function(){
             .tabs('add', {
                 selected: select,
                 title: title,
+                //href: select ? url : '',
                 content: select ? '<iframe scrolling="no" frameborder="0" width="100" height="99%" src="' + url+ '" style="width:100%;"></iframe>' : '',
                 closable: true
             });

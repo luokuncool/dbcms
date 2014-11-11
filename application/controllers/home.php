@@ -15,12 +15,11 @@ class Home extends HOME_Controller {
 	public function index()
 	{
 		parent::set_html_header();
-		$data['page_title'] = '前台首页';
-		$data['menuGroupList'] = $this->config->config['node_group'];
-		$map[] = array('type'=>1);
-		$map['order_by'] = array('sort', 'asc');
-		$nodeList  = $this->node_model->get_list($map, 'id,name,code,groupId');
-		$data['nodeList'] = $nodeList['rows'];
+		$data['menuGroupList'] = config_item('node_group');
+		$map[]                 = array('type'=>1);
+		$map['order_by']       = array('sort', 'asc');
+		$nodeList              = $this->node_model->get_list($map, 'id,name,code,groupId');
+		$data['nodeList']      = $nodeList['rows'];
 		foreach($data['menuGroupList'] as $groupId => $menuGroup)
 		{
 			$menuList = array();
@@ -49,3 +48,6 @@ class Home extends HOME_Controller {
 	}
 
 }
+
+/* End of file home.php */
+/* Location: ./application/controllers/home.php */

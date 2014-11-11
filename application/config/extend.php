@@ -61,7 +61,7 @@ $config['changed_row'] = 'changedRow';
 
 //分页配置
 $config['pageSetting'] = array(
-	'pageSize'=>20,
-	'pageList'=>'[10,20,30,40,50,60]'
+	'pageSize'=>'25',
+	'pageList'=>'[10,15,20,25,30,35,40,35,50]'
 );
 

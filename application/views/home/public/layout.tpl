@@ -9,7 +9,8 @@
     <script type="text/javascript" src="{$basePath}/public/static/jquery.js"></script>
     <script type="text/javascript" src="{$basePath}/public/static/jquery-easy-ui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="{$basePath}/public/static/jquery-easy-ui/locale/easyui-lang-zh_CN.js"></script>
-    {block name="head"}{/block}
+    <script type="text/javascript" src="{$base_path}/public/home/js/common.js"></script>
+{block name="head"}{/block}
 </head>
 <body class="easyui-layout">
 {block name="body"}{/block}

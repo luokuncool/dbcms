@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+defined('WIDGET') OR show_404();
 
 class Favorite extends HOME_Controller {
 
@@ -14,9 +15,9 @@ class Favorite extends HOME_Controller {
 	{
 		$assign['nodeList'] = $data;
 		$assign['width'] = '100';
-		$this->smarty->view('widget/favorite/menu.tpl', $assign);
+		$this->smarty->view('home/widget/favorite/menu.tpl', $assign);
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file favorite.php */
+/* Location: ./application/controllers/favorite.php */

@@ -38,8 +38,8 @@
         <th data-options="field:'email',align:'center',sortable:true" width="10%">邮箱</th>
         <th data-options="field:'mobile',align:'center',sortable:true" width="10%">手机</th>
         <th data-options="field:'userType',align:'center',sortable:true" width="10%">是否大客户</th>
-        <th data-options="field:'status',align:'center',sortable:true" width="10%">状态</th>
-        <th data-options="field:'opt',align:'center'" width="18%">操作</th>
+        <th formatter="App.formatStatus" data-options="field:'status',align:'center',sortable:true" width="10%">状态</th>
+        <th formatter="User.formatOpt" data-options="field:'opt',align:'left'" width="18%">&nbsp;&nbsp;操作</th>
     </tr>
 {/block}
 {block name="script"}
@@ -90,8 +90,8 @@
      */
     User.formatOpt = function(field, row) {
         var tools = '';
-        tools += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}user/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
-        row.level == 1 && (tools += '&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:App.addTab(\'添加操作【'+row.name+'】\', \'{$baseUrl}user/create_method/'+row.id+'\')" onclick="">添加操作</a>');
+        tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}user/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
+        tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\'设置身份【'+row.name+'】\', \'{$baseUrl}select/role/'+row.id+'\')" onclick="">设置身份</a>';
         return tools;
     };
 

@@ -23,8 +23,8 @@ class Cli extends Home_Controller
 	 */
 	public function update_cache()
 	{
-		$this->load->driver('cache', $this->config->config['cache_type']);
-		$changedRows = $this->cache->get($this->config->config['changed_row']);
+		$this->load->driver('cache', config_item('cache_type'));
+		$changedRows = $this->cache->get(config_item('changed_row'));
 		foreach($changedRows as $table=>$rows) {
 			// todo 完善缓存更新
 			while($ids = $this->cache->get($table)) {
@@ -45,3 +45,6 @@ class Cli extends Home_Controller
 	}
 
 }
+
+/* End of file cli.php */
+/* Location: ./application/controllers/cli.php */

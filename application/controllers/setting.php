@@ -11,7 +11,7 @@ class Setting extends HOME_Controller {
      */
     public function theme()
     {
-        $data['themeList'] = $this->config->config['theme_list'];
+        $data['themeList'] = config_item('theme_list');
         if (!$_POST) {
             parent::set_html_header();
             $this->smarty->view('home/setting/theme.tpl', $data);
@@ -38,8 +38,7 @@ class Setting extends HOME_Controller {
 	}
 
 	/**
-	 * 密码修改
-	 * todo
+	 * todo 密码修改
 	 */
 	public function change_password()
 	{

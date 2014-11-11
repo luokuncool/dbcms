@@ -43,7 +43,6 @@
     </div>
 {/block}
 {block name="head"}
-    <script type="text/javascript" src="{$base_path}/public/home/js/common.js"></script>
     <script type="text/javascript">
     $(function(){
         App.run();

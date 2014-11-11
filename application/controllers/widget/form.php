@@ -13,14 +13,14 @@ class Form extends HOME_Controller {
 	 */
 	public function theme()
 	{
-		$data['themeList'] = $this->config->config['theme_list'];
+		$data['themeList'] = config_item('theme_list');
 		$data['width'] = '25';
 		$data['widgetName'] = '设置主题';
-		$data['action'] = $this->config->config['base_url'].'widget/form/theme';
+		$data['action'] = config_item('base_url').'widget/form/theme';
 		$data['formId'] = 'themeSetForm';
 		$data['submitButtonId'] = 'themeSetSubmitButton';
 		if (!$_POST) {
-			$this->smarty->view('widget/form/theme.tpl', $data);
+			$this->smarty->view('home/widget/form/theme.tpl', $data);
 			return;
 		}
 		$my_theme = $this->input->post('myTheme');
@@ -32,5 +32,5 @@ class Form extends HOME_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file form.php */
+/* Location: ./application/controllers/form.php */

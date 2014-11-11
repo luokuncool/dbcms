@@ -2774,13 +2774,31 @@ class Base_model extends CI_Model
         }
     }
 
+	/**
+	 * 获取最后执行语句
+	 * @return mixed
+	 */
     public function last_query()
     {
         return $this->db->last_query();
     }
 
+	/**
+	 * 监测表是否存在
+	 * @param $table
+	 * @return mixed
+	 */
     public function table_exists($table)
     {
         return $this->db->table_exists($table);
     }
+
+	/**
+	 * 执行sql语句
+	 * @param $sql
+	 * @return mixed
+	 */
+	public function query($sql) {
+		return $this->db->query($sql);
+	}
 }

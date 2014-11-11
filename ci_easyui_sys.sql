@@ -91,6 +91,33 @@ INSERT INTO `adm_role` VALUES (1,'管理员',0,1,'管理员','',1382422809,1,141
 UNLOCK TABLES;
 
 --
+-- Table structure for table `adm_role_user`
+--
+
+DROP TABLE IF EXISTS `adm_role_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `adm_role_user` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `roleId` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '角色编号',
+  `userId` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户编号',
+  PRIMARY KEY (`id`),
+  KEY `group_id` (`roleId`) USING BTREE,
+  KEY `user_id` (`userId`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='角色和用户关系表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adm_role_user`
+--
+
+LOCK TABLES `adm_role_user` WRITE;
+/*!40000 ALTER TABLE `adm_role_user` DISABLE KEYS */;
+INSERT INTO `adm_role_user` VALUES (16,6,2),(17,7,2),(18,5,1),(19,6,1),(20,7,1),(21,1,3),(22,1,1445),(23,10,1445),(24,11,1445),(25,12,1445),(26,13,1445),(27,14,1445),(28,15,1445),(29,16,1445),(30,17,1445),(31,18,1445),(32,19,1445),(33,20,1445),(34,21,1445),(35,25,1445),(36,26,1445),(37,27,1445),(38,28,1445),(39,29,1445),(40,3,1445),(41,31,1445),(42,33,1445),(43,34,1445),(44,35,1445),(45,36,1445),(46,37,1445),(47,4,1445),(48,5,1445),(49,6,1445),(50,7,1445),(51,8,1445),(52,9,1445),(53,7,18),(54,8,18),(55,25,21),(57,3,11);
+/*!40000 ALTER TABLE `adm_role_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `adm_user`
 --
 
@@ -141,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-10 18:00:36
+-- Dump completed on 2014-11-11 17:46:29

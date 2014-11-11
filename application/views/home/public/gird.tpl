@@ -4,8 +4,22 @@
         {block name="search_block"}{/block}
     </div>
     <div data-options="region:'center',border:false">
-        <table id="dataGrid" class="easyui-datagrid"
-               data-options="{if $editable}onClickRow:{$editHandler},{/if}fitColumns:true,fit:true,muliteSelect:true,border:false,collapsible:true,rownumbers:false,singleSelect:false,url:'{$data_grid_url}',method:'get',pagination:true,pageSize:{$pageSetting.pageSize},pageList:{$pageSetting.pageList}" width="100%">
+        <table id="dataGrid" class="easyui-datagrid" data-options="
+               {if $editable}onClickRow:{$editHandler},{/if}
+               fitColumns:true,
+               fit:true,
+               muliteSelect:true,
+               border:false,
+               collapsible:true,
+               rownumbers:false,
+               singleSelect:false,
+               url:'{$data_grid_url}',
+               method:'get',
+               pagination:true,
+               pageSize:{$pageSetting.pageSize},
+               pageList:{$pageSetting.pageList},
+               idField:'id'
+               " width="100%">
             <thead>
             {block name="row_list"}{/block}
             </thead>

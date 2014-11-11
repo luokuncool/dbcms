@@ -20,6 +20,9 @@ class User extends Home_Controller
 		);
 	}
 
+	/**
+	 * 用户列表
+	 */
 	public function index()
 	{
 		if (!IS_AJAX)
@@ -78,7 +81,7 @@ class User extends Home_Controller
 	public function edit($id, $pId, $level)
 	{
 		$id = intval($id);
-		$data['node_group_list'] = $this->config->config['node_group'];
+		$data['node_group_list'] = config_item('node_group');
 		$data['data'] = $this->node_model->get_row($id);
 		if (!$_POST)
 		{
@@ -93,20 +96,37 @@ class User extends Home_Controller
 		echo json_encode($res);
 	}
 
-	public function create_method($pId){
-		$data['node_group_list'] = $this->config->config['node_group'];
-		$data['page_titlee'] = '添加操作';
-		if (!$_POST)
+	/**
+	 * @param $id
+	 */
+	public function set_identities($id){
+		if (!IS_AJAX)
 		{
-			$this->smarty->view('home/node/edit.tpl', $data);
 			return;
 		}
-		$data = $this->validation(0, $pId, 2);
-		$result = $this->node_model->insert($data);
-		$res['message'] = $result ? '保存成功' : '保存失败';
-		$result && $res['closeSelf'] = 1;
-		$result && $res['success'] = 1;
-		echo json_encode($res);
+		$data['groupList']   = config_item('role_group');
+		$data['editable']    = 0;
+		$data['searchBlockHeight'] = 42;
+		$data['editHandler'] = 'role.editHandler';
+		$id = intval($id);
+		$roleIds = explode(',', I('post.roles', '', 'strip_tags,trim'));
+		$this->load->model('role_user_model');
+		$roleUsers = array();
+		foreach($roleIds as $roleId) {
+			$roleUsers[] = array(
+				'roleId' => $roleId,
+				'userId' => $id
+			);
+		}
+		$this->role_user_model->delete(array('userId'=>$id));
+		$result = $this->role_user_model->batch_insert($roleUsers);
+		$result OR ajax_exit('保存失败');
+		echo json_encode(
+			array(
+				'message' => '保存成功',
+				'success' => 1
+			)
+		);
 	}
 
 	/**
@@ -174,3 +194,6 @@ class User extends Home_Controller
 	}
 
 }
+
+/* End of file user.php */
+/* Location: ./application/controllers/user.php */

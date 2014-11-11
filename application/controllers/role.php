@@ -1,20 +1,20 @@
 <?php
 class Role extends HOME_Controller {
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model(
-        	array('role_model')
-        );
-    }
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model(
+			array('role_model')
+		);
+	}
 
-    /**
-     * 角色列表
-     */
-    public function index()
-    {
-		$data['groupList']   = $this->config->config['role_group'];
+	/**
+	 * 角色列表
+	 */
+	public function index()
+	{
+		$data['groupList']   = config_item('role_group');
 		$data['editable']    = 0;
 		$data['searchBlockHeight'] = 42;
 		$data['editHandler'] = 'role.editHandler';
@@ -44,14 +44,13 @@ class Role extends HOME_Controller {
 		$rows = intval($this->input->get('rows'));
 		$map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
 
-		$field = $this->role_model->table.'.*, '.'(select name form '.$this->db->dbprefix.$this->role_model->table.' pTable where pTable.id='.$this->role_model->table.'.pId)';
 		$list = $this->role_model->get_list($map, 'id,name,status,remark');
 		foreach($list['rows'] as $key=>$value)
 		{
 			//$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/role/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
 		}
 		echo json_encode($list);
-    }
+	}
 
 	/**
 	 * 创建节点
@@ -60,7 +59,7 @@ class Role extends HOME_Controller {
 	{
 		$pId = intval($this->input->get('pId'));
 		$data['pId'] = $pId;
-		$data['role_group_list'] = $this->config->config['role_group'];
+		$data['role_group_list'] = config_item('role_group');
 		if (!$_POST)
 		{
 			$this->smarty->view('home/role/create.tpl', $data);
@@ -95,24 +94,24 @@ class Role extends HOME_Controller {
 
 	/**
 	 * 修改节点
+	 * @param $id
 	 */
 	public function edit($id)
 	{
 		$id = intval($id);
-		$data['role_group_list'] = $this->config->config['role_group'];
-		$data['data'] = $this->role_model->get_row($id);
 		if (!$_POST)
 		{
+			$data['role_group_list'] = config_item('role_group');
+			$data['data']            = $this->role_model->get_row($id);
 			$this->smarty->view('home/role/edit.tpl', $data);
 			return;
 		}
-		$name = $this->input->post('name');
-		$currentTime = time();
-
+		$name        = I('post.name', '', 'strip_tags,trim');
 		regex($name, 'require') OR ajax_exit('请填写角色名！');
-		$exist = $this->role_model->check_name($name.' AND id<>'.$id);
+		$exist       = $this->role_model->check_name($name.' AND id<>'.$id);
 		$exist && ajax_exit('角色名已经存在！');
 
+		$currentTime = time();
 		$data = array(
 			'name' => $name,
 			'status' => intval($this->input->post('status')),
@@ -121,9 +120,11 @@ class Role extends HOME_Controller {
 			'updateUid' => 1,
 		);
 		$result = $this->role_model->update(array('id'=>$id), $data);
-		$res['message'] = $result ? '保存成功' : '保存失败';
-		$result && $res['success'] = 1;
-		$result && $res['reload'] = 1;
+		$result OR ajax_exit('保存失败');
+
+		$res['message'] = '保存成功';
+		$res['success'] = 1;
+		$res['reload'] = 1;
 		echo_json($res);
 	}
 
@@ -163,6 +164,10 @@ class Role extends HOME_Controller {
 		echo_json($res);
 	}
 
+	/**
+	 * todo 设置权限
+	 * @param $id
+	 */
 	public function set_rights($id)
 	{
 		$this->load->model('node_model');
@@ -194,3 +199,6 @@ class Role extends HOME_Controller {
 	}
 
 }
+
+/* End of file role.php */
+/* Location: ./application/controllers/role.php */

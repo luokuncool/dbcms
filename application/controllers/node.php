@@ -10,47 +10,41 @@ class Node extends HOME_Controller {
 	}
 
 	/**
-	 * 列表 /usr/bin/X11/php-config
+	 * 列表
 	 */
 	public function index()
 	{
-		$data['groupList']     = $this->config->config['node_group'];
-		$data['editable']        = 0;
-		//$data['searchBlockHeight'] = 42;
-		$data['editHandler']  = 'Node.editHandler';
 		if  (!IS_AJAX) {
 			parent::set_html_header();
-			$data['page_title'] = '前台首页';
+			$data['groupList']     = config_item('node_group');
 			$data['data_grid_url'] = '/node/index';
 			$this->smarty->view('home/node/index.tpl', $data);
 			return;
 		}
 
-		$map = array();
-		$sort = $this->input->get('sort');
-		$order = $this->input->get('order');
-		$map['order_by'] = ($sort && $order) ? array($sort, $order) : array('code', 'asc');
+		$map   = array();
+		$sort  = I('get.sort', 'code', 'strip_tags,trim');
+		$order = I('get.order', 'asc', 'strip_tags,trim');
+		$map['order_by'] = array($sort, $order);
 
-		$code = $this->input->get('code');
+		$code = I('get.code', '', 'strip_tags,trim');
 		$code && $map[] = 'code LIKE "%'.$code.'%"';
 
-		$status = $this->input->get('status');
+		$status  = I('get.status', '', 'strip_tags,trim');
 		$status != '' && $map[] = array('status'=>intval($status));
-		$name = $this->input->get('name');
-		$name != '' && $map[] = 'name LIKE "%'.$name.'%"';
+		$name    = I('get.name', '', 'strip_tags,trim');
+		$name   != '' && $map[] = 'name LIKE "%'.$name.'%"';
 
-		$page = intval($this->input->get('page'));
-		$rows = intval($this->input->get('rows'));
-		$map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
+		$page = I('get.page', '1', 'intval');
+		$rows = I('get.rows', config_item('pageSize'), 'intval');
+		$map['limit'] = array($rows, ($page-1)*$rows);
 
-		$field = $this->node_model->table.'.*, '.'(select name form '.$this->db->dbprefix.$this->node_model->table.' pTable where pTable.id='.$this->node_model->table.'.pId)';
-		$list = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId');
-		foreach ($list['rows'] as $key=>$value) {
+		$res = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId');
+		foreach ($res['rows'] as $key=>$value) {
 			$pNode = $this->node_model->get_row($value['pId']);
-			$list['rows'][$key]['pNodeName'] = $pNode['name'];
-			//$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/node/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
+			$res['rows'][$key]['pNodeName'] = $pNode['name'];
 		}
-		echo json_encode($list);
+		echo_json($res);
 	}
 
 	/**
@@ -59,19 +53,21 @@ class Node extends HOME_Controller {
 	 */
 	public function create($pId)
 	{
-		$pId                          = intval($pId);
-		$assign['pId']           = $pId;
-		$assign['page_title'] = '创建节点';
+		$pId = intval($pId);
 		if  (!$_POST) {
+			$assign['pId'] = $pId;
 			$this->smarty->view('home/node/create.tpl', $assign);
 			return;
 		}
+
 		$data = $this->validation(0, $pId);
-		$id = $this->node_model->insert($data);
-		$res['message'] = $id ? '添加成功' : '添加失败';
-		$id && $res['closeSelf'] = 1;
-		$id && $res['success'] = 1;
-		echo json_encode($res);
+		$id   = $this->node_model->insert($data);
+		$id OR ajax_exit('添加失败');
+
+		$res['message']   = '添加成功';
+		$res['closeSelf'] = 1;
+		$res['success']   = 1;
+		echo_json($res);
 	}
 
 	/**
@@ -83,10 +79,10 @@ class Node extends HOME_Controller {
 	public function edit($id, $pId, $level)
 	{
 		$id = intval($id);
-		$data['node_group_list'] = $this->config->config['node_group'];
-		$data['data'] = $this->node_model->get_row($id);
 		if (!$_POST)
 		{
+			$data['node_group_list'] = config_item('node_group');
+			$data['data'] = $this->node_model->get_row($id);
 			$this->smarty->view('home/node/edit.tpl', $data);
 			return;
 		}
@@ -105,7 +101,7 @@ class Node extends HOME_Controller {
 	 */
 	public function create_method($pId){
 		$assign['group'] = $this->node_model->get_row($pId, 'code');
-		$assign['node_group_list'] = $this->config->config['node_group'];
+		$assign['node_group_list'] = config_item('node_group');
 		if (!$_POST)
 		{
 			$this->smarty->view('home/node/create.tpl', $assign);
@@ -219,3 +215,6 @@ class Node extends HOME_Controller {
 	}
 
 }
+
+/* End of file node.php */
+/* Location: ./application/controllers/node.php */
