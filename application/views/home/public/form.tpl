@@ -1,4 +1,4 @@
-{extends file="../public/layout.tpl"}
+{extends file="../public/base.tpl"}
 {block name="body"}
 	<form id="postForm" action="" method="post">
 		<div class="easyui-panel" data-options="reigin:'center', collapsible:true, border: false" style="padding:10px;">

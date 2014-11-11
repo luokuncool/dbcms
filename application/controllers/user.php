@@ -137,9 +137,9 @@ class User extends Home_Controller
 		if (!$_POST) {
 			return;
 		}
-		$ids = $this->input->post('ids');
+		$ids     = I('post.ids', '', 'strip_tags,trim');
 		regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
-		$result = $this->node_model->delete(array('id in('.$ids.')'));
+		$result = $this->user_model->delete(array('id in('.$ids.')'));
 		$res = array(
 			'message' => $result  !== false  ? '操作成功' : '操作失败',
 			'success' => $result  !== false  ? 1 : 0,
@@ -160,6 +160,7 @@ class User extends Home_Controller
 		$result = $this->set_status('id in('.$ids.')', 0);
 		$res = array(
 			'message' => $result  !== false  ? '操作成功' : '操作失败',
+			'reloadType' => 2,
 			'success' => $result  !== false  ? 1 : 0,
 		);
 		echo_json($res);
@@ -178,6 +179,7 @@ class User extends Home_Controller
 		$result = $this->set_status('id in('.$ids.')', 1);
 		$res = array(
 			'message' => $result  !== false ? '操作成功' : '操作失败',
+			'reloadType' => 2,
 			'success' => $result  !== false  ? 1 : 0,
 		);
 		echo_json($res);

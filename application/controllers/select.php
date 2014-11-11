@@ -17,6 +17,12 @@ class Select extends HOME_Controller {
 
 		//已选中角色
 		$assign['roleUsers']         = $this->role_user_model->get_list(array('userId'=>$userId), 'roleId');
+		$roleIds = '';
+		$rows = $assign['roleUsers']['rows'];
+		foreach($rows as $row) {
+			$roleIds .= $roleIds !== ''  ?  ','.$row['roleId'] : $row['roleId'];
+		}
+		$assign['roleIds'] = $roleIds;
 		$assign['searchBlockHeight'] = 42;
 		$assign['userId']            = $userId;
 		$assign['data_grid_url']     = '/role/index';

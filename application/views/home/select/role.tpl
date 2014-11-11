@@ -120,9 +120,9 @@
         gridOptions.onUnselectAll = Role.onUnSelectAll;
         gridOptions.onLoadSuccess = function(){
             //选中已有身份
-            var existsRole = eval('({$roleUsers|json_encode})').rows;
-            for(var i = 0; i<existsRole.length; i++) {
-                Role.getGrid().datagrid('selectRecord', existsRole[i].roleId);
+            var existsRoleIds = [{$roleIds}];
+            for(var i = 0; i<existsRoleIds.length; i++) {
+                Role.getGrid().datagrid('selectRecord', existsRoleIds[i]);
             }
         };
     });
