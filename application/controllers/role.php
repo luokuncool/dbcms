@@ -136,7 +136,7 @@ class Role extends HOME_Controller {
 		$roleIds = I('post.ids', '', 'strip_tags,trim');
 		regex($roleIds, 'require') OR ajax_exit('请选择角色!');
 		$result = $this->set_status('id in('.$roleIds.')', 0);
-		$result OR ajax_exit('操作失败');
+		$result === false && ajax_exit('操作失败');
 		$res = array(
 			'message' => '操作成功',
 			'success' => 1,
@@ -156,7 +156,7 @@ class Role extends HOME_Controller {
 		$roleIds = I('post.ids', '', 'strip_tags,trim');
 		regex($roleIds, 'require') OR ajax_exit('请选择角色!');
 		$result = $this->set_status('id in('.$roleIds.')', 1);
-		$result OR ajax_exit('操作失败');
+		$result === false && ajax_exit('操作失败');
 		$res = array(
 			'message' => '操作成功',
 			'success' => 1,
