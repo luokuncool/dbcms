@@ -114,7 +114,7 @@ class User extends Home_Controller
 			$assign['roleIds'] = $roleIds;
 			$assign['searchBlockHeight'] = 42;
 			$assign['userId']            = $id;
-			$assign['data_grid_url']     = '/role/index';
+			$assign['dataGridUrl']     = config_item('base_url') . 'role/index';
 
 			$this->smarty->view('home/user/set_role.tpl', $assign);
 			return;

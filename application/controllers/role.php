@@ -184,7 +184,7 @@ class Role extends HOME_Controller {
 			}
 			$assign['userIds']           = $userIds;
 			$assign['roleId']            = $id;
-			$assign['data_grid_url']     = '/user/index';
+			$assign['dataGridUrl']       = config_item('base_url') . 'user/index';
 			$this->smarty->view('home/role/set_user.tpl', $assign);
 			return;
 		}
