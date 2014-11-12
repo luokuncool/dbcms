@@ -71,6 +71,13 @@ class Home extends HOME_Controller {
 		);
 	}
 
+	/**
+	 * todo 退出登录
+	 */
+	public function logout() {
+		unset($_SESSION['userInfo']);
+	}
+
 }
 
 /* End of file home.php */
