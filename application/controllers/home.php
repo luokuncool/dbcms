@@ -39,11 +39,36 @@ class Home extends HOME_Controller {
 	 */
 	public function login()
 	{
-		if (!$_POST) {
+		$_SESSION['userInfo'] && redirect('/');
+		if (!IS_AJAX) {
 			$this->smarty->view('home/index/login.tpl');
 			return;
 		}
-		//todo 登陆验证
+		$this->load->model('user_model');
+		$uName = I('post.uName', '', 'strip_tags,trim');
+		$password = I('post.password', '', 'strip_tags,trim');
+		regex($uName, 'require')    OR ajax_exit('请填写用户名！');
+		regex($password, 'require') OR ajax_exit('请填写密码！');
+		$result = $this->user_model->login($uName, $password);
+		switch($result) {
+			case 1 :
+				ajax_exit('用户不存在！');
+				break;
+			case 2 :
+				ajax_exit('密码不正确！');
+				break;
+			case 3 :
+				ajax_exit('账号被禁用！');
+				break;
+		}
+		$_SESSION['userInfo'] = $result;
+		//todo 登陆成功操作
+		echo_json(
+			array(
+				'success' => 1,
+				'message' => '登陆成功！'
+			)
+		);
 	}
 
 }
