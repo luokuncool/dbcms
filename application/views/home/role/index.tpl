@@ -22,7 +22,7 @@
 		var tools = '';
 		tools += '<a href="javascript:App.addTab(\'编辑角色【'+row.name+'】\', \'{$baseUrl}role/edit/'+row.id+'\')">编辑</a>';
 		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\''+row.name+'授权\', \'{$baseUrl}role/set_rights/'+row.id+'\')">授权</a>';
-		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\''+row.name+'列表\', \'{$baseUrl}select/user/'+row.id+'\')">用户</a>';
+		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\''+row.name+'列表\', \'{$baseUrl}role/set_user/'+row.id+'\')">用户</a>';
 		return tools;
 	};
 	</script>

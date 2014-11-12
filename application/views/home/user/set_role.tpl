@@ -14,7 +14,7 @@
             </td>
             <td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="Role.setIdentities();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">提交保存</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="Role.setRole();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">提交保存</a>
                 </a>
             </td>
         </tr>
@@ -35,9 +35,9 @@
     /**
      * 提交选中角色
      */
-    Role.setIdentities = function() {
+    Role.setRole = function() {
         App.processing();
-        $.post('{$baseUrl}user/set_identities/{$userId}', { roles : App.getIds() }, App.successHandler, 'text');
+        $.post('{$baseUrl}user/set_role/{$userId}', { roles : App.getIds() }, App.successHandler, 'text');
     };
 
     $(function(){

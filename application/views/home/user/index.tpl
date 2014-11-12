@@ -66,7 +66,7 @@
 	User.formatOpt = function(field, row) {
 		var tools = '';
 		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}user/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
-		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\'设置身份【'+row.name+'】\', \'{$baseUrl}select/role/'+row.id+'\')" onclick="">设置身份</a>';
+		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\'设置身份【'+row.name+'】\', \'{$baseUrl}user/set_role/'+row.id+'\')" onclick="">设置身份</a>';
 		return tools;
 	};
 	</script>

@@ -168,16 +168,33 @@ class Role extends HOME_Controller {
 		echo_json($res);
 	}
 
-	public function set_users($id) {
+	/**
+	 * 设置角色用户
+	 * @param $id
+	 */
+	public function set_user($id) {
+		$id = intval($id);
 		if (!IS_AJAX)
 		{
+			$this->load->model('role_user_model');
+			parent::set_html_header();
+			//已选中角色
+			$assign['roleUsers']         = $this->role_user_model->get_list(array('roleId'=>$id), 'userId');
+			$userIds = '';
+			$rows = $assign['roleUsers']['rows'];
+			foreach($rows as $row) {
+				$userIds .= $userIds !== ''  ?  ','.$row['userId'] : $row['userId'];
+			}
+			$assign['userIds']           = $userIds;
+			$assign['roleId']            = $id;
+			$assign['data_grid_url']     = '/user/index';
+			$this->smarty->view('home/role/set_user.tpl', $assign);
 			return;
 		}
 		$data['groupList']   = config_item('role_group');
 		$data['editable']    = 0;
 		$data['searchBlockHeight'] = 42;
 		$data['editHandler'] = 'role.editHandler';
-		$id = intval($id);
 		$usersId = array_filter(explode(',', I('post.users', '', 'strip_tags,trim')));
 		$this->load->model('role_user_model');
 		$roleUsers = array();

@@ -46,7 +46,7 @@
      */
     User.setUsers = function() {
         App.processing();
-        $.post('{$baseUrl}role/set_users/{$roleId}', { users : App.getIds() }, App.successHandler, 'text');
+        $.post('{$baseUrl}role/set_user/{$roleId}', { users : App.getIds() }, App.successHandler, 'text');
     };
 
     $(function(){
