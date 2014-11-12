@@ -21,13 +21,7 @@
             <td width="70" align="right">节点代码：</td>
             <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="code" /></td>
             <td width="100" align="right">显示名：</td>
-            <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
-            <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加模块</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Node.remove();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Node.enable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Node.disable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
-            </td>
+            <td width="70" colspan="2"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
         </tr>
         <tr>
             <td width="100" align="right">状态：</td>
@@ -39,7 +33,13 @@
                 </select>
             </td>
             <td>&nbsp;</td>
-            <td colspan="2"><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px;">检索</a></td>
+            <td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px;">检索</a></td>
+            <td align="right">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加模块</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Node.remove();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Node.enable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Node.disable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
+            </td>
         </tr>
     </table>
 {/block}

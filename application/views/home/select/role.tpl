@@ -14,7 +14,7 @@
             </td>
             <td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Role.setIdentities();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">确定</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="Role.setIdentities();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">提交保存</a>
                 </a>
             </td>
         </tr>
@@ -24,105 +24,30 @@
     <tr width="100%">
         <th data-options="field:'id',align:'center',checkbox:true"></th>
         <th data-options="field:'name',sortable:true,title:'角色名'" width="18%"></th>
-        <th formatter="Role.formatStatus" data-options="field:'status',sortable:true" width="20%">状态</th>
+        <th formatter="App.formatStatus" data-options="field:'status',sortable:true" width="20%">状态</th>
         <th data-options="field:'remark',sortable:true" width="60%">描述</th>
     </tr>
 {/block}
 {block name="script"}
     <script type="text/javascript">
     var Role = Object();
-    /**
-     * 被选中的角色
-     */
-    Role.ids = [];
-    /**
-     * 获取数据表对象
-     */
-    Role.getGrid = function(){
-        return $('#dataGrid');
-    };
-
-    /**
-     * 格式化状态
-     * @param field
-     * @param row
-     * @returns { string }
-     */
-    Role.formatStatus = function(field, row) {
-        return field == 1 ? '<font color="green">启用</font>' : '<font color="red">禁用</font>'
-    };
-
-    /**
-     * 选中单行
-     */
-    Role.onSelect = function(index, row) {
-        Role.ids.push(parseInt(row.id));
-    };
-
-    /**
-     * 反选单行
-     */
-    Role.onUnSelect = function(index, row) {
-        for(var i=0; i<Role.ids.length; i++) {
-            if (Role.ids[i] == row.id) Role.ids.splice(i, 1);
-        }
-    };
-
-    /**
-     * 全选行
-     */
-    Role.onSelectAll = function(rows) {
-        for(var i=0; i<rows.length; i++) {
-            Role.ids.push(parseInt(rows[i].id));
-        }
-    };
-
-    /**
-     * 反选行
-     */
-    Role.onUnSelectAll = function(rows) {
-        for(var i=0; i<rows.length; i++) {
-            //Role.ids.push(rows[i].id);
-            for(var j=0; j<Role.ids.length; j++) {
-                if (Role.ids[j] == rows[i].id) Role.ids.splice(j, 1);
-            }
-        }
-    };
-
-    /**
-     * Role.ids 去除重复值
-     */
-    Role.unique = function() {
-        var result = [];
-        for(var i = 0; i < Role.ids.length; i++)
-        {
-            if (Role.ids.indexOf(Role.ids[i]) == i) result.push(Role.ids[i]);
-        }
-        Role.ids = result;
-    };
 
     /**
      * 提交选中角色
      */
     Role.setIdentities = function() {
-        Role.unique();
-        App.submitBefore();
-        $.post('{$baseUrl}user/set_identities/{$userId}', { roles : Role.ids.sort().join(',') }, App.successHandler, 'text');
+        App.processing();
+        $.post('{$baseUrl}user/set_identities/{$userId}', { roles : App.getIds() }, App.successHandler, 'text');
     };
 
     $(function(){
-        window.App = parent.App;
         //设置表格对象
-        var gridOptions = Role.getGrid().datagrid('options');
-        gridOptions.onSelect = Role.onSelect;
-        gridOptions.onUnselect = Role.onUnSelect;
-        gridOptions.onSelectAll = Role.onSelectAll;
-        gridOptions.onUnselectAll = Role.onUnSelectAll;
+        var gridOptions = App.getGrid().datagrid('options');
         gridOptions.onLoadSuccess = function(){
             //选中已有身份
             var existsRoleIds = [{$roleIds}];
             for(var i = 0; i<existsRoleIds.length; i++) {
-                Role.getGrid().datagrid('selectRecord', existsRoleIds[i]);
+                App.getGrid().datagrid('selectRecord', existsRoleIds[i]);
             }
         };
     });

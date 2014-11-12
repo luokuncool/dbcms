@@ -25,9 +25,13 @@ class Role_User_Model extends Base_Model {
 	 * @return bool
 	 */
 	public function batch_insert($roleUsers = array()) {
-		$this->query('SET autocommit=0');
+		$this->query('start transaction');
 		foreach($roleUsers as $roleUser) {
-			$this->insert($roleUser);
+			$result = $this->insert($roleUser);
+			if (!$result) {
+				$this->query('rollback');
+				return false;
+			}
 		}
 		return $this->query('commit');
 	}

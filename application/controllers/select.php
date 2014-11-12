@@ -29,6 +29,28 @@ class Select extends HOME_Controller {
 
 		$this->smarty->view('home/select/role.tpl', $assign);
 	}
+
+	/**
+	 * 选择用户
+	 * @param $roleId
+	 */
+	public function user($roleId){
+		$this->load->model('role_user_model');
+		parent::set_html_header();
+
+		//已选中角色
+		$assign['roleUsers']         = $this->role_user_model->get_list(array('roleId'=>$roleId), 'userId');
+		$userIds = '';
+		$rows = $assign['roleUsers']['rows'];
+		foreach($rows as $row) {
+			$userIds .= $userIds !== ''  ?  ','.$row['userId'] : $row['userId'];
+		}
+		$assign['userIds']           = $userIds;
+		$assign['roleId']            = $roleId;
+		$assign['data_grid_url']     = '/user/index';
+
+		$this->smarty->view('home/select/user.tpl', $assign);
+	}
 }
 
 /* End of file select.php */

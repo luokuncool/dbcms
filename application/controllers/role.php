@@ -136,12 +136,14 @@ class Role extends HOME_Controller {
 		if (!$_POST) {
 			return;
 		}
-		$roleIds = $this->input->post('roleId');
+		$roleIds = I('post.ids', '', 'strip_tags,trim');
 		regex($roleIds, 'require') OR ajax_exit('请选择角色!');
 		$result = $this->set_status('id in('.$roleIds.')', 0);
+		$result OR ajax_exit('操作失败');
 		$res = array(
-			'message' => $result  !== false  ? '操作成功' : '操作失败',
-			'success' => $result  !== false  ? 1 : 0,
+			'message' => '操作成功',
+			'success' => 1,
+			'reloadType' => 2
 		);
 		echo_json($res);
 	}
@@ -154,14 +156,48 @@ class Role extends HOME_Controller {
 		if (!$_POST) {
 			return;
 		}
-		$roleIds = $this->input->post('roleId');
+		$roleIds = I('post.ids', '', 'strip_tags,trim');
 		regex($roleIds, 'require') OR ajax_exit('请选择角色!');
 		$result = $this->set_status('id in('.$roleIds.')', 1);
+		$result OR ajax_exit('操作失败');
 		$res = array(
-			'message' => $result  !== false ? '操作成功' : '操作失败',
-			'success' => $result  !== false  ? 1 : 0,
+			'message' => '操作成功',
+			'success' => 1,
+			'reloadType' => 2
 		);
 		echo_json($res);
+	}
+
+	public function set_users($id) {
+		if (!IS_AJAX)
+		{
+			return;
+		}
+		$data['groupList']   = config_item('role_group');
+		$data['editable']    = 0;
+		$data['searchBlockHeight'] = 42;
+		$data['editHandler'] = 'role.editHandler';
+		$id = intval($id);
+		$usersId = array_filter(explode(',', I('post.users', '', 'strip_tags,trim')));
+		$this->load->model('role_user_model');
+		$roleUsers = array();
+		foreach($usersId as $userId) {
+			$roleUsers[] = array(
+				'roleId' => $id,
+				'userId' => $userId
+			);
+		}
+		$this->role_user_model->delete(array('roleId'=>$id));
+		if ($usersId) {
+			$result = $this->role_user_model->batch_insert($roleUsers);
+			$result OR ajax_exit('保存失败');
+		}
+		echo json_encode(
+			array(
+				'message' => '保存成功',
+				'success' => 1
+			)
+		);
 	}
 
 	/**

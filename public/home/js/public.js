@@ -19,7 +19,7 @@
     };
 
     /**
-     * fixme 获取dataGrid选中行Ids
+     * 获取dataGrid选中行Ids
      * @returns {string}
      */
     App.getIds = function(){
@@ -84,7 +84,7 @@
                 switch( res.reloadType) {
                     case 1 :
                         reloadFn = function() {
-                            parentWindow.reload();
+                            parentWindow.location.reload();
                         };
                         break;
                     case 2 :

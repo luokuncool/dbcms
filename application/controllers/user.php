@@ -109,7 +109,7 @@ class User extends Home_Controller
 		$data['searchBlockHeight'] = 42;
 		$data['editHandler'] = 'role.editHandler';
 		$id = intval($id);
-		$roleIds = explode(',', I('post.roles', '', 'strip_tags,trim'));
+		$roleIds = array_filter(explode(',', I('post.roles', '', 'strip_tags,trim')));
 		$this->load->model('role_user_model');
 		$roleUsers = array();
 		foreach($roleIds as $roleId) {

@@ -5,13 +5,8 @@
 			<td width="70" align="right">账号：</td>
 			<td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="uName" /></td>
 			<td width="100" align="right">真实姓名：</td>
-			<td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
-			<td align="right">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加用户', '/user/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="App.remove('{$baseUrl}user/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick=" App.enable('{$baseUrl}user/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="App.disable('{$baseUrl}user/disable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
-			</td>
+			<td width="70" colspan="2"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
+
 		</tr>
 		<tr>
 			<td width="100" align="right">状态：</td>
@@ -23,8 +18,13 @@
 				</select>
 			</td>
 			<td>&nbsp;</td>
-			<td colspan="2"><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
-
+			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
+            <td align="right">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加用户', '/user/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="App.remove('{$baseUrl}user/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick=" App.enable('{$baseUrl}user/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="App.disable('{$baseUrl}user/disable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
+            </td>
 		</tr>
 	</table>
 {/block}

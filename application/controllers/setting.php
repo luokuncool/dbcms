@@ -22,6 +22,7 @@ class Setting extends HOME_Controller {
 		in_array($my_theme, $data['themeList']) ? setcookie('myTheme', $my_theme, time()+3600*3600, '/') : ajax_exit('主题不存在');
 		$res['message'] = '设置成功';
 		$res['reload'] = 1;
+		$res['reloadType'] = 1;
 		$res['success'] = 1;
 		echo_json($res);
     }
