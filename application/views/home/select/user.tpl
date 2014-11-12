@@ -6,7 +6,6 @@
             <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="uName" /></td>
             <td width="100" align="right">真实姓名：</td>
             <td width="70" colspan="2"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
-
         </tr>
         <tr>
             <td width="100" align="right">状态：</td>

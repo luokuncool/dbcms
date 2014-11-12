@@ -14,9 +14,9 @@ class MY_Controller extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$assign['systemName'] = $this->config->config['system_name'];
-		$assign['baseUrl'] = $this->config->config['base_url'];
-		$assign['basePath'] = $this->config->config['base_path'];
+		$assign['systemName'] = config_item('system_name');
+		$assign['baseUrl'] = config_item('base_url');
+		$assign['basePath'] = config_item('base_path');
 		$assign['activeUrl'] = get_active_url('redirect');
 		$this->smarty->assign($assign);
 	}
@@ -52,9 +52,9 @@ class Home_Controller extends MY_Controller {
 	{
 		parent::__construct();
 		$data['myTheme'] = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
-		$data['baseUrl']      = $this->config->config['base_url'];
-		$data['systemName'] = $this->config->config['system_name'];
-		$data['pageSetting'] = $this->config->config['pageSetting'];
+		$data['baseUrl']      = config_item('base_url');
+		$data['systemName'] = config_item('system_name');
+		$data['pageSetting'] = config_item('pageSetting');
 		$this->smarty->assign($data);
 	}
 

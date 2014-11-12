@@ -165,7 +165,7 @@ class Base_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-		if ($this->is_cache) $this->load->driver('Cache', $this->config->config['cache_type']);
+		if ($this->is_cache) $this->load->driver('Cache', config_item('cache_type'));
         /*if (is_null($this->db_group))
         {
           $active_group = 'default';
@@ -2187,10 +2187,10 @@ class Base_model extends CI_Model
 		//更新缓存
 		if ($this->is_cache && $affected) {
 			$idsNew = $this->db->where($where)->select($this->pk_name)->get($table)->result_array();
-			$idsOld = $this->cache->get($this->config->config['changed_row']);
+			$idsOld = $this->cache->get(config_item('changed_row'));
 			$ids = $idsOld[$this->table] ? array_merge($idsNew, $idsOld[$this->table]) : $idsNew;
 			$idsOld[$this->table] = $ids;
-			$this->cache->save($this->config->config['changed_row'], $idsOld, 0);
+			$this->cache->save(config_item('changed_row'), $idsOld, 0);
 		}
 
         return (int) $this->db->affected_rows();
