@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'].'/index.php/';
-$config['base_path']	= 'http://'.$_SERVER['HTTP_HOST'];
+$config['base_url']	= 'http://'.$_SERVER['HTTP_HOST'] . '/';
+$config['base_path']	= 'http://'.$_SERVER['HTTP_HOST'] ;
 
 /*
 |--------------------------------------------------------------------------

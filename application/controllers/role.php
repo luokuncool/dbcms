@@ -188,10 +188,6 @@ class Role extends HOME_Controller {
 			$this->smarty->view('home/role/set_user.tpl', $assign);
 			return;
 		}
-		$data['groupList']   = config_item('role_group');
-		$data['editable']    = 0;
-		$data['searchBlockHeight'] = 42;
-		$data['editHandler'] = 'role.editHandler';
 		$usersId = array_filter(explode(',', I('post.users', '', 'strip_tags,trim')));
 		$this->load->model('role_user_model');
 		$roleUsers = array();
