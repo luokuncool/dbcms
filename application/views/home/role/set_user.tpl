@@ -1,5 +1,5 @@
 {extends file="../public/gird.tpl"}
-{block name="search_block"}
+{block name="searchBlock"}
     <table id="searchBlock" width="100%">
         <tr>
             <td width="70" align="right">账号：</td>
@@ -24,7 +24,7 @@
         </tr>
     </table>
 {/block}
-{block name="row_list"}
+{block name="rowList"}
     <tr width="100%">
         <th data-options="field:'id',align:'center',checkbox:true"></th>
         <th data-options="field:'uName',align:'center',sortable:true" width="10%">账号</th>

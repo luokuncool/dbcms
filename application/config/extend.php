@@ -23,7 +23,7 @@ $config['node_group'] = array(
 );
 
 //主题列表
-$config['theme_list'] = array(
+$config['themeList'] = array(
 	'black',
 	'bootstrap',
 	'default',

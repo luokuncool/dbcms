@@ -13,20 +13,20 @@ class Form extends HOME_Controller {
 	 */
 	public function theme()
 	{
-		$data['themeList'] = config_item('theme_list');
-		$data['width'] = '25';
-		$data['widgetName'] = '设置主题';
-		$data['action'] = config_item('base_url').'widget/form/theme';
-		$data['formId'] = 'themeSetForm';
+		$data['themeList']      = config_item('themeList');
+		$data['width']          = '25';
+		$data['widgetName']     = '设置主题';
+		$data['action']         = config_item('base_url') . 'widget/form/theme';
+		$data['formId']         = 'themeSetForm';
 		$data['submitButtonId'] = 'themeSetSubmitButton';
 		if (!$_POST) {
 			$this->smarty->view('home/widget/form/theme.tpl', $data);
 			return;
 		}
-		$my_theme = $this->input->post('myTheme');
-		in_array($my_theme, $data['themeList']) ? setcookie('myTheme', $my_theme, time()+3600*3600, '/') : ajax_exit('主题不存在');
+		$myTheme = $this->input->post('myTheme');
+		in_array($myTheme, $data['themeList']) ? setcookie('myTheme', $myTheme, time()+3600*3600, '/') : ajax_exit('主题不存在');
 		$res['message'] = '设置成功';
-		$res['reload'] = 1;
+		$res['reload']  = 1;
 		$res['success'] = 1;
 		echo_json($res);
 	}

@@ -1,7 +1,7 @@
 {extends file="../public/base.tpl"}
 {block name="body"}
     <div data-options="region:'north'" style="height:{$searchBlockHeight}px; overflow:hidden; padding:5px;border-left: none; border-right: none; border-top:none;">
-        {block name="search_block"}{/block}
+        {block name="searchBlock"}{/block}
     </div>
     <div data-options="region:'center',border:false">
         <table id="dataGrid" class="easyui-datagrid" data-options="
@@ -13,7 +13,7 @@
                collapsible:true,
                rownumbers:false,
                singleSelect:false,
-               url:'{$data_grid_url}',
+               url:'{$dataGridUrl}',
                method:'get',
                pagination:true,
                pageSize:{$pageSetting.pageSize},
@@ -21,7 +21,7 @@
                idField:'id'
                " width="100%">
             <thead>
-            {block name="row_list"}{/block}
+            {block name="rowList"}{/block}
             </thead>
         </table>
     </div>

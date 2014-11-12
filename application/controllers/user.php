@@ -28,8 +28,7 @@ class User extends Home_Controller
 		if (!IS_AJAX)
         {
             parent::set_html_header();
-            $data['page_title'] = '前台首页';
-            $data['data_grid_url'] = '/user/index';
+            $data['dataGridUrl'] = '/user/index';
             $this->smarty->view('home/user/index.tpl', $data);
             return;
         }

@@ -1,6 +1,6 @@
 {extends file="../public/gird.tpl"}
 {*数据列表*}
-{block name="row_list"}
+{block name="rowList"}
     <tr width="100%">
         <th data-options="field:'id',align:'center',checkbox:true"></th>
         <th data-options="field:'code',align:'left',sortable:true,editor:'text'" width="20%">节点代码</th>
@@ -15,7 +15,7 @@
     </tr>
 {/block}
 {* 搜索栏 *}
-{block name="search_block"}
+{block name="searchBlock"}
     <table id="searchBlock" width="100%">
         <tr>
             <td width="70" align="right">节点代码：</td>

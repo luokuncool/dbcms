@@ -11,15 +11,14 @@ class Setting extends HOME_Controller {
      */
     public function theme()
     {
-        $data['themeList'] = config_item('theme_list');
+        $data['themeList'] = config_item('themeList');
         if (!$_POST) {
             parent::set_html_header();
             $this->smarty->view('home/setting/theme.tpl', $data);
             return;
         }
-		$my_theme = $this->input->post('myTheme');
-        in_array($my_theme, $data['themeList']) ? setcookie('myTheme', $my_theme, time()+3600*3600, '/') : exit(json_encode(array('message'=>'主题不存在')));
-		in_array($my_theme, $data['themeList']) ? setcookie('myTheme', $my_theme, time()+3600*3600, '/') : ajax_exit('主题不存在');
+		$myTheme = $this->input->post('myTheme');
+		in_array($myTheme, $data['themeList']) ? setcookie('myTheme', $myTheme, time()+3600*3600, '/') : ajax_exit('主题不存在');
 		$res['message'] = '设置成功';
 		$res['reload'] = 1;
 		$res['reloadType'] = 1;
@@ -43,10 +42,9 @@ class Setting extends HOME_Controller {
 	 */
 	public function change_password()
 	{
-		$assign['pageTitle'] = '密码修改';
 		if (!$_POST) {
 			parent::set_html_header();
-			$this->smarty->view('home/setting/change_password.tpl', $data);
+			$this->smarty->view('home/setting/change_password.tpl');
 			return;
 		}
 	}

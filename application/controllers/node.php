@@ -17,7 +17,7 @@ class Node extends HOME_Controller {
 		if  (!IS_AJAX) {
 			parent::set_html_header();
 			$data['groupList']     = config_item('node_group');
-			$data['data_grid_url'] = '/node/index';
+			$data['dataGridUrl'] = config_item('base_url') . 'node/index';
 			$this->smarty->view('home/node/index.tpl', $data);
 			return;
 		}
@@ -159,7 +159,7 @@ class Node extends HOME_Controller {
 		if (!$_POST) {
 			return;
 		}
-		$ids = $this->input->post('ids');
+		$ids = I('post.ids', '', 'strip_tags,trim');
 		regex($ids, 'require') OR ajax_exit('请选择要启用的行!');
 		$result = $this->set_status('id in('.$ids.')', 1);
 		$res = array(
@@ -201,7 +201,7 @@ class Node extends HOME_Controller {
 			'name' => $name,
 			'status' => I('post.status', '', 'intval'),
 			'remark' => I('post.remark', '', 'htmlspecialchars'),
-			'sort' => I('post.sort', 0, 'intval'), //$this->input->post('sort'),
+			'sort' => I('post.sort', 0, 'intval'),
 			'groupId' => I('post.groupId', 0, 'intval'),
 			'level' => $level,
 			'type' => I('post.type', 0, 'intval'),

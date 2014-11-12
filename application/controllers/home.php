@@ -40,8 +40,7 @@ class Home extends HOME_Controller {
 	public function login()
 	{
 		if (!$_POST) {
-			$data['page_title'] = '登陆系统';
-			$this->smarty->view('home/index/login.tpl', $data);
+			$this->smarty->view('home/index/login.tpl');
 			return;
 		}
 		//todo 登陆验证

@@ -21,28 +21,25 @@ class Role extends HOME_Controller {
 		if (!IS_AJAX)
 		{
 			parent::set_html_header();
-			$data['page_title'] = '前台首页';
-			$data['data_grid_url'] = '/role/index';
+			$data['dataGridUrl'] = config_item('base_url') . 'role/index';
 			$this->smarty->view('home/role/index.tpl', $data);
 			return;
 		}
 
-		$map = array();
-		$sort = $this->input->get('sort');
-		$order = $this->input->get('order');
-		$map['order_by'] = ($sort && $order) ? array($sort, $order) : array('id', 'asc');
+		$map             = array();
+		$name            = I('get.name', '', 'strip_tags,trim');
+		$name           != '' && $map[] = 'name LIKE "%'.$name.'%"';
 
-		$code = $this->input->get('code');
-		$code && $map[] = 'code LIKE "%'.$code.'%"';
+		$status          = I('get.status', '', 'strip_tags,trim');
+		$status         != '' && $map[] = array('status'=>intval($status));
 
-		$status = $this->input->get('status');
-		$status != '' && $map[] = array('status'=>intval($status));
-		$name = $this->input->get('name');
-		$name != '' && $map[] = 'name LIKE "%'.$name.'%"';
+		$sort            = I('get.sort', 'id', 'strip_tags,trim');
+		$order           = I('get.order', 'desc', 'strip_tags,trim');
+		$map['order_by'] = array($sort, $order);
 
-		$page = intval($this->input->get('page'));
-		$rows = intval($this->input->get('rows'));
-		$map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
+		$page            = I('get.page', 1, 'intval');
+		$rows            = I('get.rows', config_item('pageSize'));
+		$map['limit']    = array($rows, ($page-1)*$rows);
 
 		$list = $this->role_model->get_list($map, 'id,name,status,remark');
 		foreach($list['rows'] as $key=>$value)
