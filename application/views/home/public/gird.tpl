@@ -29,12 +29,10 @@
 {block name="head"}
     <script type="text/javascript">
     $(function(){
-        $(window).resize(function(){
-            $('#dataGrid').datagrid('resize');
-        });
+        $(window).resize(App.resizeGrid);
         var searchButton = $('#searchButton'),
             searchBlock  = $('#searchBlock'),
-            dataGrid     = $('#dataGrid'),
+            dataGrid     = App.getGrid(),
             queryParams  = dataGrid.datagrid('options').queryParams,
             searchFun    = function(){
                 $(searchBlock).find('[name]').each(function(){
@@ -47,6 +45,9 @@
                 dataGrid.datagrid('reload');
             };
         searchButton.click(searchFun);
+        $(window).keydown(function(e){
+            //e.keyCode == 13 && searchFun();
+        });
     });
     </script>
     {block name="script"}{/block}

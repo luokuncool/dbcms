@@ -19,6 +19,13 @@
     };
 
     /**
+     * 调整表格尺寸
+     */
+    App.resizeGrid = function() {
+        App.getGrid().datagrid('resize')
+    };
+
+    /**
      * 获取dataGrid选中行Ids
      * @returns {string}
      */
