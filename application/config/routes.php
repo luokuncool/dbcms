@@ -48,5 +48,6 @@ $route['404_override'] = '';
 $route['login'] = 'home/login';
 $route['upload_file'] = 'home/upload_file';
 $route['file_manager'] = 'home/file_manager';
+$route['update_cache'] = 'cli/update_cache';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

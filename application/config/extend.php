@@ -41,27 +41,27 @@ $config['themeList'] = array(
 );
 
 //全局过滤过滤
-$config['var_filters'] = 'intval';
+$config['var_filters'] = '';
 
 //默认过滤
-$config['default_filter'] = '';
+$config['default_filter'] = 'trim';
 
 //缓存类型
 $config['data_cache_type'] = 'memcache';
 
 //缓存时间
-$config['data_cache_time'] = 3600;
+$config['dataCacheTime'] = 0;
 
 //系统名称
 $config['system_name'] = 'EasyUI System';
 
-$config['cache_type'] = array('adapter'=>'redis');
+$config['cache_type'] = array('adapter'=>'default'); // 支持类型：apc, file, memcached, dummy, redis, default
 
-$config['changed_row'] = 'changedRow';
+$config['changedRow'] = 'changedRow';
 
 //分页配置
 $config['pageSetting'] = array(
 	'pageSize'=>'25',
-	'pageList'=>'[10,15,20,25,30,35,40,35,50]'
+	'pageList'=>'[10,15,20,25,30,35,40,45,50]'
 );
 

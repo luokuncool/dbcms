@@ -24,24 +24,27 @@ class Cli extends Home_Controller
 	public function update_cache()
 	{
 		$this->load->driver('cache', config_item('cache_type'));
-		$changedRows = $this->cache->get(config_item('changed_row'));
-		foreach($changedRows as $table=>$rows) {
-			// todo 完善缓存更新
-			while($ids = $this->cache->get($table)) {
-				foreach($ids as $key=>$id) {
-					$cacheKey = $table.$id['id'];
-					$row = $this->db->from($table)->where($id)->get()->row_array();
-					$this->cache->delete($cacheKey);
-					$row && $result = $this->cache->save($cacheKey, $row, 0);
-					if (!$row OR $result) {
-						unset($ids[$key]);
-					}
-					//file_put_contents('test', date('Y-m-d H:i:s'), "\n");
+		$changedRows = $this->cache->get(config_item('changedRow'));
+		foreach($changedRows as $table=>$ids) {
+			foreach($ids as $key=>$id) {
+				$cacheKey = $table.$id;
+				$row = $this->db->from($table)->where('id', $id)->get()->row_array();
+				$this->cache->delete($cacheKey);
+				$row && $result = $this->cache->save($cacheKey, $row, config_item('dataCacheTime'));
+				if (!$row OR $result) {
+					unset($ids[$key]);
 				}
-				$this->cache->delete($table);
-				$this->cache->save($table, $ids, 0);
 			}
+			$changedRows[$table] = $ids;
 		}
+		$this->cache->delete(config_item('changedRow'));
+		$this->cache->save(config_item('changedRow'), $changedRows, config_item('dataCacheTime'));
+		echo_json(
+			array(
+				'success' => 1,
+				'message' => '缓存更新完成',
+			)
+		);
 	}
 
 }

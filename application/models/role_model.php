@@ -9,7 +9,7 @@ class Role_Model extends Base_Model {
 
 	public $table = 'role';
 
-	public $is_cache = FALSE;
+	public $is_cache = TRUE;
 
 	/**
 	 * 构造函数

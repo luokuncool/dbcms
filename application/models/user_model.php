@@ -9,7 +9,7 @@ class User_Model extends Base_Model {
 
 	public $table = 'user';
 
-	public $is_cache = FALSE;
+	public $is_cache = TRUE;
 
 	/**
 	 * 构造函数

@@ -26,7 +26,7 @@
     </form>
 {/block}
 {block name="script"}
-	<script type="text/javascript" src="{$base_path}/public/home/js/public.js"></script>
+	<script type="text/javascript" src="{$basePath}/public/home/js/public.js"></script>
     <script type="text/javascript">
     $(function(){
         var submitForm = $('#submitForm'),

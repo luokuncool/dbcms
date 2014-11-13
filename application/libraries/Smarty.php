@@ -72,7 +72,6 @@ class CI_Smarty extends Smarty {
 	 */
 	function view($template, $data = array(), $return = FALSE)
 	{
-		log_message('error', 'Some variable did not contain a value.');
 		if (count($data))
 		{
 			foreach ($data as $key => $val)

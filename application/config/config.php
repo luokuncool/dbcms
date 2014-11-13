@@ -182,7 +182,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -358,24 +358,6 @@ $config['rewrite_short_tags'] = FALSE;
 |
 */
 $config['proxy_ips'] = '';
-
-/*
- * 后台登录配置
- */
-$config['admin_login']['name'] = 'admin_login';  //后台Cookie、Session名称
-$config['admin_login']['token_timeout'] =  2;  //后台token超时时间
-$config['admin_login']['sid_timeout'] = 1200;  //后台sid超时时间
-$config['admin_login']['this_ip'] = false;  //后台是否必须单IP登录
-$config['admin_login']['this_browser'] = false;  //后台是否必须单浏览器登录（该项必须ADMIN_THIS_IP为 true 才生效）
-
-/*
- * 前台登录配置
- */
-$config['user_login']['name'] = 'user_login';  //后台Cookie、Session名称
-$config['user_login']['token_timeout'] =  2;  //后台token超时时间
-$config['user_login']['sid_timeout'] = 1200;  //后台sid超时时间
-$config['user_login']['this_ip'] = false;  //后台是否必须单IP登录
-$config['user_login']['this_browser'] = false;  //后台是否必须单浏览器登录（该项必须ADMIN_THIS_IP为 true 才生效）
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

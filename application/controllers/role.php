@@ -111,8 +111,8 @@ class Role extends HOME_Controller {
 		$currentTime = time();
 		$data = array(
 			'name' => $name,
-			'status' => intval($this->input->post('status')),
-			'remark' => $this->input->post('remark'),
+			'status' => I('post.status', '', 'intval'),
+			'remark' => I('post.remark', '', 'strip_tags,trim'),
 			'updateTime' => $currentTime,
 			'updateUid' => 1,
 		);

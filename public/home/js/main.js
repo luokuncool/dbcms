@@ -1,6 +1,7 @@
 (function(){
     var App = {};
 
+    App.baseUrl = '/';
     /**
      * 待载入的页面
      * @type {{}}
@@ -275,6 +276,24 @@
             'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', '|', 'bold',
             'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image', 'multiimage', 'insertfile', 'hr'
         ]
+    };
+
+    /**
+     * 更新缓存
+     */
+    App.updateCache = function() {
+        App.processing();
+        $.get(App.baseUrl+'update_cache', function(res){
+            App.processed();
+            if (res.success) {
+                App.showMessage(res.message);
+                setTimeout(function(){
+                    location.reload(true);
+                }, 1500);
+            } else {
+                App.alert(res.message);
+            }
+        }, 'json');
     };
 
     //暴露全局变量App
