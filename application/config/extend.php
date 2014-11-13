@@ -55,7 +55,7 @@ $config['dataCacheTime'] = 0;
 //系统名称
 $config['system_name'] = 'EasyUI System';
 
-$config['cache_type'] = array('adapter'=>'default'); // 支持类型：apc, file, memcached, dummy, redis, default
+$config['cache_type'] = array('adapter'=>'redis'); // 支持类型：apc, file, memcached, dummy, redis, default
 
 $config['changedRow'] = 'changedRow';
 
