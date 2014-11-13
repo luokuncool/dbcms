@@ -31,4 +31,5 @@
 		});
 	});
 	</script>
+    {block name="script"}{/block}
 {/block}

@@ -74,8 +74,25 @@ class Home extends HOME_Controller {
 	/**
 	 * todo 退出登录
 	 */
-	public function logout() {
+	public function logout()
+	{
 		unset($_SESSION['userInfo']);
+	}
+
+	/**
+	 * 文件上传
+	 */
+	public function upload_file()
+	{
+		require_once FCPATH . 'public/static/kindeditor/php/upload_json.php';
+	}
+
+	/**
+	 * 文件空间
+	 */
+	public function file_manager()
+	{
+		require_once FCPATH . 'public/static/kindeditor/php/file_manager_json.php';
 	}
 
 }

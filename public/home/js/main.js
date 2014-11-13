@@ -234,6 +234,49 @@
         });
     };
 
+    /**
+     * 精简版编辑器配置
+     * @type {{resizeType: number, allowPreviewEmoticons: boolean, allowImageUpload: boolean, allowFileManager: boolean, uploadJson: string, fileManagerJson: string, afterBlur: Function, items: string[]}}
+     */
+    App.minEditorConfig = {
+        minWidth : 400,
+        minHeight : 150,
+        resizeType : 1,
+        allowPreviewEmoticons : false,
+        allowImageUpload : true,
+        allowFileManager : true,
+        uploadJson : '/upload_file',
+        fileManagerJson : '/file_manager',
+        afterBlur : function() { this.sync(); },
+        items : [
+            'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+            'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+            'insertunorderedlist', 'link']
+    };
+
+    /**
+     * 编辑器完整版
+     * @type {{minWidth: number, resizeType: number, allowPreviewEmoticons: boolean, allowImageUpload: boolean, allowFileManager: boolean, uploadJson: string, fileManagerJson: string, afterBlur: Function, items: string[]}}
+     */
+    App.editorConfig = {
+        minWidth : 600,
+        minHeight : 200,
+        resizeType : 1,
+        allowPreviewEmoticons : false,
+        allowImageUpload : true,
+        allowFileManager : true,
+        uploadJson : '/upload_file',
+        fileManagerJson : '/file_manager',
+        afterBlur : function() { this.sync(); },
+        items : [
+            'source', '|', 'undo', 'redo', '|', 'cut', 'copy', 'paste', 'plainpaste', '|',
+            'justifyleft', 'justifycenter', 'justifyright', 'clearhtml', 'selectall', '|',
+            'baidumap', 'link', 'unlink', 'table', '/',
+            'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', '|', 'bold',
+            'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|','image', 'multiimage', 'insertfile', 'hr'
+        ]
+    };
+
     //暴露全局变量App
     window.App = App;
 })();
