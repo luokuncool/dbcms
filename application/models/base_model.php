@@ -320,7 +320,7 @@ class Base_model extends CI_Model
                 unset($where[$cond]);
             }
         }
-        $total = $this->db->count_all_results($this->table);
+		$total = $this->db->count_all_results($this->table);
         foreach(array('limit', 'offset', 'order_by') as $key)
         {
             if(isset($where[$key]))
