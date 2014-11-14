@@ -65,7 +65,7 @@ class Base_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-		if ($this->is_cache) $this->load->driver('Cache', config_item('cache_type'));
+		$this->load->driver('Cache', config_item('cache_type'));
         /*if (is_null($this->db_group))
         {
           $active_group = 'default';
@@ -81,7 +81,7 @@ class Base_model extends CI_Model
         }
         self::$_inited = TRUE;*/
 
-        self::$ci =& get_instance();
+        //self::$ci =& get_instance();
     }
 
     /**

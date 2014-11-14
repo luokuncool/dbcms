@@ -29,6 +29,7 @@ class Cli extends Home_Controller
 			foreach($ids as $key=>$id) {
 				$cacheKey = $table.$id;
 				$row = $this->db->from($table)->where('id', $id)->get()->row_array();
+				$this->cache->save($cacheKey, null, config_item('dataCacheTime'));
 				$this->cache->delete($cacheKey);
 				$row && $result = $this->cache->save($cacheKey, $row, config_item('dataCacheTime'));
 				if (!$row OR $result) {

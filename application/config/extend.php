@@ -46,9 +46,6 @@ $config['var_filters'] = '';
 //默认过滤
 $config['default_filter'] = 'trim';
 
-//缓存类型
-$config['data_cache_type'] = 'memcache';
-
 //缓存时间
 $config['dataCacheTime'] = 0;
 
@@ -62,6 +59,6 @@ $config['changedRow'] = 'changedRow';
 //分页配置
 $config['pageSetting'] = array(
 	'pageSize'=>'25',
-	'pageList'=>'[10,15,20,25,30,35,40,45,50]'
+	'pageList'=>'[10,15,20,25,30,35,40,45,2000]'
 );
 

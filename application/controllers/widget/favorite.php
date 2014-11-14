@@ -11,14 +11,18 @@ class Favorite extends HOME_Controller {
 		);
 	}
 
-	public function menu($data)
+	public function menu()
 	{
+		$CI = array_pop(func_get_args());
+		$this->cache = $CI->cache;
+
 		$userId = 1; //todo 登陆用户id
 		$this->load->model(
 			array(
-				'node_model', 'favorite_menu_model'
+				'favorite_menu_model','node_model'
 			)
 		);
+
 		$nodeIds   = $this->favorite_menu_model->get_list(array('userId'=>$userId), 'nodeId');
 		$menus = array();
 		foreach($nodeIds['rows'] as $row) {

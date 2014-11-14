@@ -10,12 +10,13 @@ function smarty_function_widget($params,&$smarty){
 		$controller = array_pop($ps);
 		$ps = join('/', $ps);
 		require_once APPPATH.'controllers/'.$ps.'/'.$controller.'.php';
+		$ci = &get_instance();
 
 		$c = new $controller;
 
 		if(!isset($params['args']))
-			$c->$method();
+			$c->$method($ci);
 		else
-			$c->$method($args);
+			$c->$method($args,$ci);
 	}
 }

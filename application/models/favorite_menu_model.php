@@ -26,15 +26,16 @@ class Favorite_Menu_Model extends Base_Model {
 	 * @return bool|mixed
 	 */
 	public function batch_insert($favoriteMenus = array()) {
-		$this->query('start transaction');
+		//$this->query('start transaction');
 		foreach($favoriteMenus as $menu) {
 			$result = $this->insert($menu);
 			if (!$result) {
-				$this->query('rollback');
-				return false;
+				//$this->query('rollback');
+				//return false;
 			}
 		}
-		return $this->query('commit');
+		return true;
+		//return $this->query('commit');
 	}
 
 }
