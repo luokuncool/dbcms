@@ -203,11 +203,12 @@
 
     /**
      * 确认框
+     * @param title
      * @param msg
      * @param fn
      */
-    App.confirm = function(msg, fn) {
-        $.messager.confirm(msg, fn);
+    App.confirm = function(title, msg, fn) {
+        $.messager.confirm(title, msg, fn);
     };
 
     /**
