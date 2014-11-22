@@ -25,7 +25,7 @@ class Test extends Home_Controller
 	 */
 	public function index()
 	{
-		$defaultStartDate = date('Y-m-d', time()-3600*24*90);
+		$defaultStartDate = date('Y-m-d', mktime(date('H'), date('i'), date('s'), date('n')-3));
 		$defaultEndDate   = date('Y-m-d');
 		if (!IS_AJAX)
         {
@@ -48,7 +48,7 @@ class Test extends Home_Controller
         $status = I('get.status', 0, 'intval');
         $status != '' && $map[] = array('status'=>intval($status));
 		$title = I('get.title', '', 'strip_tags,trim');
-		$title != '' && $map[] = 'title LIKE "%'.$title.'%"';
+		$title != '' && $map[] = 'title LIKE "'.$title.'%"';
 
         $page = I('get.page', 1, 'intval');
         $rows = I('get.rows', config_item('pageSize'), 'intval');

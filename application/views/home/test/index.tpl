@@ -3,7 +3,10 @@
 	<table id="searchBlock" width="100%">
 		<tr>
 			<td width="70" align="right">日期区间：</td>
-			<td width="200"><input class="easyui-datebox" data-options="width:95" type="text" name="startDate" value="{$defaultStartDate}" /> - <input class="easyui-datebox" data-options="width:95" type="text" name="endDate" value="{$defaultEndDate}" /></td>
+			<td width="200">
+				<input class="easyui-datebox" id="startDate" data-options="width:95,onSelect:App.onSelectStartDate" type="text" name="startDate" value="{$defaultStartDate}" /> -
+				<input class="easyui-datebox" id="endDate" data-options="width:95,onSelect:App.onSelectEndDate" type="text" name="endDate" value="{$defaultEndDate}" />
+			</td>
 			<td width="100" align="right">状态：</td>
 			<td colspan="2">
 				<select class="easyui-combobox" data-options="editable:false,width:100,height:24" name="status">
@@ -38,6 +41,26 @@
 {block name="script"}
 	<script type="text/javascript">
 	!function(App, parentWin){
+
+		/**
+		 * 获取开始日期对象
+		 */
+		App.getStartDate = function() {
+			return $('#startDate');
+		};
+
+		/**
+		 * 获取结束日期对象
+		 */
+		App.getEndDate = function(){
+			return $('#endDate');
+		};
+
+        /**
+         * 格式化日期
+		 * @param time 创建日期
+         * @returns { string }
+         */
 		App.formatDate = function(time) {
 			var date      = new Date(parseInt(time)*1000)
 				,  fullYear = date.getFullYear()
@@ -46,7 +69,44 @@
 			if (month < 10) month = ('0'+month);
 			if (day < 10) day = ('0'+day);
 			return [fullYear, month, day].join('-');
-		}
+		};
+
+        /**
+         * 开始日期选中
+		 * @param startDate
+         */
+		App.onSelectStartDate = function(startDate) {
+			var year = startDate.getFullYear()
+				, month = (startDate.getMonth()+1)
+				, day = startDate.getDate();
+			month >= 9 && year ++;
+			if ( month > 9 ) {
+				month = month - 9;
+			} else if (month < 9) {
+				month = month + 3;
+			}
+			App.getEndDate().datebox('setValue', [ year, month,  day ].join('-'));
+		};
+
+        /**
+         * 结束日期选中
+		 * @param endDate
+         */
+		App.onSelectEndDate = function(endDate) {
+			var year = endDate.getFullYear()
+				, month = (endDate.getMonth()+1)
+				, day = endDate.getDate();
+			month <= 3 && year --;
+			if ( month < 3 ) {
+				month = month + 9;
+			} else if ( month == 3  ) {
+				month = 12;
+			} else {
+				month = month - 3;
+			}
+			App.getStartDate().datebox('setValue', [ year, month,  day ].join('-'));
+		};
+
 	}(parent.App, parent);
 	</script>
 {/block}
