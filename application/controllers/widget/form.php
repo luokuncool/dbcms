@@ -23,7 +23,7 @@ class Form extends HOME_Controller {
 			$this->smarty->view('home/widget/form/theme.tpl', $data);
 			return;
 		}
-		$myTheme = $this->input->post('myTheme');
+		$myTheme = I('post.myTheme', 'default', 'trim,strip_tags');
 		in_array($myTheme, $data['themeList']) ? setcookie('myTheme', $myTheme, time()+3600*3600, '/') : ajax_exit('主题不存在');
 		$res['message'] = '设置成功';
 		$res['reload']  = 1;

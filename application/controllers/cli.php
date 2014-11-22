@@ -15,22 +15,7 @@ class Cli extends Home_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$config['hostname'] = 'localhost';
-		$config['username'] = 'root';
-		$config['password'] = 'root';
-		$config['database'] = 'test';
-		$config['dbdriver'] = 'mysql';
-		$config['dbprefix'] = 'adm_';
-		$config['pconnect'] = TRUE;
-		$config['db_debug'] = TRUE;
-		$config['cache_on'] = FALSE;
-		$config['cachedir'] = '';
-		$config['char_set'] = 'utf8';
-		$config['dbcollat'] = 'utf8_general_ci';
-		$config['swap_pre'] = '';
-		$config['autoinit'] = TRUE;
-		$config['stricton'] = FALSE;
-		$this->load->database($config);
+		$this->load->database();
 	}
 
 	/**

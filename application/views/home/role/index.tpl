@@ -1,4 +1,4 @@
-{extends file="../public/gird.tpl"}
+{extends file="../public/grid.tpl"}
 {block name="rowList"}
 	<tr width="100%">
 		<th data-options="field:'id',align:'center',checkbox:true"></th>

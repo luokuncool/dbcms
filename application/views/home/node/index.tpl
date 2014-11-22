@@ -1,4 +1,4 @@
-{extends file="../public/gird.tpl"}
+{extends file="../public/grid.tpl"}
 {*数据列表*}
 {block name="rowList"}
     <tr width="100%">

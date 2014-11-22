@@ -25,30 +25,38 @@ class Test extends Home_Controller
 	 */
 	public function index()
 	{
+		$defaultStartDate = date('Y-m-d', time()-3600*24*90);
+		$defaultEndDate   = date('Y-m-d');
 		if (!IS_AJAX)
         {
             parent::set_html_header();
-            $data['dataGridUrl'] = '/test/index';
-            $this->smarty->view('home/test/index.tpl', $data);
+            $assign['dataGridUrl'] = '/test/index';
+			$assign['defaultStartDate'] = $defaultStartDate;
+			$assign['defaultEndDate'] = $defaultEndDate;
+            $this->smarty->view('home/test/index.tpl', $assign);
             return;
         }
         $map = array();
-        $sort = I('get.order', 'id', 'trim');
+        $sort = I('get.sort', 'id', 'trim');
         $order = I('get.order', 'asc', 'trim');
         $sort && $order && $map['order_by'] = array($sort, $order);
 
-        $uName = $this->input->get('uName');
-        $uName && $map[] = 'title LIKE "'.$uName.'%"';
+		$startDate = strtotime(I('get.startDate', $defaultStartDate, 'trim'));
+		$endDate = strtotime(I('get.endDate', $defaultEndDate, 'trim'));
+		$map[] = 'createTime between '.$startDate.' AND '. $endDate;
 
-        $status = $this->input->get('status');
+        $status = I('get.status', 0, 'intval');
         $status != '' && $map[] = array('status'=>intval($status));
-        $name = $this->input->get('name');
-        $name != '' && $map[] = 'name LIKE "%'.$name.'%"';
+		$title = I('get.title', '', 'strip_tags,trim');
+		$title != '' && $map[] = 'title LIKE "%'.$title.'%"';
 
-        $page = intval($this->input->get('page'));
-        $rows = intval($this->input->get('rows'));
-        $map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
-        $list = $this->test_model->get_list($map, 'id,title,body,status');
+        $page = I('get.page', 1, 'intval');
+        $rows = I('get.rows', config_item('pageSize'), 'intval');
+        $map['limit'] = array($rows, ($page?$page-1:0)*$rows);
+        $list = $this->test_model->get_list($map, 'id,title,body,status,createTime');
+		foreach ( $list['rows'] as $key => $row ) {
+			$list['rows'][$key]['date'] = date('Y-m-d', $row['createTime']);
+		}
         echo json_encode($list);
 	}
 
