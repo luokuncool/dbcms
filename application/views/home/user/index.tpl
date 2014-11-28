@@ -1,4 +1,4 @@
-{extends file="../public/gird.tpl"}
+{extends file="../public/grid.tpl"}
 {block name="searchBlock"}
 	<table id="searchBlock" width="100%">
 		<tr>
