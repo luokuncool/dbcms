@@ -1,3 +1,3 @@
-#!bin/bash
+#!/bin/bash
 source ./functions.sh
 post $*

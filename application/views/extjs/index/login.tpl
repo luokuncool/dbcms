@@ -5,7 +5,9 @@
 {block name="head"}
     <script type="text/javascript">
     Ext.onReady(function(){
-        Ext.MessageBox.alert('提示', '提交失败！');
+        Ext.MessageBox.Window({
+
+        });
     });
     </script>
 {/block}

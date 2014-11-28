@@ -8,7 +8,7 @@
     <script type="text/javascript" src="{$basePath}/public/static/extjs/packages/ext-locale/build/ext-locale-zh_CN.js"></script>
 {block name="head"}{/block}
 </head>
-<body class="easyui-layout">
+<body >
 {block name="body"}{/block}
 </body>
 </html>

@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 function get()
 {
     url=$1
@@ -23,12 +23,10 @@ function post()
     then
         url="http://local.mysys.com$url"
     fi
-    echo $url
     if [ "$response" = "" ]
     then
         response="./response.json"
     fi
-    echo $response
     if [ "$post" = "" ]
     then
         curl -X POST -b ./cookie -o $response -c ./cookie $url
