@@ -4,7 +4,7 @@
 		<tr>
 			<td width="70" align="right">账号：</td>
 			<td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="uName" /></td>
-			<td width="100" align="right">真实姓名：</td>
+			<td width="100" align="right">title：</td>
 			<td width="70" colspan="2"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
 
 		</tr>
@@ -31,8 +31,8 @@
 {block name="rowList"}
 	<tr width="100%">
 		<th data-options="field:'id',align:'center',checkbox:true"></th>
-        <th data-options="field:'title',align:'center',sortable:true" width="10%">Title</th>
-        <th data-options="field:'body',align:'center',sortable:true" width="10%">Body</th>
+        <th data-options="field:'title',align:'center',sortable:true" width="15%">Title</th>
+        <th data-options="field:'body',align:'center',sortable:true" width="55%">Body</th>
 		<th formatter="App.formatStatus" data-options="field:'status',align:'center',sortable:true" width="10%">状态</th>
 		<th formatter="User.formatOpt" data-options="field:'opt',align:'left'" width="18%">&nbsp;&nbsp;操作</th>
 	</tr>
