@@ -3,3 +3,4 @@
 /application/templates_c/*
 /application/logs/*
 /public/uploadfiles/*
+/tests/res*
