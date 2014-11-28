@@ -63,3 +63,8 @@ $config['pageSetting'] = array(
 	'pageList'=>'[10,15,20,25,30,35,40,45,50,100,200]'
 );
 
+//不需要登录验证的节点
+$config['withoutCheckLogin'] = array(
+    'home/login'
+);
+

@@ -39,8 +39,8 @@ class Home extends HOME_Controller {
 	 */
 	public function login()
 	{
-		$_SESSION['userInfo'] && redirect('/');
-		if (!IS_AJAX) {
+		$_SESSION['userInfo'] && direct_to('/');
+		if (!is_post()) {
 			$this->smarty->view('home/index/login.tpl');
 			return;
 		}
