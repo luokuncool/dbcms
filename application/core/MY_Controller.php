@@ -51,11 +51,28 @@ class Home_Controller extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+        $this->check_login();
 		$data['myTheme'] = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
 		$data['baseUrl']      = config_item('base_url');
 		$data['systemName'] = config_item('system_name');
 		$data['pageSetting'] = config_item('pageSetting');
 		$this->smarty->assign($data);
 	}
+
+    /**
+     * 身份验证
+     */
+    protected function check_login()
+    {
+        $thisNode = join('/', $this->uri->rsegment_array());
+        $withoutCheckLogin = config_item('withoutCheckLogin');
+        foreach ( $withoutCheckLogin as $node ) {
+            if (preg_match('#^'.$node.'#', $thisNode)) return;
+        }
+        if ( !isset($_SESSION['userInfo']) ) {
+            echo '请先登录';
+            exit();
+        }
+    }
 
 }

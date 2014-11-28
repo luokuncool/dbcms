@@ -262,7 +262,7 @@ function get_field_list($array, $filed, $separator = ',')
  * @param integer $time 重定向的等待时间（秒）
  * @param string $msg 重定向前的提示信息
  */
-function redirect($url, $time = 0, $msg = '')
+function direct_to($url, $time = 0, $msg = '')
 {
 	//多行URL地址支持
 	$url = str_replace(array("\n", "\r"), '', $url);
@@ -392,4 +392,11 @@ function ajax_exit($message) {
  */
 function echo_json($res) {
 	exit(json_encode($res));
+}
+
+/**
+ * 是否提交表单
+ */
+function is_post() {
+    return $_SERVER['REQUEST_METHOD'] == 'POST' OR $_POST OR isset($_REQUEST['post']);
 }
