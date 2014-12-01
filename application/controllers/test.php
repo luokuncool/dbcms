@@ -27,7 +27,7 @@ class Test extends Home_Controller
 	{
 		$defaultStartDate = date('Y-m-d', mktime(date('H'), date('i'), date('s'), date('n')-3));
 		$defaultEndDate   = date('Y-m-d');
-		if (!is_post())
+		if (!is_ajax())
         {
             parent::set_html_header();
             $assign['dataGridUrl'] = '/test/index';
