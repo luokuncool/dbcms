@@ -6,18 +6,23 @@ class Setting extends HOME_Controller {
         parent::__construct();
     }
 
-    /**
-     * 主题设置
-     */
+	/**
+	 * 主题设置
+	 * @author Quentin
+	 * @since  2014-12-01 17:05
+	 *
+	 * @access public
+	 * @return void
+	 */
     public function theme()
     {
         $data['themeList'] = config_item('themeList');
-        if (!$_POST) {
+        if (!is_post()) {
             parent::set_html_header();
             $this->smarty->view('home/setting/theme.tpl', $data);
             return;
         }
-		$myTheme = $this->input->post('myTheme');
+		$myTheme = I('post.myTheme', 'default', 'strip_tags,trim');
 		in_array($myTheme, $data['themeList']) ? setcookie('myTheme', $myTheme, time()+3600*3600, '/') : ajax_exit('主题不存在');
 		$res['message'] = '设置成功';
 		$res['reload'] = 1;
@@ -28,11 +33,16 @@ class Setting extends HOME_Controller {
 
 	/**
 	 * 常用菜单
+	 * @author Quentin
+	 * @since  2014-12-01 17:05
+	 *
+	 * @access public
+	 * @return void
 	 */
 	public function favorite_menu()
 	{
-		if (!IS_AJAX) {
-			$userId = 1; //todo 登陆用户id
+		if (!is_post()) {
+			$userId = get_uid();
 			$this->load->model('favorite_menu_model');
 			//已有常用菜单
 			$assign['menus']         = $this->favorite_menu_model->get_list(array('userId'=>$userId), 'nodeId');
@@ -44,6 +54,7 @@ class Setting extends HOME_Controller {
 			$assign['nodeIds']           = $nodeIds;
 			$assign['dataGridUrl'] = config_item('base_url') . 'setting/favorite_menu';
 			$this->smarty->view('home/setting/favorite_menu.tpl', $assign);
+			return;
 		}
 		$this->load->model('node_model');
 
@@ -69,13 +80,18 @@ class Setting extends HOME_Controller {
 
 	/**
 	 * 设置常用菜单
+	 * @author Quentin
+	 * @since  2014-12-01 17:04
+	 *
+	 * @access public
+	 * @return void
 	 */
 	public function set_favorite_menu()
 	{
-		if (!IS_AJAX) {
+		if (!is_post()) {
 			return;
 		}
-		$userId = 1; //todo 登陆用户id
+		$userId = get_uid();
 		$nodeIds = array_filter(explode(',', I('post.nodeIds', '', 'strip_tags,trim')));
 		$this->load->model('favorite_menu_model');
 		$favoriteMenu = array();
@@ -99,15 +115,36 @@ class Setting extends HOME_Controller {
 	}
 
 	/**
-	 * todo 密码修改
+	 * 密码修改
+	 * @author Quentin
+	 * @since  2014-12-01 17:04
+	 *
+	 * @access public
+	 * @return void
 	 */
 	public function change_password()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			parent::set_html_header();
 			$this->smarty->view('home/setting/change_password.tpl');
 			return;
 		}
+		$this->load->model('user_model');
+		$user = $this->user_model->get_row(get_uid());
+		$oldPassword = I('post.oldPassword', '', 'trim');
+		$password    = I('post.password', '', 'trim');
+		$rePassword  = I('post.rePassword', '', 'trim');
+		$user['password'] == md5($oldPassword) OR ajax_exit('旧密码错误');
+		regex($password, 'require')            OR ajax_exit('请输入新密码');
+		$rePassword == $password               OR ajax_exit('两次密码输入不一致');
+		$result = $this->user_model->update('id = '.$user['id'], array('password' => md5($password)));
+		$result === false                      && ajax_exit('数据保存失败，请稍后再试');
+		echo_json(
+			array(
+				'message' => '保存成功',
+				'success' => 1
+			)
+		);
 	}
 
 }

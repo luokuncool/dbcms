@@ -5,7 +5,7 @@
         <div style="float: right; padding: 5px 10px 0 0;">
             <a class="easyui-linkbutton" id="" style="padding:0 5px; border-radius: 2px 2px 2px;">站内消息<span style="font-weight: bold; padding-left: 5px;">15</span></a>
             <a class="easyui-linkbutton" onclick="App.updateCache();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">更新缓存</a>
-            <a class="easyui-linkbutton" id="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">退出登录</a>
+            <a class="easyui-linkbutton" onclick="App.logout()" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">退出登录</a>
         </div>
     </div>
     <div data-options="region:'west',collapsed:false,split:true" title="菜单栏" style="width:10%;">

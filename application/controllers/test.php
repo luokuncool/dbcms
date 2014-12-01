@@ -27,7 +27,7 @@ class Test extends Home_Controller
 	{
 		$defaultStartDate = date('Y-m-d', mktime(date('H'), date('i'), date('s'), date('n')-3));
 		$defaultEndDate   = date('Y-m-d');
-		if (!IS_AJAX)
+		if (!is_post())
         {
             parent::set_html_header();
             $assign['dataGridUrl'] = '/test/index';
@@ -66,7 +66,7 @@ class Test extends Home_Controller
 	public function create()
 	{
 		$assign['page_title'] = '创建用户';
-		if  (!$_POST) {
+		if  (!is_post()) {
 			$this->smarty->view('home/user/create.tpl', $assign);
 			return;
 		}
@@ -89,7 +89,7 @@ class Test extends Home_Controller
 		$id = intval($id);
 		$data['node_group_list'] = config_item('node_group');
 		$data['data'] = $this->node_model->get_row($id);
-		if (!$_POST)
+		if (!is_post())
 		{
 			$this->smarty->view('home/node/edit.tpl', $data);
 			return;
@@ -107,7 +107,7 @@ class Test extends Home_Controller
 	 */
 	public function set_role($id){
 		$id = intval($id);
-		if (!IS_AJAX)
+		if (!is_post())
 		{
 			$this->load->model('role_user_model');
 			parent::set_html_header();
@@ -155,7 +155,7 @@ class Test extends Home_Controller
 	 */
 	public function remove()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids     = I('post.ids', '', 'strip_tags,trim');
@@ -173,7 +173,7 @@ class Test extends Home_Controller
 	 */
 	public function disable()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids = $this->input->post('ids');
@@ -192,7 +192,7 @@ class Test extends Home_Controller
 	 */
 	public function enable()
 	{
-		if (!$_POST) {
+		if (!is_ajax()) {
 			return;
 		}
 		$ids = $this->input->post('ids');

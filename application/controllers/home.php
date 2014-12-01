@@ -11,6 +11,11 @@ class Home extends HOME_Controller {
 
 	/**
 	 * 系统主界面
+	 * @author Quentin
+	 * @since 2014-12-01 15:30
+	 *
+	 * @access public
+	 * return void
 	 */
 	public function index()
 	{
@@ -36,6 +41,11 @@ class Home extends HOME_Controller {
 
 	/**
 	 * 登陆系统
+	 * @author Quentin
+	 * @since 2014-12-01 15:30
+	 *
+	 * @access public
+	 * return void
 	 */
 	public function login()
 	{
@@ -72,15 +82,31 @@ class Home extends HOME_Controller {
 	}
 
 	/**
-	 * todo 退出登录
+	 * 退出登录
+	 * @author Quentin
+	 * @since 2014-12-01 15:30
+	 *
+	 * @access public
+	 * return void
 	 */
 	public function logout()
 	{
 		unset($_SESSION['userInfo']);
+		echo_json(
+			array(
+				'success' => 1,
+				'message' => '退出系统~'
+			)
+		);
 	}
 
 	/**
 	 * 文件上传
+	 * @author Quentin
+	 * @since 2014-12-01 15:30
+	 *
+	 * @access public
+	 * return void
 	 */
 	public function upload_file()
 	{
@@ -89,6 +115,11 @@ class Home extends HOME_Controller {
 
 	/**
 	 * 文件空间
+	 * @author Quentin
+	 * @since 2014-12-01 15:30
+	 *
+	 * @access public
+	 * return void
 	 */
 	public function file_manager()
 	{

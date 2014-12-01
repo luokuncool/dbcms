@@ -313,7 +313,8 @@ function set_config($array)
  * @param mixed $filter 参数过滤方法
  * @return mixed
  */
-function I($name,$default='',$filter=null) {
+function I($name,$default='',$filter=null)
+{
 	if(strpos($name,'.')) { // 指定参数来源
 		list($method,$name) =   explode('.',$name);
 	}else{ // 默认为自动判断
@@ -380,7 +381,8 @@ function I($name,$default='',$filter=null) {
  * 输出消息并退出
  * @param $message {string}
  */
-function ajax_exit($message) {
+function ajax_exit($message)
+{
 	$res = array();
 	$res['message'] = $message;
 	exit(json_encode($res));
@@ -390,13 +392,40 @@ function ajax_exit($message) {
  * 输出json字符并退出
  * @param $res {array|object}
  */
-function echo_json($res) {
+function echo_json($res)
+{
 	exit(json_encode($res));
 }
 
 /**
  * 是否提交表单
  */
-function is_post() {
+function is_post()
+{
     return $_SERVER['REQUEST_METHOD'] == 'POST' OR $_POST OR isset($_REQUEST['post']);
+}
+
+/**
+ * 获取登陆用户id
+ * @author Quentin
+ * @since  2014-12-01
+ *
+ * @return int|bool
+ */
+function get_uid()
+{
+	return isset($_SESSION['userInfo']) ? $_SESSION['userInfo']['id'] : false;
+}
+
+/**
+ * 是否是ajax请求
+ * @author Quentin
+ * @since  2014-12-01
+ *
+ * @access public
+ * @return bool
+ */
+function is_ajax()
+{
+	return IS_AJAX OR isset($_REQUEST['ajaxRequest']);
 }

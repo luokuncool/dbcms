@@ -14,7 +14,7 @@ class Node extends HOME_Controller {
 	 */
 	public function index()
 	{
-		if  (!IS_AJAX) {
+		if  (!is_ajax()) {
 			parent::set_html_header();
 			$data['groupList']     = config_item('node_group');
 			$data['dataGridUrl'] = config_item('base_url') . 'node/index';
@@ -54,7 +54,7 @@ class Node extends HOME_Controller {
 	public function create($pId)
 	{
 		$pId = intval($pId);
-		if  (!$_POST) {
+		if  (!is_post()) {
 			$assign['pId'] = $pId;
 			$this->smarty->view('home/node/create.tpl', $assign);
 			return;
@@ -79,7 +79,7 @@ class Node extends HOME_Controller {
 	public function edit($id, $pId, $level)
 	{
 		$id = intval($id);
-		if (!$_POST)
+		if (!is_post())
 		{
 			$data['node_group_list'] = config_item('node_group');
 			$data['data'] = $this->node_model->get_row($id);
@@ -102,7 +102,7 @@ class Node extends HOME_Controller {
 	public function create_method($pId){
 		$assign['group'] = $this->node_model->get_row($pId, 'code');
 		$assign['node_group_list'] = config_item('node_group');
-		if (!$_POST)
+		if (!is_post())
 		{
 			$this->smarty->view('home/node/create.tpl', $assign);
 			return;
@@ -120,7 +120,7 @@ class Node extends HOME_Controller {
 	 */
 	public function remove()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids = $this->input->post('ids');
@@ -138,7 +138,7 @@ class Node extends HOME_Controller {
 	 */
 	public function disable()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids = $this->input->post('ids');
@@ -156,7 +156,7 @@ class Node extends HOME_Controller {
 	 */
 	public function enable()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids = I('post.ids', '', 'strip_tags,trim');

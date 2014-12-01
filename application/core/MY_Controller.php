@@ -70,7 +70,7 @@ class Home_Controller extends MY_Controller {
             if (preg_match('#^'.$node.'#', $thisNode)) return;
         }
         if ( !isset($_SESSION['userInfo']) ) {
-            echo '请先登录';
+			direct_to('/login');
             exit();
         }
     }

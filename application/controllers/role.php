@@ -18,7 +18,7 @@ class Role extends HOME_Controller {
 		$data['editable']    = 0;
 		$data['searchBlockHeight'] = 42;
 		$data['editHandler'] = 'role.editHandler';
-		if (!IS_AJAX)
+		if (!is_ajax())
 		{
 			parent::set_html_header();
 			$data['dataGridUrl'] = config_item('base_url') . 'role/index';
@@ -57,7 +57,7 @@ class Role extends HOME_Controller {
 		$pId = intval($this->input->get('pId'));
 		$data['pId'] = $pId;
 		$data['role_group_list'] = config_item('role_group');
-		if (!$_POST)
+		if (!is_post())
 		{
 			$this->smarty->view('home/role/create.tpl', $data);
 			return;
@@ -96,7 +96,7 @@ class Role extends HOME_Controller {
 	public function edit($id)
 	{
 		$id = intval($id);
-		if (!$_POST)
+		if (!is_post())
 		{
 			$data['role_group_list'] = config_item('role_group');
 			$data['data']            = $this->role_model->get_row($id);
@@ -150,7 +150,7 @@ class Role extends HOME_Controller {
 	 */
 	public function enable()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$roleIds = I('post.ids', '', 'strip_tags,trim');
@@ -171,7 +171,7 @@ class Role extends HOME_Controller {
 	 */
 	public function set_user($id) {
 		$id = intval($id);
-		if (!IS_AJAX)
+		if (!is_post())
 		{
 			$this->load->model('role_user_model');
 			parent::set_html_header();

@@ -297,6 +297,24 @@
         }, 'json');
     };
 
+	/**
+	 * 退出登录
+	 */
+	App.logout = function() {
+		App.processing();
+		$.get(App.baseUrl+'logout', function(res){
+			App.processed();
+			if (res.success) {
+				App.showMessage(res.message);
+				setTimeout(function(){
+					location.reload(true);
+				}, 1500);
+			} else {
+				App.alert(res.message);
+			}
+		}, 'json');
+	};
+
     //暴露全局变量App
     window.App = App;
 })();

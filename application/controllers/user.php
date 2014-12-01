@@ -25,7 +25,7 @@ class User extends Home_Controller
 	 */
 	public function index()
 	{
-		if (!IS_AJAX)
+		if (!is_ajax())
         {
             parent::set_html_header();
             $data['dataGridUrl'] = '/user/index';
@@ -59,7 +59,7 @@ class User extends Home_Controller
 	public function create()
 	{
 		$assign['page_title'] = '创建用户';
-		if  (!$_POST) {
+		if  (!is_post()) {
 			$this->smarty->view('home/user/create.tpl', $assign);
 			return;
 		}
@@ -82,7 +82,7 @@ class User extends Home_Controller
 		$id = intval($id);
 		$data['node_group_list'] = config_item('node_group');
 		$data['data'] = $this->node_model->get_row($id);
-		if (!$_POST)
+		if (!is_post())
 		{
 			$this->smarty->view('home/node/edit.tpl', $data);
 			return;
@@ -100,7 +100,7 @@ class User extends Home_Controller
 	 */
 	public function set_role($id){
 		$id = intval($id);
-		if (!IS_AJAX)
+		if (!is_post())
 		{
 			$this->load->model('role_user_model');
 			parent::set_html_header();
@@ -148,7 +148,7 @@ class User extends Home_Controller
 	 */
 	public function remove()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids     = I('post.ids', '', 'strip_tags,trim');
@@ -166,7 +166,7 @@ class User extends Home_Controller
 	 */
 	public function disable()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids = $this->input->post('ids');
@@ -185,7 +185,7 @@ class User extends Home_Controller
 	 */
 	public function enable()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$ids = $this->input->post('ids');
