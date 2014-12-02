@@ -5,9 +5,9 @@
  * Date: 14-7-25
  * Time: 上午10:28
  */
-class Role_User_Model extends Base_Model {
+class Role_Node_Model extends Base_Model {
 
-	public $table = 'role_user';
+	public $table = 'access';
 
 	public $is_cache = FALSE;
 

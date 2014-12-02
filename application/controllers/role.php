@@ -130,7 +130,7 @@ class Role extends HOME_Controller {
 	 */
 	public function disable()
 	{
-		if (!$_POST) {
+		if (!is_post()) {
 			return;
 		}
 		$roleIds = I('post.ids', '', 'strip_tags,trim');
@@ -211,27 +211,70 @@ class Role extends HOME_Controller {
 	}
 
 	/**
-	 * todoItem 设置权限
+	 * toCheck 设置权限
 	 * @param $id
 	 */
 	public function set_rights($id)
 	{
-		$this->load->model('node_model');
-		$where = array();
-		$where[] = array('status'=>1);
-		$where[] = array('level'=>1);
-
-		$nodeList = $this->node_model->get_list($where, '*');
-		print_r($nodeList); exit();
-		$rightsList = array();
-		while($nodeList) {
-			foreach($nodeList as $key=>$node) {
-				if ($node['level'] == 1) $rightsList = array_splice($nodeList, $key, 1);
-			}
+		$this->load->model(array('node_model', 'role_node_model'));
+		if  (!is_ajax()) {
+			parent::set_html_header();
+			$existsNodeIds = $this->role_node_model->get_list(array('roleId'=>$id), 'nodeId');
+			$assign['roleId'] = $id;
+			$assign['groupList']     = config_item('node_group');
+			$assign['dataGridUrl'] = config_item('base_url') . 'role/set_rights';
+			$assign['nodeIds'] = get_field_list($existsNodeIds['rows'], 'nodeId', ',');
+			$this->smarty->view('home/role/set_rights.tpl', $assign);
+			return;
 		}
-		$node = $this->role_model->get_row($id);
-		$assign['node'] = $node;
-		$this->smarty->view('home/role/set_rights.tpl', $assign);
+
+		if (is_post()) {
+			$nodeIds = array_filter(explode(',', I('post.nodeIds', '', 'strip_tags,trim')));
+			$nodeRights = array();
+			foreach($nodeIds as $nodeId) {
+				$nodeRights[] = array(
+					'roleId' => $id,
+					'nodeId' => $nodeId
+				);
+			}
+			$this->role_node_model->delete(array('roleId'=>$id));
+			if ($nodeRights) {
+				$result = $this->role_node_model->batch_insert($nodeRights);
+				$result OR ajax_exit('保存失败');
+			}
+			echo json_encode(
+				array(
+					'message' => '保存成功',
+					'success' => 1
+				)
+			);
+			return;
+		}
+
+		$map   = array();
+		$map[] = array('level' => 2);
+		$sort  = I('get.sort', 'code', 'strip_tags,trim');
+		$order = I('get.order', 'asc', 'strip_tags,trim');
+		$map['order_by'] = array($sort, $order);
+
+		$code = I('get.code', '', 'strip_tags,trim');
+		$code && $map[] = 'code LIKE "%'.$code.'%"';
+
+		$status  = I('get.status', '', 'strip_tags,trim');
+		$status != '' && $map[] = array('status'=>intval($status));
+		$name    = I('get.name', '', 'strip_tags,trim');
+		$name   != '' && $map[] = 'name LIKE "%'.$name.'%"';
+
+		$page = I('get.page', '1', 'intval');
+		$rows = I('get.rows', config_item('pageSize'), 'intval');
+		$map['limit'] = array($rows, ($page-1)*$rows);
+
+		$res = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId');
+		foreach ($res['rows'] as $key=>$value) {
+			$pNode = $this->node_model->get_row($value['pId']);
+			$res['rows'][$key]['pNodeName'] = $pNode['name'];
+		}
+		echo_json($res);
 	}
 
 	/**

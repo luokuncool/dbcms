@@ -54,7 +54,7 @@ class Home extends HOME_Controller {
 			$this->smarty->view('home/index/login.tpl');
 			return;
 		}
-		$this->load->model('user_model');
+		$this->load->model(array('user_model', 'role_model', 'role_user_model', 'role_node_model', 'node_model'));
 		$uName = I('post.uName', '', 'strip_tags,trim');
 		$password = I('post.password', '', 'strip_tags,trim');
 		regex($uName, 'require')    OR ajax_exit('请填写用户名！');
@@ -71,8 +71,15 @@ class Home extends HOME_Controller {
 				ajax_exit('账号被禁用！');
 				break;
 		}
+		$roleIds = $this->role_user_model->get_list(array('userId'=>$result['id']), 'roleId');
+		$roleIds = get_field_list($roleIds['rows'], 'roleId');
+		$accessNodeIds = $this->role_node_model->get_list(array('roleId in('.$roleIds.')'), 'nodeId');
+		$accessNodeIds = get_field_list($accessNodeIds['rows'], 'nodeId');
+		$accessNodeList = $this->node_model->get_list(array('id in('.$accessNodeIds.')'), 'code');
+		$_SESSION['accessNodeCodes'] = explode(',', get_field_list($accessNodeList['rows'], 'code', ','));
+		$_SESSION['accessNodeIds'] = explode(',', $accessNodeIds);
 		$_SESSION['userInfo'] = $result;
-		//todoItem 登陆成功操作
+		//toCheck 登陆成功操作
 		echo_json(
 			array(
 				'success' => 1,
@@ -91,6 +98,8 @@ class Home extends HOME_Controller {
 	 */
 	public function logout()
 	{
+		unset($_SESSION['accessNodeCodes']);
+		unset($_SESSION['accessNodeIds']);
 		unset($_SESSION['userInfo']);
 		echo_json(
 			array(
