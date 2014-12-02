@@ -211,7 +211,7 @@ class Role extends HOME_Controller {
 	}
 
 	/**
-	 * todo 设置权限
+	 * todoItem 设置权限
 	 * @param $id
 	 */
 	public function set_rights($id)

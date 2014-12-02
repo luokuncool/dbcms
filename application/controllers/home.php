@@ -72,7 +72,7 @@ class Home extends HOME_Controller {
 				break;
 		}
 		$_SESSION['userInfo'] = $result;
-		//todo 登陆成功操作
+		//todoItem 登陆成功操作
 		echo_json(
 			array(
 				'success' => 1,

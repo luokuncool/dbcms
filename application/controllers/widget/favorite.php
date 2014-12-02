@@ -16,7 +16,7 @@ class Favorite extends HOME_Controller {
 		$CI = array_pop(func_get_args());
 		$this->cache = $CI->cache;
 
-		$userId = 1; //todo 登陆用户id
+		$userId = 1; //todoItem 登陆用户id
 		$this->load->model(
 			array(
 				'favorite_menu_model','node_model'
