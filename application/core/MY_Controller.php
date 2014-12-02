@@ -60,19 +60,37 @@ class Home_Controller extends MY_Controller {
 	}
 
     /**
-     * 身份验证
+     * 登陆验证
      */
     protected function check_login()
     {
-        $thisNode = join('/', $this->uri->rsegment_array());
+		$rsegmentArray = $this->uri->rsegment_array();
+		$thisNode = join('/', array_slice($rsegmentArray, 0, 2));
         $withoutCheckLogin = config_item('withoutCheckLogin');
-        foreach ( $withoutCheckLogin as $node ) {
-            if (preg_match('#^'.$node.'#', $thisNode)) return;
-        }
+		if ( in_array($thisNode, $withoutCheckLogin) ) return;
         if ( !isset($_SESSION['userInfo']) ) {
 			direct_to('/login');
             exit();
         }
+		$this->check_access($thisNode);
     }
+
+	/**
+	 * toCheck 权限验证
+	 * @author Quentin
+	 * @since  2014-12-02
+	 *
+	 * @param  $thisNode
+	 * @access public
+	 * @return void
+	 */
+	protected function check_access($thisNode)
+	{
+		$withoutCheckAccess = config_item('withoutCheckAccess');
+		if ( in_array($thisNode, $withoutCheckAccess) ) return;
+		$result = in_array($thisNode, $_SESSION['accessNodeCodes']);
+		if ( $result ) return;
+		( is_ajax() OR is_post() ) && ajax_exit('没有操作权限！');
+	}
 
 }

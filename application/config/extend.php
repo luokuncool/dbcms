@@ -68,3 +68,7 @@ $config['withoutCheckLogin'] = array(
     'home/login'
 );
 
+$config['withoutCheckAccess'] = array(
+	'home/index','home/logout',
+);
+
