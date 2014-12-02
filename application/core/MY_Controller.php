@@ -72,7 +72,7 @@ class Home_Controller extends MY_Controller {
 			direct_to('/login');
             exit();
         }
-		$this->check_access($thisNode);
+		//$this->check_access($thisNode);
     }
 
 	/**
