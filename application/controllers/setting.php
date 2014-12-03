@@ -41,7 +41,7 @@ class Setting extends HOME_Controller {
 	 */
 	public function favorite_menu()
 	{
-		if (!is_post()) {
+		if (!is_ajax()) {
 			$userId = get_uid();
 			$this->load->model('favorite_menu_model');
 			//已有常用菜单
