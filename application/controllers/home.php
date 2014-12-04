@@ -56,7 +56,7 @@ class Home extends HOME_Controller {
             return;
         }
         $this->load->model(array('user_model', 'role_model', 'role_user_model', 'role_node_model', 'node_model'));
-        $uName = I('post.uName', '', 'strip_tags,trim');
+        $uName    = I('post.uName', '', 'strip_tags,trim');
         $password = I('post.password', '', 'strip_tags,trim');
         regex($uName, 'require')    OR ajax_exit('请填写用户名！');
         regex($password, 'require') OR ajax_exit('请填写密码！');
