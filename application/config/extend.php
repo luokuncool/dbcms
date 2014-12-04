@@ -17,28 +17,28 @@
 
 //节点分组
 $config['node_group'] = array(
-	'1' => '节点管理',
-	'2' => '系统设置',
-  '3' => '个人设置',
-  '4' => '测试模块',
+    '1' => '节点管理',
+    '2' => '系统设置',
+    '3' => '个人设置',
+    '4' => '测试模块',
 );
 
 //主题列表
 $config['themeList'] = array(
-	'black',
-	'bootstrap',
-	'default',
-	'gray',
-	'metro',
-	'metro-blue',
-	'metro-gray',
-	'metro-green',
-	'metro-orange',
-	'metro-red',
-	'ui-cupertino',
-	'ui-dark-hive',
-	'ui-pepper-grinder',
-	'ui-sunny',
+    'black',
+    'bootstrap',
+    'default',
+    'gray',
+    'metro',
+    'metro-blue',
+    'metro-gray',
+    'metro-green',
+    'metro-orange',
+    'metro-red',
+    'ui-cupertino',
+    'ui-dark-hive',
+    'ui-pepper-grinder',
+    'ui-sunny',
 );
 
 //全局过滤过滤
@@ -59,8 +59,8 @@ $config['changedRow'] = 'changedRow';
 
 //分页配置
 $config['pageSetting'] = array(
-	'pageSize'=>'25',
-	'pageList'=>'[10,15,20,25,30,35,40,45,50,100,200]'
+    'pageSize'=>'25',
+    'pageList'=>'[10,15,20,25,30,35,40,45,50,100,200]'
 );
 
 //不需要登录验证的节点
@@ -69,6 +69,6 @@ $config['withoutCheckLogin'] = array(
 );
 
 $config['withoutCheckAccess'] = array(
-	'home/index','home/logout',
+    'home/index','home/logout',
 );
 

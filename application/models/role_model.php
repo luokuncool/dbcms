@@ -7,29 +7,29 @@
  */
 class Role_Model extends Base_Model {
 
-	public $table = 'role';
+    public $table = 'role';
 
-	public $is_cache = TRUE;
+    public $is_cache = TRUE;
 
-	/**
-	 * 构造函数
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->database();
-	}
+    /**
+     * 构造函数
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
 
-	/**
-	 * 检测名字唯一
-	 * @param      $name
-	 * @return bool
-	 */
-	public function check_name($name)
-	{
-		$where = array();
-		$where['name'] = $name;
-		return $this->exists($where);
-	}
+    /**
+     * 检测名字唯一
+     * @param      $name
+     * @return bool
+     */
+    public function check_name($name)
+    {
+        $where = array();
+        $where['name'] = $name;
+        return $this->exists($where);
+    }
 
 }

@@ -7,34 +7,34 @@
  */
 class Role_User_Model extends Base_Model {
 
-	public $table = 'role_user';
+    public $table = 'role_user';
 
-	public $is_cache = FALSE;
+    public $is_cache = FALSE;
 
-	/**
-	 * 构造函数
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->database();
-	}
+    /**
+     * 构造函数
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
 
-	/**
-	 * @param array $roleUsers
-	 * @return bool
-	 */
-	public function batch_insert($roleUsers = array()) {
-		//$this->query('start transaction');
-		foreach($roleUsers as $roleUser) {
-			$result = $this->insert($roleUser);
-			if (!$result) {
-				//$this->query('rollback');
-				return false;
-			}
-		}
-		return true;
-		//return $this->query('commit');
-	}
+    /**
+     * @param array $roleUsers
+     * @return bool
+     */
+    public function batch_insert($roleUsers = array()) {
+        //$this->query('start transaction');
+        foreach($roleUsers as $roleUser) {
+            $result = $this->insert($roleUser);
+            if (!$result) {
+                //$this->query('rollback');
+                return false;
+            }
+        }
+        return true;
+        //return $this->query('commit');
+    }
 
 }

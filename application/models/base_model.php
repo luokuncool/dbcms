@@ -30,32 +30,32 @@ class Base_model extends CI_Model
 
     public static $ci = NULL;
 
-	/**
-	 * table name
-	 * @var null|string
-	 */
+    /**
+     * table name
+     * @var null|string
+     */
     public $table = NULL;
 
-	/**
-	 * 主键名
-	 * @var string
-	 */
+    /**
+     * 主键名
+     * @var string
+     */
     public $pk_name = 'id';
 
     public $limit 	= NULL;		// Query Limit
     public $offset 	= NULL;		// Query Offset
 
-	/**
-	 * 字段
-	 * @var array
-	 */
+    /**
+     * 字段
+     * @var array
+     */
     protected $_list_fields = array();
 
-	/**
-	 * 是否缓存
-	 * @var bool
-	 */
-	public $is_cache = FALSE;
+    /**
+     * 是否缓存
+     * @var bool
+     */
+    public $is_cache = FALSE;
 
     /**
      * Constructor
@@ -65,7 +65,7 @@ class Base_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-		$this->load->driver('Cache', config_item('cache_type'));
+        $this->load->driver('Cache', config_item('cache_type'));
         /*if (is_null($this->db_group))
         {
           $active_group = 'default';
@@ -151,30 +151,30 @@ class Base_model extends CI_Model
         return $query->result_array();
     }
 
-	/**
-	 * 获取行
-	 * @param null   $id
-	 * @param string $field
-	 * @param bool   $database 强制读取数据库
-	 *
-	 * @return array
-	 */
+    /**
+     * 获取行
+     * @param null   $id
+     * @param string $field
+     * @param bool   $database 强制读取数据库
+     *
+     * @return array
+     */
     public function get_row($id = NULL, $field='*', $database = false)
     {
-		if ($this->is_cache && !$database) {
-			$cachekey = $this->table.$id;
-			$cacheRow = $this->cache->get($cachekey);
-		}
+        if ($this->is_cache && !$database) {
+            $cachekey = $this->table.$id;
+            $cacheRow = $this->cache->get($cachekey);
+        }
 
-		if (!$cacheRow) {
-			$this->db->where($this->pk_name, $id);
-			$row = $this->db->get($this->table)->row_array();
-		} else {
-			$row = $cacheRow;
-		}
+        if (!$cacheRow) {
+            $this->db->where($this->pk_name, $id);
+            $row = $this->db->get($this->table)->row_array();
+        } else {
+            $row = $cacheRow;
+        }
 
-		$this->load->helper('array_helper');
-		$field != '*' && $row = elements(explode(',', $field), $row);
+        $this->load->helper('array_helper');
+        $field != '*' && $row = elements(explode(',', $field), $row);
         return $row;
     }
 
@@ -270,14 +270,14 @@ class Base_model extends CI_Model
     // ------------------------------------------------------------------------
 
 
-	/**
-	 * @param string|null   $where
-	 * @param string $field
-	 * @param bool   $database 是否墙强制读取数据库
-	 * @param string|null   $table
-	 *
-	 * @return array
-	 */
+    /**
+     * @param string|null   $where
+     * @param string $field
+     * @param bool   $database 是否墙强制读取数据库
+     * @param string|null   $table
+     *
+     * @return array
+     */
     public function get_list($where = NULL, $field = '*', $database = FALSE, $table = NULL)
     {
         $data = array();
@@ -294,14 +294,14 @@ class Base_model extends CI_Model
                 unset($where[$key]);
             }
         }
-       /* if (isset($where['where_in']))
-        {
-            foreach($where['where_in'] as $key => $value)
-            {
-                $this->db->where_in($key, $value);
-            }
-            unset($where['where_in']);
-        }*/
+        /* if (isset($where['where_in']))
+         {
+             foreach($where['where_in'] as $key => $value)
+             {
+                 $this->db->where_in($key, $value);
+             }
+             unset($where['where_in']);
+         }*/
 
 
         if ( !empty ($where) )
@@ -320,7 +320,7 @@ class Base_model extends CI_Model
                 unset($where[$cond]);
             }
         }
-		$total = $this->db->count_all_results($this->table);
+        $total = $this->db->count_all_results($this->table);
         foreach(array('limit', 'offset', 'order_by') as $key)
         {
             if(isset($where[$key]))
@@ -334,13 +334,13 @@ class Base_model extends CI_Model
         $query = $this->db->get($table);
         if ( $query->num_rows > 0 )
             $data = $query->result_array();
-		$this->db->stop_cache();
-		$this->db->flush_cache();
+        $this->db->stop_cache();
+        $this->db->flush_cache();
 
-		$rows = array();
-		foreach($data as $key=>$value) {
-			$rows[$key] = $this->get_row($value['id'], $field, $database);
-		}
+        $rows = array();
+        foreach($data as $key=>$value) {
+            $rows[$key] = $this->get_row($value['id'], $field, $database);
+        }
         $query->free_result();
 
         return array('total'=>$total, 'rows'=>$rows);
@@ -602,26 +602,26 @@ class Base_model extends CI_Model
     }
 
 
-	/**
-	 * @param $table
-	 * @return $this
-	 */
+    /**
+     * @param $table
+     * @return $this
+     */
     public function set_table($table)
     {
         $this->table = $table;
-		return $this;
+        return $this;
     }
 
 
-	/**
-	 * @param $pk_name
-	 *
-	 * @return $this
-	 */
+    /**
+     * @param $pk_name
+     *
+     * @return $this
+     */
     public function set_pk_name($pk_name)
     {
         $this->pk_name = $pk_name;
-		return $this;
+        return $this;
     }
 
     /**
@@ -640,18 +640,18 @@ class Base_model extends CI_Model
 
         $this->db->insert($table, $data);
 
-		$insertId =$this->db->insert_id();
-		//更新缓存
-		if ($insertId) $this->update_cache(array($this->pk_name=>$insertId));
+        $insertId =$this->db->insert_id();
+        //更新缓存
+        if ($insertId) $this->update_cache(array($this->pk_name=>$insertId));
         return $this->db->insert_id();
     }
 
-	/**
-	 * @param null $data
-	 * @param bool $table
-	 *
-	 * @return mixed
-	 */
+    /**
+     * @param null $data
+     * @param bool $table
+     *
+     * @return mixed
+     */
     public function insert_ignore($data = NULL, $table = FALSE)
     {
         $table = (FALSE !== $table) ? $table : $this->table;
@@ -666,14 +666,14 @@ class Base_model extends CI_Model
         return $inserted;
     }
 
-	/**
-	 * 更新数据表
-	 * @param null $where
-	 * @param null $data
-	 * @param bool $table
-	 *
-	 * @return int
-	 */
+    /**
+     * 更新数据表
+     * @param null $where
+     * @param null $data
+     * @param bool $table
+     *
+     * @return int
+     */
     public function update($where = NULL, $data = NULL, $table = FALSE)
     {
         $table = (FALSE !== $table) ? $table : $this->table;
@@ -684,8 +684,8 @@ class Base_model extends CI_Model
             $this->db->where($where, null, false);
         }
         $this->db->update($table, $data);
-		$affected =$this->db->affected_rows();
-		$affected && $this->update_cache($where);
+        $affected =$this->db->affected_rows();
+        $affected && $this->update_cache($where);
         return (int) $this->db->affected_rows();
     }
 
@@ -707,7 +707,7 @@ class Base_model extends CI_Model
             $this->db->where($pk_name, $where);
         }
         $result = $this->db->delete($table);
-		$result && $this->update_cache($where);
+        $result && $this->update_cache($where);
         return (int) $this->db->affected_rows();
     }
 
@@ -1146,49 +1146,49 @@ class Base_model extends CI_Model
         }
     }
 
-	/**
-	 * 获取最后执行语句
-	 * @return mixed
-	 */
+    /**
+     * 获取最后执行语句
+     * @return mixed
+     */
     public function last_query()
     {
         return $this->db->last_query();
     }
 
-	/**
-	 * 监测表是否存在
-	 * @param $table
-	 * @return mixed
-	 */
+    /**
+     * 监测表是否存在
+     * @param $table
+     * @return mixed
+     */
     public function table_exists($table)
     {
         return $this->db->table_exists($table);
     }
 
-	/**
-	 * 执行sql语句
-	 * @param $sql
-	 * @return mixed
-	 */
-	public function query($sql) {
-		return $this->db->query($sql);
-	}
+    /**
+     * 执行sql语句
+     * @param $sql
+     * @return mixed
+     */
+    public function query($sql) {
+        return $this->db->query($sql);
+    }
 
-	/**
-	 * 更新缓存
-	 * @param $where
-	 */
-	private function update_cache($where)
-	{
-		if (!$this->is_cache) return;
-		$idsNew = $this->db->where($where)->select($this->pk_name)->get($this->table)->result_array();
-		$idsNew = explode(',', get_field_list($idsNew, $this->pk_name));
+    /**
+     * 更新缓存
+     * @param $where
+     */
+    private function update_cache($where)
+    {
+        if (!$this->is_cache) return;
+        $idsNew = $this->db->where($where)->select($this->pk_name)->get($this->table)->result_array();
+        $idsNew = explode(',', get_field_list($idsNew, $this->pk_name));
 
-		$idsOld = $this->cache->get(config_item('changedRow'));
-		$ids    = $idsOld[$this->table] ? array_merge($idsNew, $idsOld[$this->table]) : $idsNew;
-		$ids    = array_filter(array_flip(array_flip($ids)));
-		$idsOld[$this->table] = $ids;
-		$this->cache->delete(config_item('changedRow'));
-		$this->cache->save(config_item('changedRow'), $idsOld, config_item('dataCacheTime'));
-	}
+        $idsOld = $this->cache->get(config_item('changedRow'));
+        $ids    = $idsOld[$this->table] ? array_merge($idsNew, $idsOld[$this->table]) : $idsNew;
+        $ids    = array_filter(array_flip(array_flip($ids)));
+        $idsOld[$this->table] = $ids;
+        $this->cache->delete(config_item('changedRow'));
+        $this->cache->save(config_item('changedRow'), $idsOld, config_item('dataCacheTime'));
+    }
 }

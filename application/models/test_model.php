@@ -7,33 +7,33 @@
  */
 class Test_Model extends Base_Model {
 
-	public $table = 'test';
+    public $table = 'test';
 
-	public $is_cache = TRUE;
+    public $is_cache = TRUE;
 
-	/**
-	 * 构造函数
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->database();
-	}
+    /**
+     * 构造函数
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
 
-	/**
-	 * @param array $roleUsers
-	 * @return bool
-	 */
-	public function batch_insert($roleUsers = array()) {
-		$this->query('start transaction');
-		foreach($roleUsers as $roleUser) {
-			$result = $this->insert($roleUser);
-			if (!$result) {
-				$this->query('rollback');
-				return false;
-			}
-		}
-		return $this->query('commit');
-	}
+    /**
+     * @param array $roleUsers
+     * @return bool
+     */
+    public function batch_insert($roleUsers = array()) {
+        $this->query('start transaction');
+        foreach($roleUsers as $roleUser) {
+            $result = $this->insert($roleUser);
+            if (!$result) {
+                $this->query('rollback');
+                return false;
+            }
+        }
+        return $this->query('commit');
+    }
 
 }

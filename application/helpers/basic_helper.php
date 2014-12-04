@@ -11,36 +11,36 @@
  */
 function msubstr($str, $start=0, $length, $suffix=true, $charset="utf-8")
 {
-	if(function_exists("mb_substr"))
-		$slice = mb_substr($str, $start, $length, $charset);
-	elseif(function_exists('iconv_substr')) {
-		$slice = iconv_substr($str,$start,$length,$charset);
-		if(false === $slice) {
-			$slice = '';
-		}
-	}else{
-		$re['utf-8']   = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
-		$re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
-		$re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
-		$re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
-		preg_match_all($re[$charset], $str, $match);
-		$slice = join("",array_slice($match[0], $start, $length));
-	}
-	switch (strtolower($charset)) {
-		case 'utf-8' :
-			if (strlen($str) > $length*3) {
-				return $suffix ? $slice.'...' : $slice;
-			} else {
-				return $slice;
-			}
-			break;
-		default :
-			if (strlen($str) > $length) {
-				return $suffix ? $slice.'...' : $slice;
-			} else {
-				return $slice;
-			}
-	}
+    if(function_exists("mb_substr"))
+        $slice = mb_substr($str, $start, $length, $charset);
+    elseif(function_exists('iconv_substr')) {
+        $slice = iconv_substr($str,$start,$length,$charset);
+        if(false === $slice) {
+            $slice = '';
+        }
+    }else{
+        $re['utf-8']   = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
+        $re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
+        $re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
+        $re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
+        preg_match_all($re[$charset], $str, $match);
+        $slice = join("",array_slice($match[0], $start, $length));
+    }
+    switch (strtolower($charset)) {
+        case 'utf-8' :
+            if (strlen($str) > $length*3) {
+                return $suffix ? $slice.'...' : $slice;
+            } else {
+                return $slice;
+            }
+            break;
+        default :
+            if (strlen($str) > $length) {
+                return $suffix ? $slice.'...' : $slice;
+            } else {
+                return $slice;
+            }
+    }
 }
 
 /**
@@ -53,32 +53,32 @@ function msubstr($str, $start=0, $length, $suffix=true, $charset="utf-8")
  */
 function lsubstr($str, $start=0, $length, $suffix=true)
 {
-	$re['utf-8']   = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
-	$re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
-	$re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
-	$re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
-	preg_match_all($re['utf-8'], $str, $match);
-	$i = 0;
-	foreach ($match[0] as $key => $value) {
-		if (preg_match('/[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}]/', $value)) {
-			$i = $i + 2;
-		} else {
-			$i++;
-		}
-		if ($i > $length) {
-			$length = $key;
-			break;
-		} elseif ($i == $length) {
-			$length = $key +1;
-			break;
-		}
-	}
-	$slice = join("",array_slice($match[0], $start, $length));
-	if (count($match[0]) > $length) {
-		return $suffix ? $slice.'...' : $slice;
-	} else {
-		return $slice;
-	}
+    $re['utf-8']   = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
+    $re['gb2312'] = "/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
+    $re['gbk']    = "/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
+    $re['big5']   = "/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
+    preg_match_all($re['utf-8'], $str, $match);
+    $i = 0;
+    foreach ($match[0] as $key => $value) {
+        if (preg_match('/[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}]/', $value)) {
+            $i = $i + 2;
+        } else {
+            $i++;
+        }
+        if ($i > $length) {
+            $length = $key;
+            break;
+        } elseif ($i == $length) {
+            $length = $key +1;
+            break;
+        }
+    }
+    $slice = join("",array_slice($match[0], $start, $length));
+    if (count($match[0]) > $length) {
+        return $suffix ? $slice.'...' : $slice;
+    } else {
+        return $slice;
+    }
 }
 
 /**
@@ -89,22 +89,22 @@ function lsubstr($str, $start=0, $length, $suffix=true)
  */
 function regex($value, $rule)
 {
-	$validate = array(
-		'require'=> '/.+/',
-		'email' => '/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/',
-		'url' => '/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/',
-		'currency' => '/^\d+(\.\d+)?$/',
-		'number' => '/^\d+$/',
-		'zipcode' => '/^[1-9]\d{5}$/',
-		'integer' => '/^[-\+]?\d+$/',
-		'double' => '/^[-\+]?\d+(\.\d+)?$/',
-		'english' => '/^[A-Za-z]+$/',
-		'en&num' => '/^[A-Za-z0-9]+$/',
-	);
-	// 检查是否有内置的正则表达式
-	if(isset($validate[strtolower($rule)]))
-		$rule   =   $validate[strtolower($rule)];
-	return preg_match($rule,$value)===1;
+    $validate = array(
+        'require'=> '/.+/',
+        'email' => '/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/',
+        'url' => '/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/',
+        'currency' => '/^\d+(\.\d+)?$/',
+        'number' => '/^\d+$/',
+        'zipcode' => '/^[1-9]\d{5}$/',
+        'integer' => '/^[-\+]?\d+$/',
+        'double' => '/^[-\+]?\d+(\.\d+)?$/',
+        'english' => '/^[A-Za-z]+$/',
+        'en&num' => '/^[A-Za-z0-9]+$/',
+    );
+    // 检查是否有内置的正则表达式
+    if(isset($validate[strtolower($rule)]))
+        $rule   =   $validate[strtolower($rule)];
+    return preg_match($rule,$value)===1;
 }
 
 /**
@@ -115,22 +115,22 @@ function regex($value, $rule)
  */
 function get_active_url($wipe = '', $encode = true)
 {
-	$query = $_SERVER['QUERY_STRING'];
-	$queryArray = explode('&', $query);
-	$wipe = explode(',', str_replace(' ', '', $wipe));
-	foreach ($queryArray as $key=>$value) {
-		list($key2) = explode('=', $value);
-		foreach ($wipe as $w) {
-			if ($w == $key2) {
-				unset($queryArray[$key]);
-				break;
-			}
-		}
-	}
-	$query = implode('&', $queryArray);
-	$url = strtolower($_SERVER['PHP_SELF'].'?'.$query);
-	if ($encode) $url = urlencode($url);
-	return $url;
+    $query = $_SERVER['QUERY_STRING'];
+    $queryArray = explode('&', $query);
+    $wipe = explode(',', str_replace(' ', '', $wipe));
+    foreach ($queryArray as $key=>$value) {
+        list($key2) = explode('=', $value);
+        foreach ($wipe as $w) {
+            if ($w == $key2) {
+                unset($queryArray[$key]);
+                break;
+            }
+        }
+    }
+    $query = implode('&', $queryArray);
+    $url = strtolower($_SERVER['PHP_SELF'].'?'.$query);
+    if ($encode) $url = urlencode($url);
+    return $url;
 }
 
 /**
@@ -142,21 +142,21 @@ function get_active_url($wipe = '', $encode = true)
  */
 function sort_by_key(&$array, $key, $type='asc')
 {
-	$relayArray = $newArray = array();
-	foreach ($array as $k1 => $v1) {
-		$relayArray[$k1] = $v1[$key];
-	}
-	if ($type == 'asc') {
-		asort($relayArray);
-	} else if ($type == 'desc') {
-		arsort($relayArray);
-	}
-	reset($relayArray);
-	foreach ($relayArray as $k2 => $v2) {
-		$newArray[$k2] = $array[$k2];
-	}
-	$array = $newArray;
-	return $newArray;
+    $relayArray = $newArray = array();
+    foreach ($array as $k1 => $v1) {
+        $relayArray[$k1] = $v1[$key];
+    }
+    if ($type == 'asc') {
+        asort($relayArray);
+    } else if ($type == 'desc') {
+        arsort($relayArray);
+    }
+    reset($relayArray);
+    foreach ($relayArray as $k2 => $v2) {
+        $newArray[$k2] = $array[$k2];
+    }
+    $array = $newArray;
+    return $newArray;
 }
 
 /**
@@ -167,22 +167,22 @@ function sort_by_key(&$array, $key, $type='asc')
  */
 function get_fuzzy_time($time)
 {
-	$interval = time() - $time;
-	if ($interval < 60) {
-		return $interval.'秒前';
-	} else if ($interval < 3600) {
-		return floor($interval/60).'分钟前';
-	} else if ($interval < 3600*24) {
-		return floor($interval/3600).'小时前';
-	} else if ($interval < 3600*24*7) {
-		return floor($interval/3600/24).'天前';
-	} else if ($interval < 3600*24*30) {
-		return floor($interval/3600/24/7).'周前';
-	} else if ($interval < 3600*24*30*12) {
-		return floor($interval/3600/24/30).'月前';
-	} else {
-		return floor($interval/3600/24/30/12).'年前';
-	}
+    $interval = time() - $time;
+    if ($interval < 60) {
+        return $interval.'秒前';
+    } else if ($interval < 3600) {
+        return floor($interval/60).'分钟前';
+    } else if ($interval < 3600*24) {
+        return floor($interval/3600).'小时前';
+    } else if ($interval < 3600*24*7) {
+        return floor($interval/3600/24).'天前';
+    } else if ($interval < 3600*24*30) {
+        return floor($interval/3600/24/7).'周前';
+    } else if ($interval < 3600*24*30*12) {
+        return floor($interval/3600/24/30).'月前';
+    } else {
+        return floor($interval/3600/24/30/12).'年前';
+    }
 }
 
 /**
@@ -192,11 +192,11 @@ function get_fuzzy_time($time)
  */
 function get_password($password)
 {
-	$password = md5($password);
-	$md5A = md5(substr($password, 0, 16));
-	$md5B = md5(substr($password, 16, 16));
-	$md5 = md5($md5A.$md5B);
-	return $md5;
+    $password = md5($password);
+    $md5A = md5(substr($password, 0, 16));
+    $md5B = md5(substr($password, 16, 16));
+    $md5 = md5($md5A.$md5B);
+    return $md5;
 }
 
 /**
@@ -206,23 +206,23 @@ function get_password($password)
  */
 function get_client_ip($type = 0)
 {
-	$type = $type ? 1 : 0;
-	static $ip = NULL;
-	if ($ip !== NULL) return $ip[$type];
-	if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		$arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-		$pos = array_search('unknown', $arr);
-		if (false !== $pos) unset($arr[$pos]);
-		$ip = trim($arr[0]);
-	} elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
-		$ip = $_SERVER['HTTP_CLIENT_IP'];
-	} elseif (isset($_SERVER['REMOTE_ADDR'])) {
-		$ip = $_SERVER['REMOTE_ADDR'];
-	}
-	// IP地址合法验证
-	$long = sprintf("%u", ip2long($ip));
-	$ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
-	return $ip[$type];
+    $type = $type ? 1 : 0;
+    static $ip = NULL;
+    if ($ip !== NULL) return $ip[$type];
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $arr = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        $pos = array_search('unknown', $arr);
+        if (false !== $pos) unset($arr[$pos]);
+        $ip = trim($arr[0]);
+    } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    // IP地址合法验证
+    $long = sprintf("%u", ip2long($ip));
+    $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
+    return $ip[$type];
 }
 
 /**
@@ -232,12 +232,12 @@ function get_client_ip($type = 0)
  */
 function object2array($object)
 {
-	$array = array();
-	foreach($object as $k=>$v) {
-		(is_array($v) || is_object($v)) && $v = object2array($v);
-		$array[$k] = $v;
-	}
-	return $array;
+    $array = array();
+    foreach($object as $k=>$v) {
+        (is_array($v) || is_object($v)) && $v = object2array($v);
+        $array[$k] = $v;
+    }
+    return $array;
 }
 
 /**
@@ -249,11 +249,11 @@ function object2array($object)
  */
 function get_field_list($array, $filed, $separator = ',')
 {
-	$filedList = '';
-	foreach($array as $k1=>$v1) {
-		$filedList .= ((bool)$filedList ? $separator : '').$v1[$filed];
-	}
-	return $filedList;
+    $filedList = '';
+    foreach($array as $k1=>$v1) {
+        $filedList .= ((bool)$filedList ? $separator : '').$v1[$filed];
+    }
+    return $filedList;
 }
 
 /**
@@ -264,28 +264,28 @@ function get_field_list($array, $filed, $separator = ',')
  */
 function direct_to($url, $time = 0, $msg = '')
 {
-	//多行URL地址支持
-	$url = str_replace(array("\n", "\r"), '', $url);
-	if (empty($msg)) {
-		$msg = "系统将在{$time}秒之后自动跳转到{$url}！";
-	}
-	if (!headers_sent()) {
-		//redirect
-		if (0 === $time) {
-			header('Location: ' . $url);
-		} else {
-			header("Content-Type:text/html; charset=".config_item('charset'));
-			header("refresh:{$time};url={$url}");
-			echo($msg);
-		}
-		exit();
-	} else {
-		$str = "<meta http-equiv='Refresh' content='{$time};URL={$url}'>";
-		if ($time != 0) {
-			$str .= $msg;
-		}
-		exit($str);
-	}
+    //多行URL地址支持
+    $url = str_replace(array("\n", "\r"), '', $url);
+    if (empty($msg)) {
+        $msg = "系统将在{$time}秒之后自动跳转到{$url}！";
+    }
+    if (!headers_sent()) {
+        //redirect
+        if (0 === $time) {
+            header('Location: ' . $url);
+        } else {
+            header("Content-Type:text/html; charset=".config_item('charset'));
+            header("refresh:{$time};url={$url}");
+            echo($msg);
+        }
+        exit();
+    } else {
+        $str = "<meta http-equiv='Refresh' content='{$time};URL={$url}'>";
+        if ($time != 0) {
+            $str .= $msg;
+        }
+        exit($str);
+    }
 }
 
 /**
@@ -295,9 +295,9 @@ function direct_to($url, $time = 0, $msg = '')
  */
 function set_config($array)
 {
-	$string = implode(',|', $array);
-	if ($string != '') { $string = '|'.$string.',';}
-	return $string;
+    $string = implode(',|', $array);
+    if ($string != '') { $string = '|'.$string.',';}
+    return $string;
 }
 
 /**
@@ -315,66 +315,66 @@ function set_config($array)
  */
 function I($name,$default='',$filter=null)
 {
-	if(strpos($name,'.')) { // 指定参数来源
-		list($method,$name) =   explode('.',$name);
-	}else{ // 默认为自动判断
-		$method =   'param';
-	}
+    if(strpos($name,'.')) { // 指定参数来源
+        list($method,$name) =   explode('.',$name);
+    }else{ // 默认为自动判断
+        $method =   'param';
+    }
 
-	switch(strtolower($method)) {
-		case 'get'     :   $input =& $_GET;break;
-		case 'post'    :   $input =& $_POST;break;
-		case 'put'     :   parse_str(file_get_contents('php://input'), $input);break;
-		case 'param'   :
-			switch($_SERVER['REQUEST_METHOD']) {
-				case 'POST':
-					$input  =  $_POST;
-					break;
-				case 'PUT':
-					parse_str(file_get_contents('php://input'), $input);
-					break;
-				default:
-					$input  =  $_GET;
-			}
-			break;
-		case 'request' :   $input =& $_REQUEST;   break;
-		case 'session' :   $input =& $_SESSION;   break;
-		case 'cookie'  :   $input =& $_COOKIE;    break;
-		case 'server'  :   $input =& $_SERVER;    break;
-		default:
-			return NULL;
-	}
-	// 全局过滤
-	// array_walk_recursive($input,'filter_exp');
-	if(config_item('var_filters')) {
-		$_filters    =   explode(',',config_item('var_filters'));
-		foreach($_filters as $_filter){
-			// 全局参数过滤
-			array_walk_recursive($input,$_filter);
-		}
-	}
-	if(empty($name)) { // 获取全部变量
-		$data       =   $input;
-	}elseif(isset($input[$name])) { // 取值操作
-		$data       =	$input[$name];
-		$filters    =   isset($filter)?$filter:config_item('default_filter');
-		if($filters) {
-			$filters    =   explode(',',$filters);
-			foreach($filters as $filter){
-				if(function_exists($filter)) {
-					$data   =   is_array($data)?array_map($filter,$data):$filter($data); // 参数过滤
-				}else{
-					$data   =   filter_var($data,is_int($filter)?$filter:filter_id($filter));
-					if(false === $data) {
-						return	 isset($default)?$default:NULL;
-					}
-				}
-			}
-		}
-	}else{ // 变量默认值
-		$data       =	 isset($default)?$default:NULL;
-	}
-	return $data;
+    switch(strtolower($method)) {
+        case 'get'     :   $input =& $_GET;break;
+        case 'post'    :   $input =& $_POST;break;
+        case 'put'     :   parse_str(file_get_contents('php://input'), $input);break;
+        case 'param'   :
+            switch($_SERVER['REQUEST_METHOD']) {
+                case 'POST':
+                    $input  =  $_POST;
+                    break;
+                case 'PUT':
+                    parse_str(file_get_contents('php://input'), $input);
+                    break;
+                default:
+                    $input  =  $_GET;
+            }
+            break;
+        case 'request' :   $input =& $_REQUEST;   break;
+        case 'session' :   $input =& $_SESSION;   break;
+        case 'cookie'  :   $input =& $_COOKIE;    break;
+        case 'server'  :   $input =& $_SERVER;    break;
+        default:
+            return NULL;
+    }
+    // 全局过滤
+    // array_walk_recursive($input,'filter_exp');
+    if(config_item('var_filters')) {
+        $_filters    =   explode(',',config_item('var_filters'));
+        foreach($_filters as $_filter){
+            // 全局参数过滤
+            array_walk_recursive($input,$_filter);
+        }
+    }
+    if(empty($name)) { // 获取全部变量
+        $data       =   $input;
+    }elseif(isset($input[$name])) { // 取值操作
+        $data       =	$input[$name];
+        $filters    =   isset($filter)?$filter:config_item('default_filter');
+        if($filters) {
+            $filters    =   explode(',',$filters);
+            foreach($filters as $filter){
+                if(function_exists($filter)) {
+                    $data   =   is_array($data)?array_map($filter,$data):$filter($data); // 参数过滤
+                }else{
+                    $data   =   filter_var($data,is_int($filter)?$filter:filter_id($filter));
+                    if(false === $data) {
+                        return	 isset($default)?$default:NULL;
+                    }
+                }
+            }
+        }
+    }else{ // 变量默认值
+        $data       =	 isset($default)?$default:NULL;
+    }
+    return $data;
 }
 
 /**
@@ -383,9 +383,9 @@ function I($name,$default='',$filter=null)
  */
 function ajax_exit($message)
 {
-	$res = array();
-	$res['message'] = $message;
-	exit(json_encode($res));
+    $res = array();
+    $res['message'] = $message;
+    exit(json_encode($res));
 }
 
 /**
@@ -394,7 +394,7 @@ function ajax_exit($message)
  */
 function echo_json($res)
 {
-	exit(json_encode($res));
+    exit(json_encode($res));
 }
 
 /**
@@ -414,7 +414,7 @@ function is_post()
  */
 function get_uid()
 {
-	return isset($_SESSION['userInfo']) ? $_SESSION['userInfo']['id'] : false;
+    return isset($_SESSION['userInfo']) ? $_SESSION['userInfo']['id'] : false;
 }
 
 /**
@@ -427,5 +427,5 @@ function get_uid()
  */
 function is_ajax()
 {
-	return IS_AJAX OR isset($_REQUEST['ajaxRequest']);
+    return IS_AJAX OR isset($_REQUEST['ajaxRequest']);
 }
