@@ -51,7 +51,7 @@ class Home_Controller extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
-        //$this->check_login();
+        $this->check_login();
         $data['myTheme'] = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
         $data['baseUrl']      = config_item('base_url');
         $data['systemName'] = config_item('system_name');
@@ -72,7 +72,7 @@ class Home_Controller extends MY_Controller {
             direct_to('/login');
             exit();
         }
-        //$this->check_access($thisNode);
+        $this->check_access($thisNode);
     }
 
     /**
