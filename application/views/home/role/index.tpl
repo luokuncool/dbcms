@@ -42,8 +42,8 @@
 			</td>
 			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
 			<td align="right">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:App.addTab('添加节点', '{$baseUrl}role/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="App.addTab('添加角色', '{$baseUrl}role/create')" href="javascript:;" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="App.remove('{$baseUrl}role/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="App.enable('{$baseUrl}role/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
 				<a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="App.disable('{$baseUrl}role/disable')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
 			</td>

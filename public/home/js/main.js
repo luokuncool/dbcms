@@ -113,7 +113,21 @@
             selectedTab = mainTab.tabs('getSelected'),
             selectedIndex = mainTab.tabs('getTabIndex', selectedTab);
         mainTab.tabs('close', selectedIndex);
-        mainTab.tabs('select',selectedIndex-1);
+        App.reloadGrid();
+    };
+    
+    /**
+     * 获取表格对象
+     */
+    App.getGrid = function() {
+        return App.getSelectWin().$('#dataGrid');
+    };
+
+    /**
+     * 刷新表格
+     */
+    App.reloadGrid = function() {
+        App.getGrid().datagrid('reload');
     };
 
     /**
@@ -123,17 +137,9 @@
     App.getSelectDoc = function(){
         return App.getSelectFrame().contentDocument;
     };
-
+    
     /**
-     * 获取表格对象
-     * @returns {*}
-     */
-    App.getGrid = function(){
-        return $(App.getSelectDoc()).find('#dataGrid');
-    };
-
-    /**
-     * fixme 获取dataGrid选中行Ids
+     * 获取dataGrid选中行Ids
      * @returns {string}
      */
     App.getIds = function(){
@@ -302,19 +308,15 @@
 	 */
 	App.logout = function() {
 		App.processing();
-		$.get(App.baseUrl+'logout', function(res){
-			App.processed();
-			if (res.success) {
-				App.showMessage(res.message);
-				setTimeout(function(){
-					location.reload(true);
-				}, 1500);
-			} else {
-				App.alert(res.message);
-			}
-		}, 'json');
+		$.get(App.baseUrl+'logout', App.successHandler, 'text');
 	};
 
+    /**
+     * 获取子窗口对象
+     */
+    App.getSelectWin = function() {
+       return App.getSelectFrame().contentWindow;
+    }
     //暴露全局变量App
     window.App = App;
 })();

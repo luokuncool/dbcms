@@ -54,39 +54,32 @@ class Role extends HOME_Controller {
      */
     public function create()
     {
-        $pId = intval($this->input->get('pId'));
-        $data['pId'] = $pId;
-        $data['role_group_list'] = config_item('role_group');
         if (!is_post())
         {
+            $data['role_group_list'] = config_item('role_group');
+            $data['data']            = $this->role_model->get_row($id);
             $this->smarty->view('home/role/create.tpl', $data);
             return;
         }
-        $code = $this->input->post('code');
-        $name = $this->input->post('name');
+        $name        = I('post.name', '', 'strip_tags,trim');
+        regex($name, 'require') OR ajax_exit('请填写角色名！');
+        $exist       = $this->role_model->check_name($name);
+        $exist && ajax_exit('角色名已经存在！');
+
         $currentTime = time();
-        regex($code, 'require') OR exit('{"message":"请填写操作代码！"}');
-        regex($name, 'require') OR exit('{"message":"请填写显示名！"}');
         $data = array(
-            'code' => $code,
             'name' => $name,
-            'status' => intval($this->input->post('status')),
-            'remark' => $this->input->post('remark'),
-            'sort' => $this->input->post('sort'),
-            'groupId' => intval($this->input->post('groupId')),
-            'pId' => $pId,
-            'level' => $this->input->post('level'),
-            'type' => $this->input->post('type'),
-            'createTime' => $currentTime,
+            'status' => I('post.status', '', 'intval'),
+            'remark' => I('post.remark', '', 'strip_tags,trim'),
             'updateTime' => $currentTime,
-            'createUid' => 1,
             'updateUid' => 1,
         );
         $id = $this->role_model->insert($data);
-        $res['message'] = $id ? '添加成功' : '添加失败';
-        $id && $res['success'] = 1;
-        $id && $res['reload'] = 1;
-        echo json_encode($res);
+        $id OR ajax_exit('保存失败');
+        $res['message']   = '保存成功';
+        $res['success']   = 1;
+        $res['closeSelf'] = 1;
+        echo_json($res);
     }
 
     /**
@@ -119,9 +112,9 @@ class Role extends HOME_Controller {
         $result = $this->role_model->update(array('id'=>$id), $data);
         $result OR ajax_exit('保存失败');
 
-        $res['message'] = '保存成功';
-        $res['success'] = 1;
-        $res['reload'] = 1;
+        $res['message']   = '保存成功';
+        $res['success']   = 1;
+        $res['closeSelf'] = 1;
         echo_json($res);
     }
 
@@ -277,6 +270,29 @@ class Role extends HOME_Controller {
         echo_json($res);
     }
 
+    /**
+     * 删除
+     * @author Quentin
+     * @since  2014-12-06 02:29
+     *
+     * @access public
+     * @return void
+     */
+    public function remove()
+    {
+        if ( !is_post() ) {
+            ajax_exit('请选中要删除的行！');
+        }
+        $ids = I('post.ids', '', 'strip_tags,trim');
+        regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
+        $result = $this->role_model->delete('id in('.$ids.')');
+        $res = array(
+            'reloadType' => 2,
+            'message' => $result  !== false  ? '操作成功' : '操作失败',
+            'success' => $result  !== false  ? 1 : 0,
+        );
+        echo_json($res);
+    }
     /**
      * 设置角色状态
      * @param $where

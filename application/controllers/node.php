@@ -86,12 +86,12 @@ class Node extends HOME_Controller {
             $this->smarty->view('home/node/edit.tpl', $data);
             return;
         }
-        $data = $this->validation($id, $pId, $level);
+        $data   = $this->validation($id, $pId, $level);
         $result = $this->node_model->update(array('id'=>$id), $data);
         $res['message'] = $result ? '保存成功' : '保存失败';
-        $id && $res['closeSelf'] = 1;
-        $id && $res['reload'] = 1;
-        $id && $res['success'] = 1;
+        $id && $res['closeSelf']  = 1;
+        $id && $res['reloadType'] = 2;
+        $id && $res['success']    = 1;
         echo json_encode($res);
     }
 
@@ -125,7 +125,7 @@ class Node extends HOME_Controller {
         }
         $ids = $this->input->post('ids');
         regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
-        $result = $this->node_model->delete(array('id in('.$ids.')'));
+        $result = $this->node_model->delete('id in('.$ids.')');
         $res = array(
             'message' => $result  !== false  ? '操作成功' : '操作失败',
             'success' => $result  !== false  ? 1 : 0,

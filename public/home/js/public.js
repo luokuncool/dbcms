@@ -7,35 +7,7 @@
      * @returns { string }
      */
     App.formatStatus = function(field) {
-        return field == 1 ? '<font color="green">启用</font>' : '<font color="red">禁用</font>'
-    };
-
-    /**
-     * 获取表格对象
-     * @returns {*}
-     */
-    App.getGrid = function(){
-        return $('#dataGrid');
-    };
-
-    /**
-     * 调整表格尺寸
-     */
-    App.resizeGrid = function() {
-        App.getGrid().datagrid('resize')
-    };
-
-    /**
-     * 获取dataGrid选中行Ids
-     * @returns {string}
-     */
-    App.getIds = function(){
-        var checkedRow = App.getGrid().datagrid('getChecked'),
-            ids = '';
-        for(var i=0; i<checkedRow.length; i++){
-            ids += (ids === '') ? checkedRow[i].id : ','+checkedRow[i].id;
-        }
-        return ids;
+        return field == 1 ? '<font color="green">启用</font>' : '<font color="red">禁用</font>';
     };
 
     /**
@@ -75,7 +47,7 @@
         App.processed();
         try {
             var reloadFn;
-            res = eval('('+res+')');
+            res = $.parseJSON(res); //eval('('+res+')');
             if (res.success) {
                 $.messager.show({
                     title:'提示',

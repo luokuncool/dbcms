@@ -69,6 +69,6 @@ $config['withoutCheckLogin'] = array(
 );
 
 $config['withoutCheckAccess'] = array(
-    'home/index','home/logout',
+    'home/index','home/logout','cli/update_cache'
 );
 

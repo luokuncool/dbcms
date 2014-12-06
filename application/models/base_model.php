@@ -699,15 +699,14 @@ class Base_model extends CI_Model
      */
     public function delete($where = NULL, $table = NULL)
     {
+        $this->update_cache($where);
         $table = ! empty($table) ? $table : $this->table;
         if ( is_array($where) ) {
             $this->_process_where($where, $table);
         } else {
-            $pk_name = $this->get_pk_name($table);
-            $this->db->where($pk_name, $where);
+            $this->db->where($where);
         }
         $result = $this->db->delete($table);
-        $result && $this->update_cache($where);
         return (int) $this->db->affected_rows();
     }
 

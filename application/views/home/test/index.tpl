@@ -2,10 +2,10 @@
 {block name="searchBlock"}
 	<table id="searchBlock" width="100%">
 		<tr>
-			<td width="70" align="right">日期区间：</td>
+			<td width="70" align="right">创建日期：</td>
 			<td width="200">
-				<input class="easyui-datebox" id="startDate" data-options="width:95,onSelect:App.onSelectStartDate" type="text" name="startDate" value="{$defaultStartDate}" /> -
-				<input class="easyui-datebox" id="endDate" data-options="width:95,onSelect:App.onSelectEndDate" type="text" name="endDate" value="{$defaultEndDate}" />
+				<input class="easyui-datebox" id="startDate" data-options="width:97,onSelect:App.onSelectStartDate" type="text" name="startDate" value="{$defaultStartDate}" />
+                <input class="easyui-datebox" id="endDate" data-options="width:97,onSelect:App.onSelectEndDate" type="text" name="endDate" value="{$defaultEndDate}" />
 			</td>
 			<td width="100" align="right">状态：</td>
 			<td colspan="2">

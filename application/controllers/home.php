@@ -105,6 +105,7 @@ class Home extends HOME_Controller {
         echo_json(
             array(
                 'success' => 1,
+                'reloadType' => 1,
                 'message' => '退出系统~'
             )
         );
