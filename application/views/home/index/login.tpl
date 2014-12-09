@@ -26,32 +26,33 @@
 {block name="head"}
     <script type="text/javascript" src="{$basePath}/public/home/js/main.js"></script>
     <script type="text/javascript">
-    (function(App){
+    $(function(){
         var loginForm = $('#loginForm');
-        App.login = function() {
-            App.processing();
-            $.post(
-                    '{$baseUrl}login',
-                    { uName: $('[name=uName]').val(), password: $('[name=password]').val() },
-                    function(res){
-                        App.processed();
-                        if (res.success) {
-                            App.showMessage(res.message);
-                        } else {
-                            App.alert(res.message);
-                        }
-                        setTimeout(function(){
-                            location.reload(true);
-                        }, 1500)
-                    },
-                    'json'
-            );
-        };
-        App.redo = function() {
-            loginForm.find('input').val('');
-        };
-        window.App = App;
-    })(App);
+        loginForm.form({
+            url : '{$baseUrl}login',
+            onSubmit : function() {
+                App.processing();
+            },
+            success : function(res){
+                res = $.parseJSON(res);
+                App.processed();
+                if (res.success) {
+                    App.showMessage(res.message);
+                    setTimeout(function(){
+                        location.reload(true);
+                    }, 1500);
+                } else {
+                    App.alert(res.message);
+                }
+            }
+        });        
+        loginForm.bind('keyup', function(e){
+            if (e.keyCode == 13) {
+                $('#submitForm').focus();
+                loginForm.form('submit');
+            }
+        });
+    });
     </script>
     <style type="text/css">
         table td { padding: 5px 0px; }
