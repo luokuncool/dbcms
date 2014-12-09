@@ -35,8 +35,8 @@ if (defined('ENVIRONMENT'))
     switch (ENVIRONMENT)
     {
         case 'development':
-            error_reporting(E_ERROR);
-            //error_reporting(E_ALL);
+            //error_reporting(E_ERROR);
+            error_reporting(E_ALL^E_NOTICE);
             define('APP_DEBUG', TRUE);
             break;
 

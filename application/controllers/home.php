@@ -20,10 +20,12 @@ class Home extends HOME_Controller {
     public function index()
     {
         parent::set_html_header();
+        $accessNodeIds         = $_SESSION['accessNodeIds'];
+        $accessNodeIds         OR exit('账号为配置权限请联系系统管理员！');
         $data['menuGroupList'] = config_item('node_group');
         $map[]                 = array('type'=>1);
         $map['order_by']       = array('sort', 'asc');
-        //$map[]                 = 'id in('.join(',', $_SESSION['accessNodeIds']).')';
+        $map[]                 = 'id in('.join(',', $accessNodeIds).')';
         $nodeList              = $this->node_model->get_list($map, 'id,name,code,groupId');
         $data['nodeList']      = $nodeList['rows'];
         foreach($data['menuGroupList'] as $groupId => $menuGroup)
@@ -74,6 +76,7 @@ class Home extends HOME_Controller {
         }
         $roleIds = $this->role_user_model->get_list(array('userId'=>$result['id']), 'roleId');
         $roleIds = get_field_list($roleIds['rows'], 'roleId');
+        $roleIds OR ajax_exit('此用户为授权，请联系系统管理员授权！');
         $accessNodeIds = $this->role_node_model->get_list(array('roleId in('.$roleIds.')'), 'nodeId');
         $accessNodeIds = get_field_list($accessNodeIds['rows'], 'nodeId');
         $accessNodeList = $this->node_model->get_list(array('id in('.$accessNodeIds.')'), 'code');
