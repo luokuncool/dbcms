@@ -36,7 +36,7 @@ if (defined('ENVIRONMENT'))
     {
         case 'development':
             //error_reporting(E_ERROR);
-            error_reporting(E_ALL^E_NOTICE);
+            error_reporting(E_ERROR);
             define('APP_DEBUG', TRUE);
             break;
 
