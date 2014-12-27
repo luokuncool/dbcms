@@ -51,7 +51,5 @@ $route['file_manager'] = 'home/file_manager';
 $route['update_cache'] = 'cli/update_cache';
 $route['logout']      = 'home/logout';
 
-//ExtJS
-$route['desktop'] = 'extjs/home/index';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -115,7 +115,7 @@
         mainTab.tabs('close', selectedIndex);
         App.reloadGrid();
     };
-    
+
     /**
      * 获取表格对象
      */
@@ -137,7 +137,7 @@
     App.getSelectDoc = function(){
         return App.getSelectFrame().contentDocument;
     };
-    
+
     /**
      * 获取dataGrid选中行Ids
      * @returns {string}
