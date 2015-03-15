@@ -4,4 +4,4 @@
 /application/logs/*
 /public/uploadfiles/*
 /tests/res*
-/application/config/database.php
+application/config/database.php
