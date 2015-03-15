@@ -37,7 +37,7 @@
 				{*常用菜单*}
                 {widget path="widget/favorite/menu" args= $nodeList}
 				{*主题设置*}
-				{*widget path="widget/form/theme"*}
+				{widget path="widget/form/theme"}
             </div>
         </div>
     </div>

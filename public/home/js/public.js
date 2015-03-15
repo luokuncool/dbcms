@@ -45,43 +45,39 @@
      */
     Public.successHandler = function(res) {
         Public.processed();
-        try {
-            var reloadFn;
-            res = $.parseJSON(res); //eval('('+res+')');
-            if (res.success) {
-                $.messager.show({
-                    title:'提示',
-                    msg:res.message,
-                    showType:'fade',
-                    timeout:500,
-                    style:{
-                        right:'',
-                        bottom:''
-                    }
-                });
-                res.closeSelf && setTimeout(Public.closeSelfHandler, 500);
-                switch( res.reloadType) {
-                    case 1 :
-                        reloadFn = function() {
-                            parentWindow.location.reload();
-                        };
-                        break;
-                    case 2 :
-                        reloadFn = function() {
-                            Public.getGrid().datagrid('reload');
-                        };
-                        break;
-                    default :
-                        reloadFn = function() {
-                            location.reload(true);
-                        };
+        var reloadFn;
+        res = $.parseJSON(res); //eval('('+res+')');
+        if (res.success) {
+            $.messager.show({
+                title:'提示',
+                msg:res.message,
+                showType:'fade',
+                timeout:500,
+                style:{
+                    right:'',
+                    bottom:''
                 }
-                setTimeout(reloadFn, 1000);
-            } else {
-                Public.alert(res.message);
+            });
+            res.closeSelf && setTimeout(Public.closeSelfHandler, 500);
+            switch( res.reloadType) {
+                case 1 :
+                    reloadFn = function() {
+                        parentWindow.location.reload();
+                    };
+                    break;
+                case 2 :
+                    reloadFn = function() {
+                        Public.getGrid().datagrid('reload');
+                    };
+                    break;
+                default :
+                    reloadFn = function() {
+                        location.reload(true);
+                    };
             }
-        } catch (e) {
-            Public.alert('程序出错');
+            setTimeout(reloadFn, 1000);
+        } else {
+            Public.alert(res.message);
         }
     };
 
