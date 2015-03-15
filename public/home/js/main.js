@@ -303,20 +303,21 @@
         }, 'json');
     };
 
-	/**
-	 * 退出登录
-	 */
-	Main.logout = function() {
-		Main.processing();
-		$.get(Main.baseUrl+'logout', Main.successHandler, 'text');
-	};
+    /**
+     * 退出登录
+     */
+    Main.logout = function() {
+        Main.processing();
+        $.get(Main.baseUrl+'logout', Main.successHandler, 'text');
+    };
 
     /**
      * 获取子窗口对象
      */
     Main.getSelectWin = function() {
-       return Main.getSelectFrame().contentWindow;
-    }
+        return Main.getSelectFrame().contentWindow;
+    };
+
     //暴露全局变量Main
     window.Main = Main;
 })();
