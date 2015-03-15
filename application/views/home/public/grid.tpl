@@ -29,10 +29,10 @@
 {block name="head"}
     <script type="text/javascript">
     $(function(){
-        $(window).resize(App.resizeGrid);
+        $(window).resize(Public.resizeGrid);
         var searchButton = $('#searchButton'),
             searchBlock  = $('#searchBlock'),
-            dataGrid     = App.getGrid(),
+            dataGrid     = Public.getGrid(),
             queryParams  = dataGrid.datagrid('options').queryParams,
             searchFun    = function(){
                 $(searchBlock).find('[name]').each(function(){

@@ -34,7 +34,7 @@
         <th data-options="field:'email',align:'center',sortable:true" width="10%">邮箱</th>
         <th data-options="field:'mobile',align:'center',sortable:true" width="10%">手机</th>
         <th data-options="field:'userType',align:'center',sortable:true" width="10%">是否大客户</th>
-        <th formatter="App.formatStatus" data-options="field:'status',align:'center',sortable:true" width="28%">状态</th>
+        <th formatter="Public.formatStatus" data-options="field:'status',align:'center',sortable:true" width="28%">状态</th>
     </tr>
 {/block}
 {block name="script"}
@@ -45,18 +45,18 @@
      * 提交选中用户
      */
     User.setUsers = function() {
-        App.processing();
-        $.post('{$baseUrl}role/set_user/{$roleId}', { users : App.getIds() }, App.successHandler, 'text');
+        Public.processing();
+        $.post('{$baseUrl}role/set_user/{$roleId}', { users : Public.getIds() }, Public.successHandler, 'text');
     };
 
     $(function(){
         //设置表格对象
-        var gridOptions = App.getGrid().datagrid('options');
+        var gridOptions = Public.getGrid().datagrid('options');
         gridOptions.onLoadSuccess = function(){
             //选中已有用户
             var existsUserIds = [{$userIds}];
             for(var i = 0; i<existsUserIds.length; i++) {
-                App.getGrid().datagrid('selectRecord', existsUserIds[i]);
+                Public.getGrid().datagrid('selectRecord', existsUserIds[i]);
             }
         };
     });

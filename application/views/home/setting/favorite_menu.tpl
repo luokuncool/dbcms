@@ -26,25 +26,25 @@
      * 输出超链接
      */
     Node.formatCode = function(field, row) {
-        return '<a class="easyui-linkbutton" href="javascript:App.addTab(\''+row.name+'\', \'{$baseUrl}'+field+'\')" data-options="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">{$baseUrl}'+field+'</a>';
+        return '<a class="easyui-linkbutton" href="javascript:Public.addTab(\''+row.name+'\', \'{$baseUrl}'+field+'\')" data-options="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">{$baseUrl}'+field+'</a>';
     };
 
     /**
      * 提交选中用户
      */
     Node.setFavoriteMenu = function() {
-        App.processing();
-        $.post('{$baseUrl}setting/set_favorite_menu', { nodeIds : App.getIds() }, App.successHandler, 'text');
+        Public.processing();
+        $.post('{$baseUrl}setting/set_favorite_menu', { nodeIds : Public.getIds() }, Public.successHandler, 'text');
     };
 
     $(function(){
         //设置表格对象
-        var gridOptions = App.getGrid().datagrid('options');
+        var gridOptions = Public.getGrid().datagrid('options');
         gridOptions.onLoadSuccess = function(){
             //已有菜单
             var existsMenus = [{$nodeIds}];
             for(var i = 0; i<existsMenus.length; i++) {
-                App.getGrid().datagrid('selectRecord', existsMenus[i]);
+                Public.getGrid().datagrid('selectRecord', existsMenus[i]);
             }
         };
     });

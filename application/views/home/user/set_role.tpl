@@ -24,7 +24,7 @@
     <tr width="100%">
         <th data-options="field:'id',align:'center',checkbox:true"></th>
         <th data-options="field:'name',sortable:true,title:'角色名'" width="18%"></th>
-        <th formatter="App.formatStatus" data-options="field:'status',sortable:true" width="20%">状态</th>
+        <th formatter="Public.formatStatus" data-options="field:'status',sortable:true" width="20%">状态</th>
         <th data-options="field:'remark',sortable:true" width="60%">描述</th>
     </tr>
 {/block}
@@ -36,18 +36,18 @@
      * 提交选中角色
      */
     Role.setRole = function() {
-        App.processing();
-        $.post('{$baseUrl}user/set_role/{$userId}', { roles : App.getIds() }, App.successHandler, 'text');
+        Public.processing();
+        $.post('{$baseUrl}user/set_role/{$userId}', { roles : Public.getIds() }, Public.successHandler, 'text');
     };
 
     $(function(){
         //设置表格对象
-        var gridOptions = App.getGrid().datagrid('options');
+        var gridOptions = Public.getGrid().datagrid('options');
         gridOptions.onLoadSuccess = function(){
             //选中已有身份
             var existsRoleIds = [{$roleIds}];
             for(var i = 0; i<existsRoleIds.length; i++) {
-                App.getGrid().datagrid('selectRecord', existsRoleIds[i]);
+                Public.getGrid().datagrid('selectRecord', existsRoleIds[i]);
             }
         };
     });

@@ -39,6 +39,7 @@ class Home extends HOME_Controller {
             $menuList && $data['menuGroupList'][$groupId]['menuName'] = $menuGroup;
             $menuList && $data['menuGroupList'][$groupId]['menuList'] = $menuList;
         }
+        $data['loginName'] = $_SESSION['userInfo']['name'];
         $this->smarty->view('home/index/index.tpl', $data);
     }
 

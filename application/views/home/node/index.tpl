@@ -35,7 +35,7 @@
             <td>&nbsp;</td>
             <td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px;">检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.App.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加模块</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.Public.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加模块</a>
                 <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Node.remove();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
                 <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Node.enable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
                 <a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Node.disable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
@@ -91,8 +91,8 @@
      */
     Node.formatOpt = function(field, row) {
         var tools = '';
-		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}node/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
-		row.level == 1 && (tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\'添加操作【'+row.name+'】\', \'{$baseUrl}node/create_method/'+row.id+'\')" onclick="">添加操作</a>');
+		tools += '&nbsp;&nbsp;<a href="javascript:Public.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}node/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
+		row.level == 1 && (tools += '&nbsp;&nbsp;<a href="javascript:Public.addTab(\'添加操作【'+row.name+'】\', \'{$baseUrl}node/create_method/'+row.id+'\')" onclick="">添加操作</a>');
         return tools;
     };
 
@@ -161,7 +161,7 @@
 	};
 
 	$(function(){
-		window.App = parent.App;
+		window.Public = parent.Public;
 	});
 	</script>
 {/block}

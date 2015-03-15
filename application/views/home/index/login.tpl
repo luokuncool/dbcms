@@ -14,9 +14,9 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <a class="easyui-linkbutton" id="submitForm" onclick="App.login();" data-options="iconCls:'icon-ok'" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">登陆</a>
+                        <a class="easyui-linkbutton" id="submitForm" onclick="Main.login();" data-options="iconCls:'icon-ok'" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">登陆</a>
                         &nbsp;&nbsp;
-                        <a class="easyui-linkbutton" data-options="iconCls:'icon-undo'" onclick="App.redo();" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">重填</a>
+                        <a class="easyui-linkbutton" data-options="iconCls:'icon-undo'" onclick="Main.redo();" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">重填</a>
                     </td>
                 </tr>
             </table>
@@ -31,18 +31,18 @@
         loginForm.form({
             url : '{$baseUrl}login',
             onSubmit : function() {
-                App.processing();
+                Main.processing();
             },
             success : function(res){
                 res = $.parseJSON(res);
-                App.processed();
+                Main.processed();
                 if (res.success) {
-                    App.showMessage(res.message);
+                    Main.showMessage(res.message);
                     setTimeout(function(){
                         location.reload(true);
                     }, 1500);
                 } else {
-                    App.alert(res.message);
+                    Main.alert(res.message);
                 }
             }
         });        

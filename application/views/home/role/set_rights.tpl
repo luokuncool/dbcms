@@ -10,7 +10,7 @@
 		<th formatter="Node.formatLevel" data-options="field:'level',align:'center',sortable:true" width="5%">节点类型</th>
 		<th formatter="Node.formatType" data-options="field:'type',align:'center',sortable:true" width="15%">是否菜单</th>
 		<th data-options="field:'sort',align:'center',sortable:true,editor:'numberspinner'" width="10%">序号</th>
-		<th formatter="App.formatStatus" data-options="field:'status',align:'center',sortable:true" width="13.5%">状态</th>
+		<th formatter="Public.formatStatus" data-options="field:'status',align:'center',sortable:true" width="13.5%">状态</th>
 	</tr>
 {/block}
 {* 搜索栏 *}
@@ -34,29 +34,29 @@
 			<td>&nbsp;</td>
 			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px;">检索</a></td>
 			<td align="right">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="App.setRights();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">提交保存</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="Public.setRights();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">提交保存</a>
 			</td>
 		</tr>
 	</table>
 {/block}
 {block name="script"}
 	<script type="text/javascript">
-	!function(App, parentWin){
-		App.setRights = function() {
-			App.processing();
-			$.post('{$baseUrl}role/set_rights/{$roleId}', { nodeIds : App.getIds() }, App.successHandler, 'text');
+	!function(Public, parentWin){
+		Public.setRights = function() {
+			Public.processing();
+			$.post('{$baseUrl}role/set_rights/{$roleId}', { nodeIds : Public.getIds() }, Public.successHandler, 'text');
 		};
-		window.App = App;
-	}(App, window.parent);
+		window.Public = Public;
+	}(Public, window.parent);
 
 	$(function(){
 		//设置表格对象
-		var gridOptions = App.getGrid().datagrid('options');
+		var gridOptions = Public.getGrid().datagrid('options');
 		gridOptions.onLoadSuccess = function(){
 			//选中已有用户
 			var existsNodeIds = [{$nodeIds}];
 			for(var i = 0; i<existsNodeIds.length; i++) {
-				App.getGrid().datagrid('selectRecord', existsNodeIds[i]);
+				Public.getGrid().datagrid('selectRecord', existsNodeIds[i]);
 			}
 		};
 	});

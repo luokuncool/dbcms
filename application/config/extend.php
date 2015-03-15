@@ -51,7 +51,7 @@ $config['default_filter'] = 'trim';
 $config['dataCacheTime'] = 0;
 
 //系统名称
-$config['system_name'] = 'EasyUI System';
+$config['system_name'] = 'XXX System';
 
 $config['cache_type'] = array('adapter'=>'dummy'); // 支持类型：apc, file, memcached, dummy, redis, default
 

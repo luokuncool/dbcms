@@ -3,7 +3,7 @@
 	<tr width="100%">
 		<th data-options="field:'id',align:'center',checkbox:true"></th>
 		<th data-options="field:'name',sortable:true" width="18%">角色名</th>
-		<th formatter="App.formatStatus" data-options="field:'status',sortable:true" width="20%">状态</th>
+		<th formatter="Public.formatStatus" data-options="field:'status',sortable:true" width="20%">状态</th>
 		<th data-options="field:'remark',sortable:true" width="40%">描述</th>
 		<th formatter='Role.formatOpt' data-options="field:'opt',align:'center'" width="20%">操作</th>
 	</tr>
@@ -20,9 +20,9 @@
 	 */
 	Role.formatOpt = function(field, row) {
 		var tools = '';
-		tools += '<a href="javascript:App.addTab(\'编辑角色【'+row.name+'】\', \'{$baseUrl}role/edit/'+row.id+'\')">编辑</a>';
-		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\''+row.name+'授权\', \'{$baseUrl}role/set_rights/'+row.id+'\')">授权</a>';
-		tools += '&nbsp;&nbsp;<a href="javascript:App.addTab(\''+row.name+'列表\', \'{$baseUrl}role/set_user/'+row.id+'\')">用户</a>';
+		tools += '<a href="javascript:Public.addTab(\'编辑角色【'+row.name+'】\', \'{$baseUrl}role/edit/'+row.id+'\')">编辑</a>';
+		tools += '&nbsp;&nbsp;<a href="javascript:Public.addTab(\''+row.name+'授权\', \'{$baseUrl}role/set_rights/'+row.id+'\')">授权</a>';
+		tools += '&nbsp;&nbsp;<a href="javascript:Public.addTab(\''+row.name+'列表\', \'{$baseUrl}role/set_user/'+row.id+'\')">用户</a>';
 		return tools;
 	};
 	</script>
@@ -42,10 +42,10 @@
 			</td>
 			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
 			<td align="right">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="App.addTab('添加角色', '{$baseUrl}role/create')" href="javascript:;" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="App.remove('{$baseUrl}role/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="App.enable('{$baseUrl}role/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="App.disable('{$baseUrl}role/disable')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="Public.addTab('添加角色', '{$baseUrl}role/create')" href="javascript:;" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Public.remove('{$baseUrl}role/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Public.enable('{$baseUrl}role/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Public.disable('{$baseUrl}role/disable')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
 			</td>
 		</tr>
 	</table>

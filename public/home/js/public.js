@@ -1,4 +1,4 @@
-;(function(App, parentWindow){
+;(function(Public, parentWindow){
 
     /**
      * 格式化状态
@@ -6,35 +6,35 @@
      * @param row
      * @returns { string }
      */
-    App.formatStatus = function(field) {
+    Public.formatStatus = function(field) {
         return field == 1 ? '<font color="green">启用</font>' : '<font color="red">禁用</font>';
     };
 
     /**
      * 启用
      */
-    App.enable = function(url){
-        App.processing();
-        $.post(url,  { ids:App.getIds() }, App.successHandler, 'text');
+    Public.enable = function(url){
+        Public.processing();
+        $.post(url,  { ids:Public.getIds() }, Public.successHandler, 'text');
     };
 
 
     /**
      * 禁用
      */
-    App.disable = function(url){
-        App.processing();
-        $.post(url,  { ids:App.getIds() }, App.successHandler, 'text');
+    Public.disable = function(url){
+        Public.processing();
+        $.post(url,  { ids:Public.getIds() }, Public.successHandler, 'text');
     };
 
     /**
      * 删除
      */
-    App.remove = function(url) {
-        App.confirm('确认框', '确定要删除所选？', function(ok){
+    Public.remove = function(url) {
+        Public.confirm('确认框', '确定要删除所选？', function(ok){
             if (ok) {
-                App.processing();
-                $.post(url,  { ids:App.getIds() }, App.successHandler, 'text');
+                Public.processing();
+                $.post(url,  { ids:Public.getIds() }, Public.successHandler, 'text');
             }
         });
     };
@@ -43,8 +43,8 @@
      * AJAX请求成功回调函数
      * @param res
      */
-    App.successHandler = function(res) {
-        App.processed();
+    Public.successHandler = function(res) {
+        Public.processed();
         try {
             var reloadFn;
             res = $.parseJSON(res); //eval('('+res+')');
@@ -59,7 +59,7 @@
                         bottom:''
                     }
                 });
-                res.closeSelf && setTimeout(App.closeSelfHandler, 500);
+                res.closeSelf && setTimeout(Public.closeSelfHandler, 500);
                 switch( res.reloadType) {
                     case 1 :
                         reloadFn = function() {
@@ -68,7 +68,7 @@
                         break;
                     case 2 :
                         reloadFn = function() {
-                            App.getGrid().datagrid('reload');
+                            Public.getGrid().datagrid('reload');
                         };
                         break;
                     default :
@@ -78,14 +78,14 @@
                 }
                 setTimeout(reloadFn, 1000);
             } else {
-                App.alert(res.message);
+                Public.alert(res.message);
             }
         } catch (e) {
-            App.alert('程序出错');
+            Public.alert('程序出错');
         }
     };
 
-    //暴露App对象
-    window.App = App;
+    //暴露Public对象
+    window.Public = Public;
 
-})(parent.App, parent);
+})(parent.Main, parent);

@@ -4,8 +4,8 @@
 		<tr>
 			<td width="70" align="right">创建日期：</td>
 			<td width="200">
-				<input class="easyui-datebox" id="startDate" data-options="width:97,onSelect:App.onSelectStartDate" type="text" name="startDate" value="{$defaultStartDate}" />
-                <input class="easyui-datebox" id="endDate" data-options="width:97,onSelect:App.onSelectEndDate" type="text" name="endDate" value="{$defaultEndDate}" />
+				<input class="easyui-datebox" id="startDate" data-options="width:97,onSelect:Public.onSelectStartDate" type="text" name="startDate" value="{$defaultStartDate}" />
+                <input class="easyui-datebox" id="endDate" data-options="width:97,onSelect:Public.onSelectEndDate" type="text" name="endDate" value="{$defaultEndDate}" />
 			</td>
 			<td width="100" align="right">状态：</td>
 			<td colspan="2">
@@ -22,9 +22,9 @@
 			<td>&nbsp;</td>
 			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
 			<td align="right">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="App.remove('{$baseUrl}test/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick=" App.enable('{$baseUrl}test/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="App.disable('{$baseUrl}test/disable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Public.remove('{$baseUrl}test/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick=" Public.enable('{$baseUrl}test/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
+				<a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Public.disable('{$baseUrl}test/disable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
 			</td>
 		</tr>
 	</table>
@@ -34,25 +34,25 @@
 		<th data-options="field:'id',align:'center',checkbox:true">ID</th>
 		<th data-options="field:'title',align:'center',sortable:true" width="15%">标题</th>
 		<th data-options="field:'body',align:'center',sortable:false" width="63%">内容</th>
-		<th formatter="App.formatStatus" data-options="field:'status',align:'center',sortable:false" width="10%">状态</th>
-		<th formatter="App.formatDate" data-options="field:'createTime',align:'center',sortable:true" width="10%">创建日期</th>
+		<th formatter="Public.formatStatus" data-options="field:'status',align:'center',sortable:false" width="10%">状态</th>
+		<th formatter="Public.formatDate" data-options="field:'createTime',align:'center',sortable:true" width="10%">创建日期</th>
 	</tr>
 {/block}
 {block name="script"}
 	<script type="text/javascript">
-	!function(App, parentWin){
+	!function(Public, parentWin){
 
 		/**
 		 * 获取开始日期对象
 		 */
-		App.getStartDate = function() {
+		Public.getStartDate = function() {
 			return $('#startDate');
 		};
 
 		/**
 		 * 获取结束日期对象
 		 */
-		App.getEndDate = function(){
+		Public.getEndDate = function(){
 			return $('#endDate');
 		};
 
@@ -61,7 +61,7 @@
 		 * @param time 创建日期
          * @returns { string }
          */
-		App.formatDate = function(time) {
+		Public.formatDate = function(time) {
 			var date      = new Date(parseInt(time)*1000)
 				,  fullYear = date.getFullYear()
 				,  month   = date.getMonth()+1
@@ -75,7 +75,7 @@
          * 开始日期选中
 		 * @param startDate
          */
-		App.onSelectStartDate = function(startDate) {
+		Public.onSelectStartDate = function(startDate) {
 			var year = startDate.getFullYear()
 				, month = (startDate.getMonth()+1)
 				, day = startDate.getDate();
@@ -85,14 +85,14 @@
 			} else if (month < 9) {
 				month = month + 3;
 			}
-			App.getEndDate().datebox('setValue', [ year, month,  day ].join('-'));
+			Public.getEndDate().datebox('setValue', [ year, month,  day ].join('-'));
 		};
 
         /**
          * 结束日期选中
 		 * @param endDate
          */
-		App.onSelectEndDate = function(endDate) {
+		Public.onSelectEndDate = function(endDate) {
 			var year = endDate.getFullYear()
 				, month = (endDate.getMonth()+1)
 				, day = endDate.getDate();
@@ -104,9 +104,9 @@
 			} else {
 				month = month - 3;
 			}
-			App.getStartDate().datebox('setValue', [ year, month,  day ].join('-'));
+			Public.getStartDate().datebox('setValue', [ year, month,  day ].join('-'));
 		};
 
-	}(parent.App, parent);
+	}(parent.Public, parent);
 	</script>
 {/block}

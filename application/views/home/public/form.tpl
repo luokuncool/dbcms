@@ -22,11 +22,11 @@
 	$(function(){
 		var submitForm = $('#submitForm'),
 			postForm   = $('#postForm'),
-            App = App ? App : parent.App;
+            Public = Public ? Public : parent.Public;
 		submitForm.click(function(){
 			postForm.form('submit', {
-				onSubmit : App.submitBefore,
-				success : App.successHandler
+				onSubmit : Public.submitBefore,
+				success : Public.successHandler
 			});
 		});
 	});
