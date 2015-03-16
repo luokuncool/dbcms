@@ -1,6 +1,6 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
-    <div id="w" class="easyui-window" title="登陆系统" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:true,resizeable:false,width:324,height:164" style="padding:10px 31px;">
+    <div id="w" class="easyui-window" title="登陆系统" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:false,resizable:false,width:324,height:164" style="padding:10px 31px;">
         <form id="loginForm" method="post">
             <table>
                 <tr>
@@ -14,7 +14,8 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <a class="easyui-linkbutton" id="submitForm" onclick="Main.login();" data-options="iconCls:'icon-ok'" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">登陆</a>
+                        <input type="submit" value="" style="display: none;" />
+                        <a class="easyui-linkbutton" id="submitForm" data-options="iconCls:'icon-ok'" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">登陆</a>
                         &nbsp;&nbsp;
                         <a class="easyui-linkbutton" data-options="iconCls:'icon-undo'" onclick="Main.redo();" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">重填</a>
                     </td>
@@ -48,7 +49,6 @@
         });        
         loginForm.bind('keyup', function(e){
             if (e.keyCode == 13) {
-                $('#submitForm').focus();
                 loginForm.form('submit');
             }
         });

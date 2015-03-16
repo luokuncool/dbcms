@@ -5,3 +5,4 @@
 /public/uploadfiles/*
 /tests/res*
 application/config/database.php
+tests/cookie.txt
