@@ -14,10 +14,9 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <input type="submit" value="" style="display: none;" />
                         <a class="easyui-linkbutton" id="submitForm" data-options="iconCls:'icon-ok'" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">登陆</a>
                         &nbsp;&nbsp;
-                        <a class="easyui-linkbutton" data-options="iconCls:'icon-undo'" onclick="Main.redo();" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">重填</a>
+                        <a class="easyui-linkbutton" data-options="iconCls:'icon-undo'" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">重填</a>
                     </td>
                 </tr>
             </table>
@@ -28,14 +27,10 @@
     <script type="text/javascript" src="{$basePath}/public/home/js/main.js"></script>
     <script type="text/javascript">
     $(function(){
-        var loginForm = $('#loginForm');
-        loginForm.form({
-            url : '{$baseUrl}login',
-            onSubmit : function() {
-                Main.processing();
-            },
-            success : function(res){
-                res = $.parseJSON(res);
+        var submitForm = $('#submitForm');
+        submitForm.click(function(){
+            Main.processing();
+            $.post('{$baseUrl}login', $('#loginForm').serializeArray(), function(res){
                 Main.processed();
                 if (res.success) {
                     Main.showMessage(res.message);
@@ -45,12 +40,7 @@
                 } else {
                     Main.alert(res.message);
                 }
-            }
-        });        
-        loginForm.bind('keyup', function(e){
-            if (e.keyCode == 13) {
-                loginForm.form('submit');
-            }
+            }, 'json');
         });
     });
     </script>
