@@ -3,9 +3,9 @@
     <div data-options="region:'north',border:true" style="height: 42px;">
         <div class="easyui-text" style="float:left; font-size: 22px; padding-left: 10px; font-family:'宋体','Arial Narrow';  line-height: 40px;">{$systemName}</div>
         <div style="float: right; padding: 5px 10px 0 0;">
-            <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">欢迎, {$loginName}</span>
-            <a class="easyui-linkbutton" onclick="Main.updateCache();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">更新缓存</a>
-            <a class="easyui-linkbutton" onclick="Main.logout()" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">退出登录</a>
+            <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;"><i class="iconfont icon-yonghu"></i>欢迎, {$loginName}</span>
+            <a class="easyui-linkbutton" onclick="Main.updateCache();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;"><i class="iconfont icon-shuaxin"></i>更新缓存</a>
+            <a class="easyui-linkbutton" onclick="Main.logout()" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;"><i class="iconfont icon-tuichu"></i>退出登录</a>
         </div>
     </div>
     <div data-options="region:'west',collapsed:true,split:true" title="菜单栏" style="width:10%;">
