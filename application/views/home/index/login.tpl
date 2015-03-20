@@ -15,9 +15,9 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a class="easyui-linkbutton" id="submitForm"  href="javascript:;" style="padding:10px 18px"><span style="font-size: 22px"><i class="iconfont icon-zhengque"></i> 登陆</span></a>
+                            <a class="easyui-linkbutton" id="submitForm"  href="javascript:;" style="padding:10px 19px"><span style="font-size: 22px"><i class="iconfont icon-zhengque"></i> 登陆</span></a>
                             &nbsp;&nbsp;
-                            <a class="easyui-linkbutton" onclick="location.reload();" href="javascript:;" style="padding:10px 18px"><span style="font-size: 22px"><i class="iconfont icon-chexiao"></i> 重填</span> </a>
+                            <a class="easyui-linkbutton" onclick="location.reload();" href="javascript:;" style="padding:10px 19px 10px 18px"><span style="font-size: 22px"><i class="iconfont icon-chexiao"></i> 重填</span> </a>
                         </td>
                     </tr>
                 </table>
