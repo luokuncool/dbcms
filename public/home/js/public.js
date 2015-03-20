@@ -1,4 +1,4 @@
-;(function(Public, parentWindow){
+~function(Public, parentWindow){
 
     /**
      * 格式化状态
@@ -45,43 +45,47 @@
      */
     Public.successHandler = function(res) {
         Public.processed();
-        var reloadFn;
-        res = $.parseJSON(res); //eval('('+res+')');
+        res = $.parseJSON(res);
         if (res.success) {
             $.messager.show({
                 title:'提示',
                 msg:res.message,
                 showType:'fade',
-                timeout:500,
+                timeout:400,
                 style:{
                     right:'',
                     bottom:''
                 }
             });
             res.closeSelf && setTimeout(Public.closeSelfHandler, 500);
-            switch( res.reloadType) {
-                case 1 :
-                    reloadFn = function() {
-                        parentWindow.location.reload();
-                    };
-                    break;
-                case 2 :
-                    reloadFn = function() {
-                        Public.getGrid().datagrid('reload');
-                    };
-                    break;
-                default :
-                    reloadFn = function() {
-                        location.reload(true);
-                    };
-            }
-            setTimeout(reloadFn, 1000);
+            setTimeout(res.reloadType === undefined ? Public.reload : Public[res.reloadType], 500);
         } else {
             Public.alert(res.message);
         }
     };
 
+    /**
+     * 刷新表格
+     */
+    Public.reloadGrid = function(){
+        Public.getGrid().datagrid('reload');
+    };
+
+    /**
+     * 刷新父窗体
+     */
+    Public.reloadParentWin = function(){
+        parentWindow.location.reload();
+    };
+
+    /**
+     * 刷新当前窗体
+     */
+    Public.reload = function(){
+        location.reload(true);
+    };
+
     //暴露Public对象
     window.Public = Public;
 
-})(parent.Main, parent);
+}(parent.Main, parent);

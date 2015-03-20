@@ -99,7 +99,8 @@ class Test extends Home_Controller
         $res['message'] = $result ? '保存成功' : '保存失败';
         $id && $res['closeSelf'] = 1;
         $id && $res['success'] = 1;
-        echo json_encode($res);
+        $res['reloadType'] = 'reloadGrid';
+     echo json_encode($res);
     }
 
     /**
@@ -162,7 +163,7 @@ class Test extends Home_Controller
         regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
         $result = $this->test_model->delete('id in('.$ids.')');
         $res = array(
-            'reloadType' => 2,
+            'reloadType' => 'reloadGrid',
             'message'    => $result  !== false  ? '操作成功' : '操作失败',
             'success'    => $result  !== false  ? 1 : 0,
         );
@@ -182,7 +183,7 @@ class Test extends Home_Controller
         $result = $this->set_status('id in('.$ids.')', 0);
         $res = array(
             'message' => $result  !== false  ? '操作成功' : '操作失败',
-            'reloadType' => 2,
+            'reloadType' => 'reloadGrid',
             'success' => $result  !== false  ? 1 : 0,
         );
         echo_json($res);
@@ -201,7 +202,7 @@ class Test extends Home_Controller
         $result = $this->set_status('id in('.$ids.')', 1);
         $res = array(
             'message' => $result  !== false ? '操作成功' : '操作失败',
-            'reloadType' => 2,
+            'reloadType' => 'reloadGrid',
             'success' => $result  !== false  ? 1 : 0,
         );
         echo_json($res);

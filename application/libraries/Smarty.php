@@ -19,8 +19,8 @@ class CI_Smarty extends Smarty {
         $this->compile_dir = APPPATH . "templates_c";
         $this->template_dir = APPPATH . "views/";
         $this->cache_dir = APPPATH . "cache";
-        $this->left_delimiter = '{';
-        $this->right_delimiter = '}';
+        $this->left_delimiter = '{{';
+        $this->right_delimiter = '}}';
         $this->caching = APP_DEBUG ? FALSE : TRUE;
         $this->assign( 'APPPATH', APPPATH );
         $this->assign( 'BASEPATH', BASEPATH );
@@ -35,8 +35,8 @@ class CI_Smarty extends Smarty {
         $this->compile_dir = APPPATH . "templates_c";
         $this->template_dir = APPPATH . "views/";
         $this->cache_dir = APPPATH . "cache";
-        $this->left_delimiter = '{';
-        $this->right_delimiter = '}';
+        $this->left_delimiter = '{{';
+        $this->right_delimiter = '}}';
         $this->caching = APP_DEBUG ? FALSE : TRUE;
         $this->assign( 'APPPATH', APPPATH );
         $this->assign( 'BASEPATH', BASEPATH );

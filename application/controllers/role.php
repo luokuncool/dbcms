@@ -75,10 +75,13 @@ class Role extends HOME_Controller {
             'updateUid' => 1,
         );
         $id = $this->role_model->insert($data);
-        $id OR ajax_exit('保存失败');
-        $res['message']   = '保存成功';
-        $res['success']   = 1;
-        $res['closeSelf'] = 1;
+        $id === false && ajax_exit('操作失败');
+        $res = array(
+            'message' => '操作成功',
+            'closeSelf' => 1,
+            'success' => 1,
+            'reloadType' => 'reloadGrid',
+        );
         echo_json($res);
     }
 
@@ -110,11 +113,13 @@ class Role extends HOME_Controller {
             'updateUid' => 1,
         );
         $result = $this->role_model->update(array('id'=>$id), $data);
-        $result OR ajax_exit('保存失败');
-
-        $res['message']   = '保存成功';
-        $res['success']   = 1;
-        $res['closeSelf'] = 1;
+        $result === false && ajax_exit('操作失败');
+        $res = array(
+            'message' => '操作成功',
+            'closeSelf' => 1,
+            'success' => 1,
+            'reloadType' => 'reloadGrid',
+        );
         echo_json($res);
     }
 
@@ -133,7 +138,7 @@ class Role extends HOME_Controller {
         $res = array(
             'message' => '操作成功',
             'success' => 1,
-            'reloadType' => 2
+            'reloadType' => 'reloadGrid',
         );
         echo_json($res);
     }
@@ -153,7 +158,7 @@ class Role extends HOME_Controller {
         $res = array(
             'message' => '操作成功',
             'success' => 1,
-            'reloadType' => 2
+            'reloadType' => 'reloadGrid',
         );
         echo_json($res);
     }
@@ -198,6 +203,7 @@ class Role extends HOME_Controller {
         echo json_encode(
             array(
                 'message' => '保存成功',
+                'reloadType' => 'reloadGrid',
                 'success' => 1
             )
         );
@@ -238,6 +244,7 @@ class Role extends HOME_Controller {
             echo json_encode(
                 array(
                     'message' => '保存成功',
+                    'reloadType' => 'reloadGrid',
                     'success' => 1
                 )
             );
@@ -287,7 +294,7 @@ class Role extends HOME_Controller {
         regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
         $result = $this->role_model->delete('id in('.$ids.')');
         $res = array(
-            'reloadType' => 2,
+            'reloadType' => 'reloadGrid',
             'message' => $result  !== false  ? '操作成功' : '操作失败',
             'success' => $result  !== false  ? 1 : 0,
         );
