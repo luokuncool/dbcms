@@ -25,7 +25,7 @@ class Home extends HOME_Controller {
         $data['menuGroupList'] = config_item('node_group');
         $map[]                 = array('type'=>1);
         $map['order_by']       = array('sort', 'asc');
-        //$map[]                 = 'id in('.join(',', $accessNodeIds).')';
+        $map[]                 = 'id in('.join(',', $accessNodeIds).')';
         $nodeList              = $this->node_model->get_list($map, 'id,name,code,groupId');
         $data['nodeList']      = $nodeList['rows'];
         foreach($data['menuGroupList'] as $groupId => $menuGroup)
