@@ -1,23 +1,23 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
     <div data-options="region:'center',fit:true">
-        <div class="easyui-window" title="登陆{$systemName}" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:false,resizable:false,width:324,height:164" style="padding:10px 31px;">
+        <div class="easyui-window" title="{$systemName}" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:false,resizable:false,width:450,height:260" style="padding:10px 31px;">
             <form id="loginForm" method="post">
                 <table>
                     <tr>
-                        <td align="right">用&nbsp;户&nbsp;名：</td>
-                        <td><input class="easyui-textbox"  type="text" name="uName" data-options="width:180" /></td>
+                        <td align="right" style="font-size: 22px">用&nbsp;户&nbsp;名：</td>
+                        <td><input class="easyui-textbox"  type="text" name="uName" data-options="width:250, height:36" /></td>
                     </tr>
                     <tr>
-                        <td align="right">密&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
-                        <td><input class="easyui-textbox" type="password" name="password" data-options="width:180" /></td>
+                        <td align="right" style="font-size: 22px">密&nbsp;&nbsp;&nbsp;&nbsp;码：</td>
+                        <td><input class="easyui-textbox" type="password" name="password" data-options="width:250, height:36" /></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a class="easyui-linkbutton" id="submitForm" data-options="iconCls:'icon-ok'" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">登陆</a>
+                            <a class="easyui-linkbutton" id="submitForm"  href="javascript:;" style="padding:12px 18px"><span style="font-size: 22px"><i class="iconfont icon-zhengque"></i> 登陆</span></a>
                             &nbsp;&nbsp;
-                            <a class="easyui-linkbutton" data-options="iconCls:'icon-undo'" onclick="location.reload();" href="javascript:;" style="padding:0 8px 0 3px; border-radius: 2px 2px 2px; font-size: 20px;">重填</a>
+                            <a class="easyui-linkbutton" onclick="location.reload();" href="javascript:;" style="padding:12px 18px"><span style="font-size: 22px"><i class="iconfont icon-chexiao"></i> 重填</span> </a>
                         </td>
                     </tr>
                 </table>
@@ -48,6 +48,6 @@
     });
     </script>
     <style type="text/css">
-        table td { padding: 5px 0px; }
+        table td { padding: 10px 0px; }
     </style>
 {/block}
