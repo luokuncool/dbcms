@@ -21,10 +21,10 @@
 				<a class="easyui-linkbutton" id="searchButton" data-options="height:24" style="padding-right: 5px; border-radius: 2px 2px 2px"><i class="iconfont icon-sousuo"></i> 检索</a>
 			</td>
             <td align="right">
-                <a class="easyui-linkbutton pr5" onclick="Public.addTab('添加用户', '/user/create');"><i class="iconfont icon-jia"></i> 添加</a>
-                <a class="easyui-linkbutton pr5" onclick="Public.remove('{$baseUrl}user/remove')"><i class="iconfont icon-shanchu"></i> 删除</a>
-                <a class="easyui-linkbutton pr5" onclick="Public.enable('{$baseUrl}user/enable');"><i class="iconfont icon-zhengque"></i> 启用</a>
-                <a class="easyui-linkbutton pr5" onclick="Public.disable('{$baseUrl}user/disable');"><i class="iconfont icon-jinzhi1"></i> 禁用</a>
+                <a class="easyui-linkbutton" onclick="Public.addTab('添加用户', '/user/create');"><i class="iconfont icon-jia"></i> 添加</a>
+                <a class="easyui-linkbutton" onclick="Public.remove('{$baseUrl}user/remove')"><i class="iconfont icon-shanchu"></i> 删除</a>
+                <a class="easyui-linkbutton" onclick="Public.enable('{$baseUrl}user/enable');"><i class="iconfont icon-zhengque"></i> 启用</a>
+                <a class="easyui-linkbutton" onclick="Public.disable('{$baseUrl}user/disable');"><i class="iconfont icon-jinzhi1"></i> 禁用</a>
             </td>
 		</tr>
 	</table>
@@ -65,7 +65,7 @@
 	 */
 	User.formatOpt = function(field, row) {
 		var tools = '';
-		tools += '&nbsp;&nbsp;<a href="javascript:Public.addTab(\'编辑节点【'+row.id+'】\', \'{$baseUrl}user/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
+		tools += '&nbsp;&nbsp;<a href="javascript:Public.addTab(\'编辑用户【'+row.id+'】\', \'{$baseUrl}user/edit/'+row.id+'/'+row.pId+'/'+row.level+'\')" onclick="">编辑</a>';
 		tools += '&nbsp;&nbsp;<a href="javascript:Public.addTab(\'设置身份【'+row.name+'】\', \'{$baseUrl}user/set_role/'+row.id+'\')" onclick="">设置身份</a>';
 		return tools;
 	};

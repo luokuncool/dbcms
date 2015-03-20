@@ -74,21 +74,18 @@ class User extends Home_Controller
     /**
      * 修改
      * @param $id
-     * @param $pId
-     * @param $level
      */
-    public function edit($id, $pId, $level)
+    public function edit($id)
     {
         $id = intval($id);
-        $data['node_group_list'] = config_item('node_group');
-        $data['data'] = $this->node_model->get_row($id);
+        $assign['node_group_list'] = config_item('node_group');
+        $assign['data'] = $this->user_model->get_row($id);
         if (!is_post())
         {
-            $this->smarty->view('home/node/edit.tpl', $data);
+            $this->smarty->view('home/user/edit.tpl', $assign);
             return;
         }
-        $data = $this->validation($id, $pId, $level);
-        $result = $this->node_model->update(array('id'=>$id), $data);
+        $result = $this->user_model->update(array('id'=>$id), $data);
         $res['message'] = $result ? '保存成功' : '保存失败';
         $id && $res['closeSelf'] = 1;
         $id && $res['success'] = 1;

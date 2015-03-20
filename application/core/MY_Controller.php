@@ -90,7 +90,7 @@ class Home_Controller extends MY_Controller {
         if ( in_array($thisNode, $withoutCheckAccess) ) return;
         $result = in_array($thisNode, $_SESSION['accessNodeCodes']);
         if ( $result ) return;
-        ( is_ajax() OR is_post() ) && ajax_exit('没有操作权限！');
+        ( is_ajax() OR is_post() ) ? ajax_exit('没有操作权限！') : show_404();
     }
 
 }

@@ -50,7 +50,7 @@ $config['default_filter'] = 'trim';
 $config['dataCacheTime'] = 0;
 
 //系统名称
-$config['system_name'] = 'XXX System';
+$config['system_name'] = '后台管理系统v1.0';
 
 $config['cache_type'] = array('adapter'=>'dummy'); // 支持类型：apc, file, memcached, dummy, redis, default
 

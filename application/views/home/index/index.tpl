@@ -1,12 +1,12 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
     <div data-options="region:'north',border:true" style="height: 42px;">
-        <div class="easyui-text" style="float:left; font-size: 22px; padding-left: 10px; font-family:'宋体','Arial Narrow';  line-height: 40px;">{$systemName}</div>
+        <div style="float:left; font-size: 22px; padding-left: 10px; font-family:'微软雅黑','Arial Narrow';  line-height: 40px;"><i class="logo-font">{$systemName}</i></div>
         <div style="float: right; padding: 5px 10px 0 0;">
             <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">欢迎, {$loginName}</span>
-            <a class="easyui-linkbutton pr5" onclick="Main.updateCache();"><i class="iconfont icon-shuaxin"></i> 更新缓存</a>
-            <a class="easyui-linkbutton pr5" onclick="Main.addTab('密码修改', '{$baseUrl}setting/change_password');"><i class="iconfont icon-suoding"></i> 密码修改</a>
-            <a class="easyui-linkbutton pr5" onclick="Main.logout()"><i class="iconfont icon-tuichu"></i>退出登录</a>
+            <a class="easyui-linkbutton" onclick="Main.updateCache();"><i class="iconfont icon-shuaxin"></i> 更新缓存</a>
+            <a class="easyui-linkbutton" onclick="Main.addTab('密码修改', '{$baseUrl}setting/change_password');"><i class="iconfont icon-suoding"></i> 密码修改</a>
+            <a class="easyui-linkbutton" onclick="Main.logout()"><i class="iconfont icon-tuichu"></i> 退出登录</a>
         </div>
     </div>
     <div data-options="region:'west',collapsed:true,split:true" title="菜单栏" style="width:10%;">
@@ -44,6 +44,7 @@
     </div>
 {/block}
 {block name="head"}
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/logo-icon/webfont.css">
     <script type="text/javascript" src="{$basePath}/public/home/js/main.js"></script>
     <script type="text/javascript" src="{$basePath}/public/home/js/public.js"></script>
     <script type="text/javascript">

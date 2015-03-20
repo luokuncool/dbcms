@@ -17,9 +17,9 @@
                 </select>
             </td>
             <td>&nbsp;</td>
-            <td><a class="easyui-linkbutton pr5" id="searchButton" data-options="height:24"><i class="iconfont icon-sousuo"></i> 检索</a></td>
+            <td><a class="easyui-linkbutton" id="searchButton" data-options="height:24"><i class="iconfont icon-sousuo"></i> 检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton pr5" onclick="User.setUsers();"><i class="iconfont icon-baocun"></i> 提交保存</a>
+                <a class="easyui-linkbutton" onclick="User.setUsers();"><i class="iconfont icon-baocun"></i> 提交保存</a>
             </td>
         </tr>
     </table>
@@ -31,9 +31,8 @@
         <th data-options="field:'code',align:'center',sortable:true" width="10%">代码(工号)</th>
         <th data-options="field:'name',align:'center',sortable:true" width="10%">真实姓名</th>
         <th data-options="field:'enName',align:'center',sortable:true" width="10%">英文名称</th>
-        <th data-options="field:'email',align:'center',sortable:true" width="10%">邮箱</th>
-        <th data-options="field:'mobile',align:'center',sortable:true" width="10%">手机</th>
-        <th data-options="field:'userType',align:'center',sortable:true" width="10%">是否大客户</th>
+        <th data-options="field:'email',align:'center',sortable:true" width="15%">邮箱</th>
+        <th data-options="field:'mobile',align:'center',sortable:true" width="15%">手机</th>
         <th formatter="Public.formatStatus" data-options="field:'status',align:'center',sortable:true" width="28%">状态</th>
     </tr>
 {/block}
