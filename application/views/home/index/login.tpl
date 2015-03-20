@@ -5,19 +5,22 @@
             <form id="loginForm" method="post">
                 <table>
                     <tr>
-                        <td align="right" style="font-size: 22px">用户名：</td>
-                        <td><input class="easyui-textbox"  type="text" name="uName" data-options="width:250, height:36" /></td>
+                        <td style="position: relative; z-index: 1;">
+                            <input class="easyui-textbox iconfont"  type="text" name="uName" data-options="width:350, height:36" style="padding-left: 30px;" />
+                            <i class="iconfont icon-yonghu" style="position: absolute; left: 4px; top:16px; font-size: 22px; z-index: 20"></i>
+                        </td>
                     </tr>
                     <tr>
-                        <td align="right" style="font-size: 22px"><span style="padding-right: 16px;">密</span> 码：</td>
-                        <td><input class="easyui-textbox" type="password" name="password" data-options="width:250, height:36" /></td>
+                        <td style="position: relative; z-index: 1;">
+                            <input class="easyui-textbox" type="password" name="password" data-options="width:350, height:36" style="padding-left: 30px;" />
+                            <i class="iconfont icon-suoding" style="position: absolute; left: 4px; top:16px; font-size: 22px; z-index: 20"></i>
+                        </td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
                         <td>
-                            <a class="easyui-linkbutton" id="submitForm"  href="javascript:;" style="padding:10px 19px"><span style="font-size: 22px"><i class="iconfont icon-zhengque"></i> 登陆</span></a>
+                            <a class="easyui-linkbutton" id="submitForm"  href="javascript:;" style="padding:8px 15px"><span style="font-size: 22px"><i class="iconfont icon-zhengque"></i> 登陆</span></a>
                             &nbsp;&nbsp;
-                            <a class="easyui-linkbutton" onclick="location.reload();" href="javascript:;" style="padding:10px 19px 10px 18px"><span style="font-size: 22px"><i class="iconfont icon-chexiao"></i> 重填</span> </a>
+                            <a class="easyui-linkbutton" onclick="location.reload();" href="javascript:;" style="padding:8px 15px"><span style="font-size: 22px"><i class="iconfont icon-chexiao"></i> 重填</span> </a>
                         </td>
                     </tr>
                 </table>

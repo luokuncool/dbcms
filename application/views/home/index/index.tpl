@@ -1,7 +1,7 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
-    <div data-options="region:'north',border:true" style="height: 42px;">
-        <div style="float:left; font-size: 22px; padding-left: 10px; font-family:'微软雅黑','Arial Narrow';  line-height: 40px;"><i class="logo-font">{$systemName}</i></div>
+    <div data-options="region:'north',border:true" style="height: 44px;">
+        <div style="float:left; font-size: 23px; padding-left: 10px; font-family:'微软雅黑','Arial Narrow';  line-height: 40px;"><i class="logo-font">{$systemName}</i></div>
         <div style="float: right; padding: 5px 10px 0 0;">
             <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">欢迎, {$loginName}</span>
             <a class="easyui-linkbutton" onclick="Main.updateCache();"><i class="iconfont icon-shuaxin"></i> 更新缓存</a>

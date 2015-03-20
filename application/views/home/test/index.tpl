@@ -4,8 +4,8 @@
 		<tr>
 			<td width="70" align="right">创建日期：</td>
 			<td width="200">
-				<input class="easyui-datebox" id="startDate" data-options="width:97,onSelect:Public.onSelectStartDate" type="text" name="startDate" value="{$defaultStartDate}" />
-                <input class="easyui-datebox" id="endDate" data-options="width:97,onSelect:Public.onSelectEndDate" type="text" name="endDate" value="{$defaultEndDate}" />
+				<input class="easyui-datebox" id="startDate" data-options="editable:false,width:97,onSelect:Public.onSelectStartDate" type="text" name="startDate" value="{$defaultStartDate}" />
+                <input class="easyui-datebox" id="endDate" data-options="editable:false,width:97,onSelect:Public.onSelectEndDate" type="text" name="endDate" value="{$defaultEndDate}" />
 			</td>
 			<td width="100" align="right">状态：</td>
 			<td colspan="2">
