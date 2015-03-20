@@ -9,10 +9,10 @@
             <a class="easyui-linkbutton" onclick="Main.logout()"><i class="iconfont icon-tuichu"></i> 退出登录</a>
         </div>
     </div>
-    <div data-options="region:'west',collapsed:true,split:true" title="菜单栏" style="width:10%;">
-        <div class="easyui-accordion" data-options="border:false,multiple:false,animate:true">
+    <div data-options="region:'west',collapsed:false,split:true" title="菜单栏" style="width:10%;">
+        <div class="easyui-accordion" data-options="border:false,multiple:false,animate:true,fit:true">
             {foreach $menuGroupList as $menuGroup}
-                <div title="{$menuGroup.menuName}" data-options="collapsible:true" style="padding: 0 5px;">
+                <div title="{$menuGroup.menuName}" data-options="collapsible:true" style="padding: 0 2px;">
                     {foreach $menuGroup['menuList'] as $menu}
                     <p><a class="easyui-linkbutton" style="width: 100%" href="javascript:Main.addTab('{$menu.name}', '{$baseUrl}{$menu.code}')">{$menu.name}</a></p>
                     {/foreach}

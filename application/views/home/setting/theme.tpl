@@ -3,7 +3,7 @@
     <tr>
         <td align="right">选择主题：</td>
         <td>
-            <select class="easyui-combobox" name="myTheme"  data-options="editable:true,width:200,height:24">
+            <select class="easyui-combobox" name="myTheme"  data-options="editable:false,width:200,height:24">
                 {foreach $themeList as $theme}
                     <option value="{$theme}" {if $theme eq $myTheme}selected{/if}>{$theme}</option>
                 {/foreach}

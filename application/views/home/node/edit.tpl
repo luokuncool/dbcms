@@ -11,7 +11,7 @@
     <tr>
         <td align="right" valign="top">所属菜单组：</td>
         <td valign="top">
-            <select class="easyui-combobox" name="groupId" data-options="width:200">
+            <select class="easyui-combobox" name="groupId" data-options="editable:false,width:200">
                 <option value="">--请选择所属菜单组--</option>
                 {foreach $node_group_list as $node_group}
                     <option value="{$node_group@key}" {if $node_group@key eq $data['groupId']}selected{/if}>{$node_group}</option>
