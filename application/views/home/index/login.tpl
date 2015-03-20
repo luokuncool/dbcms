@@ -1,15 +1,15 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
     <div data-options="region:'center',fit:true">
-        <div class="easyui-window" title="{$systemName}" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:false,resizable:false,width:440,height:260" style="padding:16px 31px;">
+        <div class="easyui-window" title="{$systemName}" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:false,resizable:false,width:430,height:260" style="padding:16px 31px;">
             <form id="loginForm" method="post">
                 <table>
                     <tr>
-                        <td align="right" style="font-size: 22px">用&nbsp;户&nbsp;名：</td>
+                        <td align="right" style="font-size: 22px">用户名：</td>
                         <td><input class="easyui-textbox"  type="text" name="uName" data-options="width:250, height:36" /></td>
                     </tr>
                     <tr>
-                        <td align="right" style="font-size: 22px"><span style="padding-right: 28px;">密</span> 码：</td>
+                        <td align="right" style="font-size: 22px"><span style="padding-right: 16px;">密</span> 码：</td>
                         <td><input class="easyui-textbox" type="password" name="password" data-options="width:250, height:36" /></td>
                     </tr>
                     <tr>
