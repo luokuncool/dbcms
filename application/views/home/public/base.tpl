@@ -9,6 +9,9 @@
     <script type="text/javascript" src="{$basePath}/public/static/jquery.js"></script>
     <script type="text/javascript" src="{$basePath}/public/static/jquery-easy-ui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="{$basePath}/public/static/jquery-easy-ui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/jquery-easy-ui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/home/css/home.css">
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/iconfont/iconfont.css">
     <script type="text/javascript">Public = parent.Public;</script>
 {block name="head"}{/block}
 </head>

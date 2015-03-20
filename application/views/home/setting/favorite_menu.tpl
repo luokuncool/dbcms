@@ -4,9 +4,9 @@
         <tr>
             <td width="100" align="right">菜单名称：</td>
             <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name" /></td>
-            <td>&nbsp;&nbsp;<a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search'" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">检索</a></td>
+            <td>&nbsp;&nbsp;<a class="easyui-linkbutton pr5" id="searchButton"><i class="iconfont icon-sousuo"></i> 检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="Node.setFavoriteMenu();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">设为常用</a>
+                <a class="easyui-linkbutton pr5" onclick="Node.setFavoriteMenu();"><i class="iconfont icon-baocun"></i> 设为常用</a>
             </td>
         </tr>
     </table>

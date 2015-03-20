@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{$basePath}/public/static/jquery-easy-ui/themes/{$myTheme}/easyui.css">
 	<link rel="stylesheet" type="text/css" href="{$basePath}/public/static/jquery-easy-ui/themes/color.css">
     <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/jquery-easy-ui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="{$basePath}/public/home/css/home.css">
     <link rel="stylesheet" type="text/css" href="{$basePath}/public/static/iconfont/iconfont.css">
 {block name="head"}{/block}
 </head>

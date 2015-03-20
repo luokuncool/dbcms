@@ -15,7 +15,7 @@
     <tr>
         <td align="right">所属部门：</td>
         <td>
-            <select class="easyui-combobox" name="groupId"  data-options="editable:false" style="width: 160px;">
+            <select class="easyui-combobox" name="groupId"  data-options="width:160, editable:false">
                 <option value="">--请选择所属部门--</option>
                 {foreach $node_group_list as $node_group}
                     <option value="{$node_group@key}">{$node_group}</option>

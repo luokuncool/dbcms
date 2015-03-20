@@ -3,22 +3,23 @@
     <div data-options="region:'north',border:true" style="height: 42px;">
         <div class="easyui-text" style="float:left; font-size: 22px; padding-left: 10px; font-family:'宋体','Arial Narrow';  line-height: 40px;">{$systemName}</div>
         <div style="float: right; padding: 5px 10px 0 0;">
-            <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;"><i class="iconfont icon-yonghu"></i>欢迎, {$loginName}</span>
-            <a class="easyui-linkbutton" onclick="Main.updateCache();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;"><i class="iconfont icon-shuaxin"></i>更新缓存</a>
-            <a class="easyui-linkbutton" onclick="Main.logout()" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;"><i class="iconfont icon-tuichu"></i>退出登录</a>
+            <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">欢迎, {$loginName}</span>
+            <a class="easyui-linkbutton pr5" onclick="Main.updateCache();"><i class="iconfont icon-shuaxin"></i> 更新缓存</a>
+            <a class="easyui-linkbutton pr5" onclick="Main.addTab('密码修改', '{$baseUrl}setting/change_password');"><i class="iconfont icon-suoding"></i> 密码修改</a>
+            <a class="easyui-linkbutton pr5" onclick="Main.logout()"><i class="iconfont icon-tuichu"></i>退出登录</a>
         </div>
     </div>
     <div data-options="region:'west',collapsed:true,split:true" title="菜单栏" style="width:10%;">
-        <div class="easyui-accordion" data-options="border:false" style="width:100%;display: none;">
+        <div class="easyui-accordion" data-options="border:false,multiple:false,animate:false" style="width:100%;display: block;">
             {foreach $menuGroupList as $menuGroup}
                 <div title="{$menuGroup.menuName}" data-options="collapsible:true" style="padding: 0 5px;">
                     {foreach $menuGroup['menuList'] as $menu}
-                    <p><a href="javascript:Main.addTab('{$menu.name}', '{$baseUrl}{$menu.code}')">{$menu.name}</a></p>
+                    <p><a class="easyui-linkbutton" style="width: 100%" href="javascript:Main.addTab('{$menu.name}', '{$baseUrl}{$menu.code}')">{$menu.name}</a></p>
                     {/foreach}
                 </div>
             {/foreach}
         </div>
-        <ul class="easyui-tree" data-options="lines:true" style="display: block;">
+        <ul class="easyui-tree" data-options="lines:true" style="display: none;">
             {foreach $menuGroupList as $menuGroup}
                 <li>
                     <span>{$menuGroup.menuName}</span>

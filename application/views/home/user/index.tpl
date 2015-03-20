@@ -17,12 +17,14 @@
 				</select>
 			</td>
 			<td>&nbsp;</td>
-			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
+			<td>
+				<a class="easyui-linkbutton" id="searchButton" data-options="height:24" style="padding-right: 5px; border-radius: 2px 2px 2px"><i class="iconfont icon-sousuo"></i> 检索</a>
+			</td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:Public.addTab('添加用户', '/user/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Public.remove('{$baseUrl}user/remove')" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick=" Public.enable('{$baseUrl}user/enable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Public.disable('{$baseUrl}user/disable');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
+                <a class="easyui-linkbutton pr5" onclick="Public.addTab('添加用户', '/user/create');"><i class="iconfont icon-jia"></i> 添加</a>
+                <a class="easyui-linkbutton pr5" onclick="Public.remove('{$baseUrl}user/remove')"><i class="iconfont icon-shanchu"></i> 删除</a>
+                <a class="easyui-linkbutton pr5" onclick="Public.enable('{$baseUrl}user/enable');"><i class="iconfont icon-zhengque"></i> 启用</a>
+                <a class="easyui-linkbutton pr5" onclick="Public.disable('{$baseUrl}user/disable');"><i class="iconfont icon-jinzhi1"></i> 禁用</a>
             </td>
 		</tr>
 	</table>

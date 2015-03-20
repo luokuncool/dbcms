@@ -33,12 +33,12 @@
                 </select>
             </td>
             <td>&nbsp;</td>
-            <td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px;">检索</a></td>
+            <td><a class="easyui-linkbutton pr5" id="searchButton" data-options="height:24"><i class="iconfont icon-sousuo"></i> 检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" href="javascript:parent.Public.addTab('添加节点', '{$baseUrl}node/create');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">添加模块</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="Node.remove();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">删除</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="Node.enable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">启用</a>
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-no'" onclick="Node.disable();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">禁用</a>
+                <a class="easyui-linkbutton pr5" href="javascript:parent.Public.addTab('添加节点', '{$baseUrl}node/create');"><i class="iconfont icon-jia"></i> 添加模块</a>
+                <a class="easyui-linkbutton pr5" onclick="Node.remove();"><i class="iconfont icon-shanchu"></i> 删除</a>
+                <a class="easyui-linkbutton pr5" onclick="Node.enable();"><i class="iconfont icon-zhengque"></i> 启用</a>
+                <a class="easyui-linkbutton pr5" onclick="Node.disable();"><i class="iconfont icon-jinzhi1"></i> 禁用</a>
             </td>
         </tr>
     </table>

@@ -17,9 +17,9 @@
                 </select>
             </td>
             <td>&nbsp;</td>
-            <td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px">检索</a></td>
+            <td><a class="easyui-linkbutton pr5" id="searchButton" data-options="height:24"><i class="iconfont icon-sousuo"></i> 检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="User.setUsers();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">提交保存</a>
+                <a class="easyui-linkbutton pr5" onclick="User.setUsers();"><i class="iconfont icon-baocun"></i> 提交保存</a>
             </td>
         </tr>
     </table>

@@ -25,16 +25,16 @@
 		<tr>
 			<td width="100" align="right">状态：</td>
 			<td width="70">
-				<select class="easyui-combobox" data-options="editable:false,width:200,height:24" name="status" style="width: 200px;">
+				<select class="easyui-combobox" data-options="editable:false,width:200,height:24" name="status">
 					<option value="">请选择</option>
 					<option value="1">启用</option>
 					<option value="0">禁用</option>
 				</select>
 			</td>
 			<td>&nbsp;</td>
-			<td><a class="easyui-linkbutton" id="searchButton" data-options="iconCls:'icon-search',height:24" style="padding-right: 5px; border-radius: 2px 2px 2px;">检索</a></td>
+			<td><a class="easyui-linkbutton pr5" id="searchButton" data-options="height:24"><i class="iconfont icon-sousuo"></i> 检索</a></td>
 			<td align="right">
-				<a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="Public.setRights();" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">提交保存</a>
+				<a class="easyui-linkbutton pr5" onclick="Public.setRights();"><i class="iconfont icon-baocun"></i> 提交保存</a>
 			</td>
 		</tr>
 	</table>

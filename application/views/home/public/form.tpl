@@ -7,7 +7,7 @@
 				<tr>
 					<td class="&nbsp;"></td>
 					<td>
-						<a class="easyui-linkbutton" id="submitForm" data-options="iconCls:'icon-save'" href="javascript:;" style="padding:0 5px; border-radius: 2px 2px 2px;">提交保存</a>
+						<a class="easyui-linkbutton" id="submitForm" data-options="" href="javascript:;" style="padding:0 5px; border-radius: 2px 2px 2px;"><i class="iconfont icon-baocun"></i> 提交保存</a>
 					</td>
 				</tr>
 			</table>
