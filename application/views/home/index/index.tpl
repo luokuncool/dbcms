@@ -10,7 +10,7 @@
         </div>
     </div>
     <div data-options="region:'west',collapsed:true,split:true" title="菜单栏" style="width:10%;">
-        <div class="easyui-accordion" data-options="border:false,multiple:false,animate:false" style="width:100%;display: block;">
+        <div class="easyui-accordion" data-options="border:false,multiple:false,animate:true">
             {foreach $menuGroupList as $menuGroup}
                 <div title="{$menuGroup.menuName}" data-options="collapsible:true" style="padding: 0 5px;">
                     {foreach $menuGroup['menuList'] as $menu}

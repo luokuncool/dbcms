@@ -95,6 +95,7 @@ class Home extends HOME_Controller {
         echo_json(
             array(
                 'success' => 1,
+                'session' => $_SESSION,
                 'message' => '登陆成功！'
             )
         );

@@ -56,6 +56,7 @@ class Node extends HOME_Controller {
         $pId = intval($pId);
         if  (!is_post()) {
             $assign['pId'] = $pId;
+            $assign['node_group_list'] = config_item('node_group');
             $this->smarty->view('home/node/create.tpl', $assign);
             return;
         }
