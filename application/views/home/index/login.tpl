@@ -1,7 +1,7 @@
 {extends file="../public/layout.tpl"}
 {block name="body"}
     <div data-options="region:'center',fit:true">
-        <div class="easyui-window" title="登陆{$systemName}" data-options="closable:false,maximizable:true,collapsible:false,minimizable:false,draggable:false,resizable:false,width:324,height:164" style="padding:10px 31px;">
+        <div class="easyui-window" title="登陆{$systemName}" data-options="closable:false,maximizable:false,collapsible:false,minimizable:false,draggable:false,resizable:false,width:324,height:164" style="padding:10px 31px;">
             <form id="loginForm" method="post">
                 <table>
                     <tr>
