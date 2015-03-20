@@ -21,7 +21,7 @@ class Home extends HOME_Controller {
     {
         parent::set_html_header();
         $accessNodeIds         = $_SESSION['accessNodeIds'];
-        //$accessNodeIds         OR exit('账号为配置权限请联系系统管理员！');
+        $accessNodeIds         OR exit('账号为配置权限请联系系统管理员！');
         $data['menuGroupList'] = config_item('node_group');
         $map[]                 = array('type'=>1);
         $map['order_by']       = array('sort', 'asc');
@@ -75,13 +75,6 @@ class Home extends HOME_Controller {
                 ajax_exit('账号被禁用！');
                 break;
         }
-        $_SESSION['userInfo'] = $result;
-        echo_json(
-            array(
-                'success' => 1,
-                'message' => '登陆成功！'
-            )
-        );
         $roleIds = $this->role_user_model->get_list(array('userId'=>$result['id']), 'roleId');
         $roleIds = get_field_list($roleIds['rows'], 'roleId');
         $roleIds OR ajax_exit('此用户为授权，请联系系统管理员授权！');

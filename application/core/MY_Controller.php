@@ -15,9 +15,9 @@ class MY_Controller extends CI_Controller {
     {
         parent::__construct();
         $assign['systemName'] = config_item('system_name');
-        $assign['baseUrl'] = config_item('base_url');
-        $assign['basePath'] = config_item('base_path');
-        $assign['activeUrl'] = get_active_url('redirect');
+        $assign['baseUrl']    = config_item('base_url');
+        $assign['basePath']   = config_item('base_path');
+        $assign['activeUrl']  = get_active_url('redirect');
         $this->smarty->assign($assign);
     }
 
@@ -52,10 +52,10 @@ class Home_Controller extends MY_Controller {
     {
         parent::__construct();
         $this->check_login();
-        $data['myTheme'] = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
+        $data['myTheme']      = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
         $data['baseUrl']      = config_item('base_url');
-        $data['systemName'] = config_item('system_name');
-        $data['pageSetting'] = config_item('pageSetting');
+        $data['systemName']   = config_item('system_name');
+        $data['pageSetting']  = config_item('pageSetting');
         $this->smarty->assign($data);
     }
 
@@ -64,15 +64,15 @@ class Home_Controller extends MY_Controller {
      */
     protected function check_login()
     {
-        $rsegmentArray = $this->uri->rsegment_array();
-        $thisNode = join('/', array_slice($rsegmentArray, 0, 2));
+        $rsegmentArray     = $this->uri->rsegment_array();
+        $thisNode          = join('/', array_slice($rsegmentArray, 0, 2));
         $withoutCheckLogin = config_item('withoutCheckLogin');
         if ( in_array($thisNode, $withoutCheckLogin) ) return;
         if ( !isset($_SESSION['userInfo']) ) {
             direct_to('/login');
             exit();
         }
-        //$this->check_access($thisNode);
+        $this->check_access($thisNode);
     }
 
     /**
