@@ -7,13 +7,13 @@
                     <tr>
                         <td style="position: relative; z-index: 1;">
                             <input class="easyui-textbox iconfont"  type="text" name="uName" data-options="width:350, height:36" style="padding-left: 30px;" />
-                            <i class="iconfont icon-yonghu" style="position: absolute; left: 4px; top:16px; font-size: 22px; z-index: 20"></i>
+                            <i class="iconfont icon-yonghu" style="color:#000000; position: absolute; left: 4px; top:16px; font-size: 22px; z-index: 20"></i>
                         </td>
                     </tr>
                     <tr>
                         <td style="position: relative; z-index: 1;">
                             <input class="easyui-textbox" type="password" name="password" data-options="width:350, height:36" style="padding-left: 30px;" />
-                            <i class="iconfont icon-suoding" style="position: absolute; left: 4px; top:16px; font-size: 22px; z-index: 20"></i>
+                            <i class="iconfont icon-suoding" style="color:#000000; position: absolute; left: 4px; top:16px; font-size: 22px; z-index: 20"></i>
                         </td>
                     </tr>
                     <tr>
