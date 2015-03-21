@@ -23,14 +23,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td align="center">
                             <a class="easyui-linkbutton" id="submitForm" href="javascript:;"
-                               style="padding:8px 15px"><span style="font-size: 22px"><i
-                                        class="iconfont icon-zhengque"></i> 登陆</span></a>
-                            &nbsp;&nbsp;
-                            <a class="easyui-linkbutton" onclick="location.reload();" href="javascript:;"
-                               style="padding:8px 15px"><span style="font-size: 22px"><i
-                                        class="iconfont icon-chexiao"></i> 重填</span> </a>
+                               style="padding:7px 121px"><span style="font-size: 22px"><i
+                                        class="iconfont icon-zhengque"></i>登陆</span>
+                            </a>
                         </td>
                     </tr>
                 </table>

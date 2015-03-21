@@ -53,9 +53,5 @@
     <link rel="stylesheet" type="text/css" href="{{$basePath}}/public/static/logo-icon/webfont.css">
     <script type="text/javascript" src="{{$basePath}}/public/home/js/main.js"></script>
     <script type="text/javascript" src="{{$basePath}}/public/home/js/public.js"></script>
-    <script type="text/javascript">
-    $(function () {
-        Main.run();
-    });
-    </script>
+    <script type="text/javascript">$(Main.run)</script>
 {{/block}}
