@@ -26,7 +26,7 @@
 						<td align="center">
 							<a class="easyui-linkbutton" id="submitForm" href="javascript:;"
 							   style="padding:7px 99px">
-                                <span style="font-size: 22px"><i class="iconfont icon-zhengque"></i>登陆系统</span>
+                                <span style="font-size: 22px"><i class="iconfont icon-zhengque"></i>登录系统</span>
 							</a>
 						</td>
 					</tr>
@@ -57,7 +57,7 @@
 	</script>
 	<style type="text/css">
 		table td {
-			padding: 10px 0px;
+			padding: 10px 0;
 		}
 	</style>
 {{/block}}
