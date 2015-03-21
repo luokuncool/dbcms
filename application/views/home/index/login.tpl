@@ -25,8 +25,8 @@
                     <tr>
                         <td align="center">
                             <a class="easyui-linkbutton" id="submitForm" href="javascript:;"
-                               style="padding:7px 121px"><span style="font-size: 22px"><i
-                                        class="iconfont icon-zhengque"></i>登陆</span>
+                               style="padding:7px 99px"><span style="font-size: 22px"><i
+                                        class="iconfont icon-zhengque"></i>登陆系统</span>
                             </a>
                         </td>
                     </tr>
