@@ -36,21 +36,20 @@
 	</div>
 {{/block}}
 {{block name="head"}}
-	<script type="text/javascript" src="{{$basePath}}/public/home/js/main.js"></script>
 	<script type="text/javascript">
 	$(function () {
 		var submitForm = $('#submitForm');
 		submitForm.click(function () {
-			Main.processing();
+			Public.processing();
 			$.post('{{$baseUrl}}login', $('#loginForm').serializeArray(), function (res) {
-				Main.processed();
+				Public.processed();
 				if (res.success) {
-					Main.showMessage(res.message);
+					Public.showMessage(res.message);
 					setTimeout(function () {
 						location.reload(true);
 					}, 1500);
 				} else {
-					Main.alert(res.message);
+					Public.alert(res.message);
 				}
 			}, 'json');
 		});

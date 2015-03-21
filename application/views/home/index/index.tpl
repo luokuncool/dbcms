@@ -6,10 +6,10 @@
             <i class="logo-font">{{$systemName}}</i></div>
         <div style="float: right; padding: 5px 10px 0 0;">
             <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">欢迎, {{$loginName}}</span>
-            <a class="easyui-linkbutton" onclick="Main.updateCache();"><i class="iconfont icon-shuaxin"></i> 更新缓存</a>
-            <a class="easyui-linkbutton" onclick="Main.addTab('密码修改', '{{$baseUrl}}setting/change_password');"><i
+            <a class="easyui-linkbutton" onclick="Public.updateCache();"><i class="iconfont icon-shuaxin"></i> 更新缓存</a>
+            <a class="easyui-linkbutton" onclick="Public.addTab('密码修改', '{{$baseUrl}}setting/change_password');"><i
                     class="iconfont icon-suoding"></i> 密码修改</a>
-            <a class="easyui-linkbutton" onclick="Main.logout()"><i class="iconfont icon-tuichu"></i> 退出登录</a>
+            <a class="easyui-linkbutton" onclick="Public.logout()"><i class="iconfont icon-tuichu"></i> 退出登录</a>
         </div>
     </div>
     <div data-options="region:'west',collapsed:false,split:true" title="菜单栏" style="width:10%;">
@@ -18,7 +18,7 @@
                 <div title="{{$menuGroup.menuName}}" data-options="collapsible:true" style="padding: 0 2px;">
                     {{foreach $menuGroup['menuList'] as $menu}}
                         <p><a class="easyui-linkbutton" style="width: 100%"
-                              href="javascript:Main.addTab('{{$menu.name}}', '{{$baseUrl}}{{$menu.code}}')">{{$menu.name}}</a>
+                              href="javascript:Public.addTab('{{$menu.name}}', '{{$baseUrl}}{{$menu.code}}')">{{$menu.name}}</a>
                         </p>
                     {{/foreach}}
                 </div>
@@ -30,7 +30,7 @@
                     <span>{{$menuGroup.menuName}}</span>
                     <ul>
                         {{foreach $menuGroup['menuList'] as $menu}}
-                            <li><a onclick="Main.addTab('{{$menu.name}}', '{{$baseUrl}}{{$menu.code}}');">{{$menu.name}}</a>
+                            <li><a onclick="Public.addTab('{{$menu.name}}', '{{$baseUrl}}{{$menu.code}}');">{{$menu.name}}</a>
                             </li>
                         {{/foreach}}
                     </ul>
@@ -51,7 +51,5 @@
 {{/block}}
 {{block name="head"}}
     <link rel="stylesheet" type="text/css" href="{{$basePath}}/public/static/logo-icon/webfont.css">
-    <script type="text/javascript" src="{{$basePath}}/public/home/js/main.js"></script>
-    <script type="text/javascript" src="{{$basePath}}/public/home/js/public.js"></script>
-    <script type="text/javascript">$(Main.run)</script>
+    <script type="text/javascript">$(Public.run)</script>
 {{/block}}

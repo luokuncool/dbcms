@@ -64,7 +64,7 @@ $config['pageSetting'] = array(
 
 //不需要登录验证的节点
 $config['withoutCheckLogin'] = array(
-    'home/login'
+    'home/login', 'home/get_setting'
 );
 
 $config['withoutCheckAccess'] = array(

@@ -141,6 +141,28 @@ class Home extends HOME_Controller {
         require_once FCPATH . 'public/static/kindeditor/php/file_manager_json.php';
     }
 
+    /**
+     * 获取设置
+     * @author Quentin
+     * @since 2015-03-21 15:30
+     *
+     * @access public
+     * @return void
+     */
+    public function get_setting()
+    {
+        header('Content-Type:text/javascript; charset=UTF-8');
+        $baseURL = config_item('base_url');
+        $conf = <<<JAVASCRPT
+!function(){
+    var Public = {};
+    Public.baseUrl = '${baseURL}';
+    window.Public = Public;
+}();
+JAVASCRPT;
+        echo $conf;
+    }
+
 }
 
 /* End of file home.php */

@@ -28,7 +28,7 @@
             Public = Public ? Public : parent.Public;
         submitForm.click(function () {
             postForm.form('submit', {
-                onSubmit: Public.submitBefore,
+                onSubmit: Public.process,
                 success: Public.successHandler
             });
         });
