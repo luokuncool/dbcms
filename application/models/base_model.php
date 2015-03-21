@@ -643,7 +643,7 @@ class Base_model extends CI_Model
         $insertId =$this->db->insert_id();
         //更新缓存
         if ($insertId) $this->update_cache(array($this->pk_name=>$insertId));
-        return $this->db->insert_id();
+        return $insertId;
     }
 
     /**
