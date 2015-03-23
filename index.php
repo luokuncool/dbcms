@@ -1,5 +1,5 @@
 <?php
-
+require './FirePHPCore/FirePHP.class.php';require './FirePHPCore/fb.php';
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
