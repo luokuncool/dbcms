@@ -24,11 +24,10 @@
     <script type="text/javascript">
     $(function () {
         var submitForm = $('#submitForm'),
-            postForm = $('#postForm'),
-            Public = Public ? Public : parent.Public;
+            postForm = $('#postForm');
         submitForm.click(function () {
             postForm.form('submit', {
-                onSubmit: Public.process,
+                onSubmit: Public.processing,
                 success: Public.successHandler
             });
         });
