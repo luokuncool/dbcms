@@ -40,7 +40,7 @@
             <td><a class="easyui-linkbutton" id="searchButton" data-options="height:24"><i
                         class="iconfont icon-sousuo"></i> 检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" href="javascript:parent.Public.addTab('添加模块', '{{$baseUrl}}node/create');"><i
+                <a class="easyui-linkbutton" href="javascript:Public.addTab('添加模块', '{{$baseUrl}}node/create');"><i
                         class="iconfont icon-jia"></i> 添加模块</a>
                 <a class="easyui-linkbutton" onclick="Public.remove('{{$baseUrl}}node/remove')"><i class="iconfont icon-shanchu"></i> 删除</a>
                 <a class="easyui-linkbutton" onclick="Public.enable('{{$baseUrl}}node/enable')"><i class="iconfont icon-zhengque"></i> 启用</a>

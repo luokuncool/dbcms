@@ -1,7 +1,7 @@
 {{extends file="../public/base.tpl"}}
 {{block name="body"}}
     <form id="postForm" action="" method="post">
-        <div class="easyui-panel" data-options="reigin:'center', collapsible:true, border: false" style="padding:10px;">
+        <div class="easyui-panel" data-options="reigin:'center', collapsible:false, border: false" style="padding:10px;">
             <table>
                 {{block name="form"}}{{/block}}
                 <tr>

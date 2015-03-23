@@ -15,7 +15,7 @@
     <script type="text/javascript">Public = parent.Public;</script>
 {{block name="head"}}{{/block}}
 </head>
-<body class="easyui-layout">
+<body class="easyui-layout" style="overflow-y:auto;">
 {{block name="body"}}{{/block}}
 </body>
 </html>
