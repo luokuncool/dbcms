@@ -6,11 +6,11 @@
         <th data-options="field:'code',align:'left',sortable:true,editor:'text'" width="20%">节点代码</th>
         <th data-options="field:'name',align:'center',sortable:true,editor:'text'" width="10%">显示名</th>
         <th data-options="field:'pNodeName',align:'center',sortable:false" width="10%">所属模块</th>
-        <th formatter="Node.formatGroupName" data-options="field:'groupId',align:'center',sortable:false" width="15%">
+        <th formatter="Role.formatGroupName" data-options="field:'groupId',align:'center',sortable:false" width="15%">
             所属菜单组
         </th>
-        <th formatter="Node.formatLevel" data-options="field:'level',align:'center',sortable:true" width="5%">节点类型</th>
-        <th formatter="Node.formatType" data-options="field:'type',align:'center',sortable:true" width="15%">是否菜单</th>
+        <th formatter="Role.formatLevel" data-options="field:'level',align:'center',sortable:true" width="5%">节点类型</th>
+        <th formatter="Role.formatType" data-options="field:'type',align:'center',sortable:true" width="15%">是否菜单</th>
         <th data-options="field:'sort',align:'center',sortable:true,editor:'numberspinner'" width="10%">序号</th>
         <th formatter="Public.formatStatus" data-options="field:'status',align:'center',sortable:true" width="13.5%">
             状态
@@ -38,15 +38,26 @@
             </td>
             <td>&nbsp;</td>
             <td><a class="easyui-linkbutton" id="searchButton" data-options="height:24"><i
-                        class="iconfont icon-sousuo"></i> 检索</a></td>
+                        class="iconfont icon-sousuo"></i>检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" onclick="Public.setRights();"><i class="iconfont icon-baocun"></i> 提交保存</a>
+                <a class="easyui-linkbutton" onclick="Public.setRights();"><i class="iconfont icon-baocun"></i>提交保存</a>
             </td>
         </tr>
     </table>
 {{/block}}
 {{block name="script"}}
     <script type="text/javascript">
+    var Role = {};
+    /**
+     * 格式化菜单组名
+     * @param field
+     * @param row
+     * @returns {*}
+     */
+    Role.formatGroupName = function (field, row) {
+        var groupList = eval('({{$groupList|json_encode}})');
+        return groupList[field] ? groupList[field] : '--';
+    };
     !function (Public, parentWin) {
         Public.setRights = function () {
             Public.processing();

@@ -6,10 +6,10 @@
             <i class="logo-font">{{$systemName}}</i></div>
         <div style="float: right; padding: 5px 10px 0 0;">
             <span style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">欢迎, {{$loginName}}</span>
-            <a class="easyui-linkbutton" onclick="Public.updateCache();"><i class="iconfont icon-shuaxin"></i> 更新缓存</a>
+            <a class="easyui-linkbutton" onclick="Public.updateCache();"><i class="iconfont icon-shuaxin"></i>更新缓存</a>
             <a class="easyui-linkbutton" onclick="Public.addTab('密码修改', '{{$baseUrl}}setting/change_password');"><i
-                    class="iconfont icon-suoding"></i> 密码修改</a>
-            <a class="easyui-linkbutton" onclick="Public.logout()"><i class="iconfont icon-tuichu"></i> 退出登录</a>
+                    class="iconfont icon-suoding"></i>密码修改</a>
+            <a class="easyui-linkbutton" onclick="Public.logout()"><i class="iconfont icon-tuichu"></i>退出登录</a>
         </div>
     </div>
     <div data-options="region:'west',collapsed:false,split:true" title="菜单栏" style="width:10%;">

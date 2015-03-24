@@ -19,9 +19,9 @@
             </td>
             <td>&nbsp;</td>
             <td><a class="easyui-linkbutton" id="searchButton" data-options="height:24"><i
-                        class="iconfont icon-sousuo"></i> 检索</a></td>
+                        class="iconfont icon-sousuo"></i>检索</a></td>
             <td align="right">
-                <a class="easyui-linkbutton" onclick="User.setUsers();"><i class="iconfont icon-baocun"></i> 提交保存</a>
+                <a class="easyui-linkbutton" onclick="User.setUsers();"><i class="iconfont icon-baocun"></i>提交保存</a>
             </td>
         </tr>
     </table>

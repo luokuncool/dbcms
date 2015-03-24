@@ -41,10 +41,10 @@
                         class="iconfont icon-sousuo"></i> 检索</a></td>
             <td align="right">
                 <a class="easyui-linkbutton" href="javascript:Public.addTab('添加模块', '{{$baseUrl}}node/create');"><i
-                        class="iconfont icon-jia"></i> 添加模块</a>
-                <a class="easyui-linkbutton" onclick="Public.remove('{{$baseUrl}}node/remove')"><i class="iconfont icon-shanchu"></i> 删除</a>
-                <a class="easyui-linkbutton" onclick="Public.enable('{{$baseUrl}}node/enable')"><i class="iconfont icon-zhengque"></i> 启用</a>
-                <a class="easyui-linkbutton" onclick="Public.disable('{{$baseUrl}}node/disable')"><i class="iconfont icon-jinzhi1"></i> 禁用</a>
+                        class="iconfont icon-jia"></i>添加模块</a>
+                <a class="easyui-linkbutton" onclick="Public.remove('{{$baseUrl}}node/remove')"><i class="iconfont icon-shanchu"></i>删除</a>
+                <a class="easyui-linkbutton" onclick="Public.enable('{{$baseUrl}}node/enable')"><i class="iconfont icon-zhengque"></i>启用</a>
+                <a class="easyui-linkbutton" onclick="Public.disable('{{$baseUrl}}node/disable')"><i class="iconfont icon-jinzhi1"></i>禁用</a>
             </td>
         </tr>
     </table>

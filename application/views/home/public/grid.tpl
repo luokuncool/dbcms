@@ -6,7 +6,6 @@
     </div>
     <div data-options="region:'center',border:false">
         <table id="dataGrid" class="easyui-datagrid" data-options="
-               {{if $editable}}onClickRow:{{$editHandler}},{{/if}}
                fitColumns:true,
                fit:true,
                muliteSelect:true,
@@ -17,6 +16,7 @@
                url:'{{$dataGridUrl}}',
                method:'get',
                pagination:true,
+               pagePosition:'bottom',
                pageSize:{{$pageSetting.pageSize}},
                pageList:{{$pageSetting.pageList}},
                idField:'id'

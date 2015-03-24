@@ -26,15 +26,15 @@
             <td>&nbsp;</td>
             <td>
                 <a class="easyui-linkbutton" id="searchButton" data-options="height:24"><i
-                        class="iconfont icon-sousuo"></i> 检索</a>
+                        class="iconfont icon-sousuo"></i>检索</a>
             </td>
             <td align="right">
                 <a class="easyui-linkbutton" onclick="Public.remove('{{$baseUrl}}test/remove')"><i
-                        class="iconfont icon-shanchu"></i> 删除</a>
+                        class="iconfont icon-shanchu"></i>删除</a>
                 <a class="easyui-linkbutton" onclick=" Public.enable('{{$baseUrl}}test/enable');"><i
-                        class="iconfont icon-zhengque"></i> 启用</a>
+                        class="iconfont icon-zhengque"></i>启用</a>
                 <a class="easyui-linkbutton" onclick="Public.disable('{{$baseUrl}}test/disable');"><i
-                        class="iconfont icon-jinzhi1"></i> 禁用</a>
+                        class="iconfont icon-jinzhi1"></i>禁用</a>
             </td>
         </tr>
     </table>

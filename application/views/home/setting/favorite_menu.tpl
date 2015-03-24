@@ -4,10 +4,10 @@
         <tr>
             <td width="100" align="right">菜单名称：</td>
             <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name"/></td>
-            <td>&nbsp;&nbsp;<a class="easyui-linkbutton" id="searchButton"><i class="iconfont icon-sousuo"></i> 检索</a>
+            <td>&nbsp;&nbsp;<a class="easyui-linkbutton" id="searchButton"><i class="iconfont icon-sousuo"></i>检索</a>
             </td>
             <td align="right">
-                <a class="easyui-linkbutton" onclick="Node.setFavoriteMenu();"><i class="iconfont icon-baocun"></i> 设为常用</a>
+                <a class="easyui-linkbutton" onclick="Node.setFavoriteMenu();"><i class="iconfont icon-baocun"></i>设为常用</a>
             </td>
         </tr>
     </table>

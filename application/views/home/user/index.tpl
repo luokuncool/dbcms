@@ -19,18 +19,17 @@
             </td>
             <td>&nbsp;</td>
             <td>
-                <a class="easyui-linkbutton" id="searchButton" data-options="height:24"
-                   style="padding-right: 5px; border-radius: 2px 2px 2px"><i class="iconfont icon-sousuo"></i> 检索</a>
+                <a class="easyui-linkbutton" id="searchButton" data-options="height:24"><i class="iconfont icon-sousuo"></i>检索</a>
             </td>
             <td align="right">
                 <a class="easyui-linkbutton" onclick="Public.addTab('添加用户', '/user/create');"><i
-                        class="iconfont icon-jia"></i> 添加</a>
+                        class="iconfont icon-jia"></i>添加</a>
                 <a class="easyui-linkbutton" onclick="Public.remove('{{$baseUrl}}user/remove')"><i
-                        class="iconfont icon-shanchu"></i> 删除</a>
+                        class="iconfont icon-shanchu"></i>删除</a>
                 <a class="easyui-linkbutton" onclick="Public.enable('{{$baseUrl}}user/enable');"><i
-                        class="iconfont icon-zhengque"></i> 启用</a>
+                        class="iconfont icon-zhengque"></i>启用</a>
                 <a class="easyui-linkbutton" onclick="Public.disable('{{$baseUrl}}user/disable');"><i
-                        class="iconfont icon-jinzhi1"></i> 禁用</a>
+                        class="iconfont icon-jinzhi1"></i>禁用</a>
             </td>
         </tr>
     </table>
