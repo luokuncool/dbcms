@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>test</title>
+<script type="text/javascript" src="http://luokuncool.oschina.mopaas.com/public/static/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	var text = $('#text');
+	text.focus(function(){
+		$('input[name=name1]').last().attr('checked', true);
+	});
+});
+</script>
+</head>
+<body>
+<table>
+	<tr>
+		<td><label><input type="radio" name="name1" value="1" checked />从不吸烟</label></td>
+		<td><label><input type="radio" name="name1" value="2" />现在吸烟</label></td>
+		<td>
+			<label><input type="radio" name="name1" value="3" />已戒烟</label>
+			<input type="text"  id="text" name="name4" />
+		</td>
+	</tr>
+</table>
+</body>
+</html>
