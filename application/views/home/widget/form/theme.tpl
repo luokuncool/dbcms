@@ -20,7 +20,7 @@
                         <td class="&nbsp;"></td>
                         <td>
                             <a class="easyui-linkbutton" id="submitForm" data-options="" href="javascript:;"><i
-                                    class="iconfont icon-baocun"></i> 提交主题</a>
+                                    class="iconfont icon-baocun"></i>提交主题</a>
                         </td>
                     </tr>
                 </table>

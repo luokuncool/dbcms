@@ -6,6 +6,10 @@
      */
     Public.queueTabs = {};
 
+    Public.isIE8 = function(){
+        return $.browser.msie && $.browser.version.match(/^8/);
+    };
+
     /**
      * 获取选项卡对象
      * @returns {*|jQuery|HTMLElement}
@@ -34,7 +38,7 @@
                     tab: Public.getMainTab().tabs('getSelected'),
                     options: {
                         title: title,
-                        content: '<iframe scrolling="no" frameborder="0" width="100%" height="99%" src="' + Public.queueTabs[title]+ '"></iframe>'
+                        content: '<iframe scrolling="no" frameborder="0" width="100%" height="'+(Public.isIE8()?98:99)+'%" src="' + Public.queueTabs[title]+ '"></iframe>'
                     }
                 });
                 delete Public.queueTabs[title];
@@ -51,7 +55,7 @@
                 .tabs('add', {
                     selected: select,
                     title: title,
-                    content: select ? '<iframe scrolling="no" frameborder="0" width="100" height="99%" src="' + url+ '" style="width:100%;"></iframe>' : '',
+                    content: select ? '<iframe scrolling="no" frameborder="0" width="100" height="'+(Public.isIE8()?98:99)+'%" src="' + url+ '" style="width:100%;"></iframe>' : '',
                     closable: true
                 });
             if (select) {
