@@ -1,11 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Administrator
  * Date: 14-7-25
  * Time: 上午10:28
  */
-class Favorite_Menu_Model extends Base_Model {
+class Favorite_Menu_Model extends Base_Model
+{
 
     public $table = 'favorite_menu';
 
@@ -22,12 +24,15 @@ class Favorite_Menu_Model extends Base_Model {
 
     /**
      * 批量插入
+     *
      * @param array $favoriteMenus
+     *
      * @return bool|mixed
      */
-    public function batch_insert($favoriteMenus = array()) {
+    public function batch_insert($favoriteMenus = array())
+    {
         //$this->query('start transaction');
-        foreach($favoriteMenus as $menu) {
+        foreach ($favoriteMenus as $menu) {
             $result = $this->insert($menu);
             if (!$result) {
                 //$this->query('rollback');

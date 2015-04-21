@@ -1,11 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Administrator
  * Date: 14-7-25
  * Time: 上午10:28
  */
-class User_Model extends Base_Model {
+class User_Model extends Base_Model
+{
 
     public $table = 'user';
 
@@ -22,6 +24,7 @@ class User_Model extends Base_Model {
 
     /**
      * 登陆
+     *
      * @param $uName
      * @param $password
      *
@@ -35,7 +38,7 @@ class User_Model extends Base_Model {
         if (md5($password) != $user['password']) return 2;
         if ($user['status'] == 0) return 3;
         unset($user['password']);
-        $this->update($map, array('lastLoginTime'=>time()));
+        $this->update($map, array('lastLoginTime' => time()));
         return $user;
     }
 

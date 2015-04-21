@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -23,7 +24,9 @@ class Node_Model extends Base_Model
 
     /**
      * 检测节点代码唯一
-     * @param      $code
+     *
+     * @param  $code
+     *
      * @return bool
      */
     public function check_code($code)
@@ -35,7 +38,9 @@ class Node_Model extends Base_Model
 
     /**
      * 检测节点名字唯一
+     *
      * @param      $name
+     *
      * @return bool
      */
     public function check_name($name)

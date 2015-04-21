@@ -1,17 +1,18 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Smarty Class
  *
  * @package        CodeIgniter
- * @subpackage    Libraries
- * @category    Smarty
- * @author        Kepler Gelotte
- * @link        http://www.coolphptools.com/codeigniter-smarty
+ * @subpackage     Libraries
+ * @category       Smarty
+ * @author         Kepler Gelotte
+ * @link           http://www.coolphptools.com/codeigniter-smarty
  */
 
-require_once( APPPATH.'third_party/smarty/Smarty.class.php' );
+require_once(APPPATH . 'third_party/smarty/Smarty.class.php');
 
-class CI_Smarty extends Smarty {
+class CI_Smarty extends Smarty
+{
 
     function CI_Smarty()
     {
@@ -22,8 +23,8 @@ class CI_Smarty extends Smarty {
         $this->left_delimiter = '{{';
         $this->right_delimiter = '}}';
         $this->caching = APP_DEBUG ? FALSE : TRUE;
-        $this->assign( 'APPPATH', APPPATH );
-        $this->assign( 'BASEPATH', BASEPATH );
+        $this->assign('APPPATH', APPPATH);
+        $this->assign('BASEPATH', BASEPATH);
 
         log_message('debug', "Smarty Class Initialized");
     }
@@ -38,12 +39,11 @@ class CI_Smarty extends Smarty {
         $this->left_delimiter = '{{';
         $this->right_delimiter = '}}';
         $this->caching = APP_DEBUG ? FALSE : TRUE;
-        $this->assign( 'APPPATH', APPPATH );
-        $this->assign( 'BASEPATH', BASEPATH );
+        $this->assign('APPPATH', APPPATH);
+        $this->assign('BASEPATH', BASEPATH);
 
         // Assign CodeIgniter object by reference to CI
-        if ( method_exists( $this, 'assignByRef') )
-        {
+        if (method_exists($this, 'assignByRef')) {
             $ci =& get_instance();
             $this->assignByRef("ci", $ci);
         }
@@ -65,23 +65,22 @@ class CI_Smarty extends Smarty {
      * instead of being output, pass true as the third parameter.
      *
      * @access    public
+     *
      * @param    string
      * @param    array
      * @param    bool
+     *
      * @return    string
      */
     function view($template, $data = array(), $return = FALSE)
     {
-        if (count($data))
-        {
-            foreach ($data as $key => $val)
-            {
+        if (count($data)) {
+            foreach ($data as $key => $val) {
                 $this->assign($key, $val);
             }
         }
 
-        if ($return == FALSE)
-        {
+        if ($return == FALSE) {
             $this->display($template);
             /*$CI =& get_instance();
             if (method_exists( $CI->output, 'set_output' ))
@@ -94,9 +93,7 @@ class CI_Smarty extends Smarty {
                 $CI->output->final_output = $this->fetch($template);
             }
             return;*/
-        }
-        else
-        {
+        } else {
             return $this->fetch($template);
         }
     }

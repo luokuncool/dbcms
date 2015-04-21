@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -49,8 +49,8 @@ $route['login'] = 'home/login';
 $route['upload_file'] = 'home/upload_file';
 $route['file_manager'] = 'home/file_manager';
 $route['update_cache'] = 'cli/update_cache';
-$route['logout']      = 'home/logout';
-$route['config.js']      = 'home/get_setting';
+$route['logout'] = 'home/logout';
+$route['config.js'] = 'home/get_setting';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

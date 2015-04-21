@@ -1,11 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Administrator
  * Date: 14-7-25
  * Time: 上午10:28
  */
-class Test_Model extends Base_Model {
+class Test_Model extends Base_Model
+{
 
     public $table = 'test';
 
@@ -22,11 +24,13 @@ class Test_Model extends Base_Model {
 
     /**
      * @param array $roleUsers
+     *
      * @return bool
      */
-    public function batch_insert($roleUsers = array()) {
+    public function batch_insert($roleUsers = array())
+    {
         $this->query('start transaction');
-        foreach($roleUsers as $roleUser) {
+        foreach ($roleUsers as $roleUser) {
             $result = $this->insert($roleUser);
             if (!$result) {
                 $this->query('rollback');

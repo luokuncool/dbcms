@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -52,14 +52,14 @@ $config['dataCacheTime'] = 0;
 //系统名称
 $config['system_name'] = '后台管理系统v1.0';
 
-$config['cache_type'] = array('adapter'=>'dummy'); // 支持类型：apc, file, memcached, dummy, redis, default
+$config['cache_type'] = array('adapter' => 'dummy'); // 支持类型：apc, file, memcached, dummy, redis, default
 
 $config['changedRow'] = 'changedRow';
 
 //分页配置
 $config['pageSetting'] = array(
-    'pageSize'=>'25',
-    'pageList'=>'[10,15,20,25,30,35,40,45,50,100,200]'
+    'pageSize' => '25',
+    'pageList' => '[10,15,20,25,30,35,40,45,50,100,200]'
 );
 
 //不需要登录验证的节点
@@ -68,5 +68,5 @@ $config['withoutCheckLogin'] = array(
 );
 
 $config['withoutCheckAccess'] = array(
-    'home/index','home/logout','cli/update_cache'
+    'home/index', 'home/logout', 'cli/update_cache'
 );

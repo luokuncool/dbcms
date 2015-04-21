@@ -1,11 +1,13 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Administrator
  * Date: 14-7-25
  * Time: 上午10:28
  */
-class Role_Model extends Base_Model {
+class Role_Model extends Base_Model
+{
 
     public $table = 'role';
 
@@ -22,7 +24,9 @@ class Role_Model extends Base_Model {
 
     /**
      * 检测名字唯一
+     *
      * @param      $name
+     *
      * @return bool
      */
     public function check_name($name)
