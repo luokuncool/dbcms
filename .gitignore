@@ -6,3 +6,4 @@
 /tests/res*
 application/config/database.php
 tests/cookie.txt
+static/uploadfiles/*

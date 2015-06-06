@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 defined('WIDGET') OR show_404();
 
-class Form extends HOME_Controller {
+class Form extends Admin_Controller {
 
     public function __construct()
     {

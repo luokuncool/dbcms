@@ -1,5 +1,6 @@
 <?php
-class Home extends HOME_Controller {
+
+class Home extends Home_Controller {
 
     public function __construct()
     {
@@ -54,6 +55,7 @@ class Home extends HOME_Controller {
      */
     public function login()
     {
+        parent::set_html_header();
         $_SESSION['userInfo'] && direct_to('/');
         if (!is_post()) {
             $this->smarty->view('home/index/login.tpl');

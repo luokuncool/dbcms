@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 defined('WIDGET') OR show_404();
 
-class Favorite extends HOME_Controller {
+class Favorite extends Admin_Controller {
 
     public function __construct()
     {

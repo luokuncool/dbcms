@@ -42,10 +42,10 @@ class MY_Controller extends CI_Controller
 }
 
 /**
- * 前台基础类
+ * 后台基础类
  * Class Home_Controller
  */
-class Home_Controller extends MY_Controller
+class Admin_Controller extends MY_Controller
 {
 
     /**
@@ -56,7 +56,7 @@ class Home_Controller extends MY_Controller
         parent::__construct();
         $this->check_login();
         $data['myTheme'] = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
-        $data['baseUrl'] = config_item('base_url');
+        $data['baseUrl'] = config_item('base_url') . 'admin/';
         $data['systemName'] = config_item('system_name');
         $data['pageSetting'] = config_item('pageSetting');
         $this->smarty->assign($data);
@@ -72,7 +72,7 @@ class Home_Controller extends MY_Controller
         $withoutCheckLogin = config_item('withoutCheckLogin');
         if (in_array($thisNode, $withoutCheckLogin)) return;
         if (!isset($_SESSION['userInfo'])) {
-            direct_to('/login');
+            direct_to('/admin/home/login');
             exit();
         }
         $this->check_access($thisNode);
@@ -97,4 +97,20 @@ class Home_Controller extends MY_Controller
         (is_ajax() OR is_post()) ? ajax_exit('没有操作权限！') : show_404();
     }
 
+}
+
+class Home_Controller extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+}
+
+class Widget_Controller extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }
