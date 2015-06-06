@@ -72,7 +72,7 @@ class Admin_Controller extends MY_Controller
         $withoutCheckLogin = config_item('withoutCheckLogin');
         if (in_array($thisNode, $withoutCheckLogin)) return;
         if (!isset($_SESSION['userInfo'])) {
-            direct_to('/admin/home/login');
+            direct_to('/admin/login');
             exit();
         }
         $this->check_access($thisNode);

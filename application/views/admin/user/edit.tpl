@@ -19,3 +19,6 @@
         <td> {{widget path="widget/tools/attachment" args=$fileName2}}</td>
     </tr>
 {{/block}}
+{{block name="script"}}
+    {{include file="../public/uploadify.tpl"}}
+{{/block}}
