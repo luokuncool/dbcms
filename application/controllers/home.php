@@ -20,12 +20,12 @@ class Home extends Home_Controller {
      */
     public function index()
     {
-        $this->smarty->view('home/index/index.tpl');
+        $this->smarty->view('home/home/index.tpl');
     }
 
 	public function icons()
 	{
-		$this->smarty->view('home/index/icons.tpl');
+		$this->smarty->view('home/home/icons.tpl');
 	}
 
     /**

@@ -21,6 +21,9 @@ class Node extends Home_Controller {
     public function index()
     {
 		$map = array();
+        $sort = I('get.sort', 'code', 'strip_tags,trim');
+        $order = I('get.order', 'asc', 'strip_tags,trim');
+        $map['order_by'] = array($sort, $order);
 		$res = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId');
 		foreach ($res['rows'] as $key => $value) {
 			$pNode = $this->node_model->get_row($value['pId']);

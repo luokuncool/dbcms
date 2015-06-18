@@ -46,9 +46,6 @@
     </div>
     <!-- /.content-wrapper -->
     {{include file="../includes/footer.tpl"}}
-
-    <!-- Control Sidebar -->
-    {{include file="../includes/right_side.tpl"}}
 </div>
 <!-- ./wrapper -->
 <!-- jQuery 2.1.4 -->

@@ -11,6 +11,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
+                <div class="box-header">
+
+                </div>
                 <div class="box-body">
                     <table class="table table-striped table-hover">
                         <thead>
@@ -24,13 +27,13 @@
                         </thead>
                         <tbody>
                         {{foreach $nodes as $node}}
-                        <tr>
-                            <td>{{$node.code}}</td>
-                            <td>{{$node.name}}</td>
-                            <td>{{$node.pNodeName}}</td>
-                            <td>{{$node.level}}</td>
-                            <td>{{$node.type}}</td>
-                        </tr>
+                            <tr>
+                                <td>{{$node.code}}</td>
+                                <td>{{$node.name}}</td>
+                                <td>{{$node.pNodeName}}</td>
+                                <td>{{$node.level}}</td>
+                                <td>{{$node.type}}</td>
+                            </tr>
                         {{/foreach}}
                         <tr>
                         </tbody>
@@ -44,14 +47,18 @@
                         </tr>
                         </tfoot>
                     </table>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
 {{/block}}
 {{block name="stylesheets"}}
     <!-- DATA TABLES -->
-    <link href="/static/third/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/static/third/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
 {{/block}}
 {{block name="scripts"}}
     <!-- DATA TABES SCRIPT -->
