@@ -104,6 +104,8 @@ class Home_Controller extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+		$assign['baseURL'] = 'http://'.$_SERVER['HTTP_HOST'];
+		$this->smarty->assign($assign);
     }
 }
 
