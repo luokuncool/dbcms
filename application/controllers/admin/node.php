@@ -16,14 +16,6 @@ class Node extends Admin_Controller
      */
     public function index()
     {
-        if (!is_ajax()) {
-            parent::set_html_header();
-            $data['groupList'] = config_item('node_group');
-            $data['dataGridUrl'] = config_item('base_url') . 'admin/node/index';
-            $this->smarty->view('admin/node/index.tpl', $data);
-            return;
-        }
-
         $map = array();
         $sort = I('get.sort', 'code', 'strip_tags,trim');
         $order = I('get.order', 'asc', 'strip_tags,trim');
@@ -41,12 +33,16 @@ class Node extends Admin_Controller
         $rows = I('get.rows', config_item('pageSetting')['pageSize'], 'intval');
         $map['limit'] = array($rows, ($page - 1) * $rows);
 
-        $res = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId');
+        $res = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId,module');
+		$nodeGroup = config_item('node_group');
         foreach ($res['rows'] as $key => $value) {
             $pNode = $this->node_model->get_row($value['pId']);
             $res['rows'][$key]['pNodeName'] = $pNode['name'];
+			$res['rows'][$key]['menuName'] = $nodeGroup[$value['groupId']];
         }
-        echo_json($res);
+		$this->node_model->getModules();
+		$assign['nodes'] = $res['rows'];
+		$this->smarty->view('admin/node/index.tpl', $assign);
     }
 
     /**
@@ -78,20 +74,19 @@ class Node extends Admin_Controller
     /**
      * 修改
      *
-     * @param $id
-     * @param $pId
-     * @param $level
+	 * @param $id
      */
-    public function edit($id, $pId, $level)
+    public function edit($id)
     {
         $id = intval($id);
         if (!is_post()) {
             $data['node_group_list'] = config_item('node_group');
             $data['data'] = $this->node_model->get_row($id);
-            $this->smarty->view('admin/node/edit.tpl', $data);
+			$data['modules'] = $this->node_model->getModules();
+			$this->smarty->view('admin/node/edit.tpl', $data);
             return;
         }
-        $data = $this->validation($id, $pId, $level);
+        $data = $this->validation($id);
         $result = $this->node_model->update(array('id' => $id), $data);
         $res['message'] = $result ? '保存成功' : '保存失败';
         $id && $res['success'] = 1;
@@ -197,20 +192,20 @@ class Node extends Admin_Controller
      * 增删验证
      *
      * @param int $id
-     * @param int $pId
-     * @param int $level
      *
      * @return array
      */
-    private function validation($id = 0, $pId = 0, $level = 1)
+    private function validation($id = 0)
     {
-        $code = I('post.code', '', 'strip_tags');
-        $name = I('post.name', '', 'strip_tags');
+        $code = I('post.code', '', 'trim,strip_tags');
+		$name = I('post.name', '', 'trim,strip_tags');
+		$module = I('post.module', '', 'trim,strip_tags');
         $currentTime = time();
         regex($code, 'require') OR ajax_exit('请填写节点代码');
         $existCode = $this->node_model->check_code($id ? $code . ' AND id<>' . $id : $code);
         $existCode && ajax_exit('节点代码已经存在！');
-        regex($name, 'require') OR ajax_exit('请填写显示名');
+		regex($name, 'require') OR ajax_exit('请填写显示名');
+		regex($module, 'require') OR ajax_exit('请选择所属模块');
         $existName = $this->node_model->check_code($id ? $name . ' AND id<>' . $id : $name);
         $existName && ajax_exit('显示名已经存在！');
         $data = array(
@@ -220,14 +215,15 @@ class Node extends Admin_Controller
             'remark' => I('post.remark', '', 'htmlspecialchars'),
             'sort' => I('post.sort', 0, 'intval'),
             'groupId' => I('post.groupId', 0, 'intval'),
-            'level' => $level,
+			'level' => 1,
+			'isMenu' => I('post.isMenu', 0, 'intval'),
+			'module' => $module,
             'type' => I('post.type', 0, 'intval'),
             'updateTime' => $currentTime,
-            'updateUid' => 1,
+            'updateUid' => get_uid(),
         );
         $id OR $data['createTime'] = $currentTime;
-        $id OR $data['createUid'] = '1';
-        $pId && $data['pId'] = $pId;
+        $id OR $data['createUid'] = get_uid();
         return $data;
     }
 

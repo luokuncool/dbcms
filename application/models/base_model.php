@@ -143,11 +143,11 @@ class Base_model extends CI_Model
      *
      * @return mixed
      */
-    public function get_all($table = NULL)
+    public function get_all($fields = '*', $table = NULL)
     {
         $table = (!is_null($table)) ? $table : $this->table;
 
-        $query = $this->db->get($table);
+        $query = $this->db->select($fields)->get($table);
 
         return $query->result_array();
     }

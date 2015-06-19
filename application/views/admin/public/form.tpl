@@ -16,7 +16,6 @@
     </form>
 {{/block}}
 {{block name="head"}}
-    {{block name="script"}}{{/block}}
     <style type="text/css">
         table td {
             padding: 4px 0;
@@ -34,4 +33,5 @@
         });
     });
     </script>
+    {{block name="script"}}{{/block}}
 {{/block}}

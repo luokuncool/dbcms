@@ -40,11 +40,23 @@ class Home extends Admin_Controller {
             $menuList && $data['menuGroupList'][$groupId]['menuName'] = $menuGroup;
             $menuList && $data['menuGroupList'][$groupId]['menuList'] = $menuList;
         }
-        $data['loginName'] = $_SESSION['userInfo']['name'];
-        $this->smarty->view('admin/index/index.tpl', $data);
+
+        $this->smarty->view('admin/home/index.tpl', $data);
     }
 
-    /**
+	/**
+	 * 图标手册
+	 * @author Quentin
+	 * @since
+	 * @access public
+	 * @return void
+	 */
+	public function icons()
+	{
+		$this->smarty->view('admin/home/icons.tpl');
+	}
+
+	/**
      * 登陆系统
      * @author Quentin
      * @since 2014-12-01 15:30
@@ -55,9 +67,9 @@ class Home extends Admin_Controller {
     public function login()
     {
         parent::set_html_header();
-        $_SESSION['userInfo'] && direct_to('/');
+        $_SESSION['userInfo'] && direct_to('/admin');
         if (!is_post()) {
-            $this->smarty->view('admin/index/login.tpl');
+            $this->smarty->view('admin/home/login.tpl');
             return;
         }
         $this->load->model(array('user_model', 'role_model', 'role_user_model', 'role_node_model', 'node_model'));
@@ -108,12 +120,7 @@ class Home extends Admin_Controller {
         unset($_SESSION['accessNodeCodes']);
         unset($_SESSION['accessNodeIds']);
         unset($_SESSION['userInfo']);
-        echo_json(
-            array(
-                'success' => 1,
-                'message' => '退出系统~'
-            )
-        );
+        parent::jump('退出系统~', '/admin/login');
     }
 
     /**

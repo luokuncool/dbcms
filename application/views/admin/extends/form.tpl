@@ -22,9 +22,11 @@
                 <div class="form-group">
                     <label>所属模块</label>
                     <select class="form-control" name="module">
-                        {{foreach $modules as $module}}
-                            <option {{if $module['module'] == $data['module']}}selected{{/if}}>{{$module.module}}</option>
-                        {{/foreach}}
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -37,10 +39,10 @@
                     <div class="checkbox">
                         <b>作为菜单</b>
                         <label>
-                            <input type="radio" name="isMenu" value="1" class="minimal" {{if $data['isMenu']}}checked{{/if}}/> 是
+                            <input type="radio" name="isMenu" value="1" class="minimal" {{if $data['checked']}}checked{{/if}}/> 是
                         </label>
                         <label>
-                            <input type="radio" name="isMenu" value="0" class="minimal" {{if !$data['isMenu']}}checked{{/if}}/> 否
+                            <input type="radio" name="isMenu" value="2" class="minimal" {{if !$data['checked']}}checked{{/if}}/> 否
                         </label>
                     </div>
                 </div>
@@ -125,14 +127,14 @@
             $(this).unbind('submit', fn);
             $(this).find('[type=submit]').text('请稍等...').attr('disabled', true);
             $.post($(this).attr('action') || location.href, postData, function (res) {
-                $(self).find('[type=submit]').text(submitText).removeAttr('disabled');
-                $(self).bind('submit', fn);
                 if (res.success) {
-                    //location.reload();
+                    location.reload();
                     return;
                 }
                 $('#alertModal .modal-body').text(res.message);
                 $('#alertModal').modal('show');
+                $(self).find('[type=submit]').text(submitText).removeAttr('disabled');
+                $(self).bind('submit', fn);
             }, 'json');
         });
     });
