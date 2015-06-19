@@ -2629,6 +2629,4 @@
     <![endif]-->
     <!-- FastClick -->
     <script src='/static/third/plugins/fastclick/fastclick.min.js'></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="/static/admin/js/demo.js" type="text/javascript"></script>
 {{/block}}

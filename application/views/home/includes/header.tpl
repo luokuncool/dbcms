@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="{{$baseURL}}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
+        <span class="logo-mini"><b>逗比</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
+        <span class="logo-lg"><b>DB</b>CMS</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -14,6 +14,24 @@
         </a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">主题切换<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-skin="skin-blue"><a href="javascript:;">blue</a></li>
+                        <li data-skin="skin-green"><a href="javascript:;">green</a></li>
+                        <li data-skin="skin-black"><a href="javascript:;">black</a></li>
+                        <li data-skin="skin-red"><a href="javascript:;">red</a></li>
+                        <li data-skin="skin-yellow"><a href="javascript:;">yellow</a></li>
+                        <li data-skin="skin-purple"><a href="javascript:;">purple</a></li>
+                        <li data-skin="skin-green"><a href="javascript:;">green</a></li>
+                        <li data-skin="skin-blue-light"><a href="javascript:;">blue-light</a></li>
+                        <li data-skin="skin-black-light"><a href="javascript:;">black-light</a></li>
+                        <li data-skin="skin-red-light"><a href="javascript:;">red-light</a></li>
+                        <li data-skin="skin-yellow-light"><a href="javascript:;">yellow-light</a></li>
+                        <li data-skin="skin-purple-light"><a href="javascript:;">purple-light</a></li>
+                        <li data-skin="skin-green-light"><a href="javascript:;">green-light</a></li>
+                    </ul>
+                </li>
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -42,7 +60,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="/static/admin/img/user3-128x128.jpg" class="img-circle"
+                                            <img src="/static/admin/img/user2-160x160.jpg" class="img-circle"
                                                  alt="user image"/>
                                         </div>
                                         <h4>

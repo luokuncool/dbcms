@@ -55,5 +55,6 @@
 {{block name="scripts"}}{{/block}}
 <!-- AdminLTE App -->
 <script src="/static/admin/js/app.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/demo.js" type="text/javascript"></script>
 </body>
 </html>
