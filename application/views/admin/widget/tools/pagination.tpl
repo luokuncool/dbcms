@@ -14,11 +14,9 @@
                 {{foreach $pages as $p}}
                     {{if $page <= 3 && $p<=5}}
                         <li class="paginate_button {{if $p==$page}}active{{/if}}"><a href="{{$pageURL}}{{$p}}">{{$p}}</a></li>
-                    {{/if}}
-                    {{if $totalPage - $page <= 3 && $p>$totalPage - 5}}
+                    {{elseif $totalPage - $page <= 3 && $p>$totalPage - 5}}
                         <li class="paginate_button {{if $p==$page}}active{{/if}}"><a href="{{$pageURL}}{{$p}}">{{$p}}</a></li>
-                    {{/if}}
-                    {{if $page > 3 && $totalPage - $page > 3 && $p > $page -3 && $p < $page+3}}
+                    {{elseif $page > 3 && $totalPage - $page > 3 &&  $p > $page -3 && $p < $page+3}}
                         <li class="paginate_button {{if $p==$page}}active{{/if}}"><a href="{{$pageURL}}{{$p}}">{{$p}}</a></li>
                     {{/if}}
                 {{/foreach}}
