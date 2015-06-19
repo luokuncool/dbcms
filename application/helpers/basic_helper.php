@@ -125,6 +125,7 @@ function get_active_url($wipe = '', $encode = true)
 {
     $query = $_SERVER['QUERY_STRING'];
     $queryArray = explode('&', $query);
+    $queryArray = array_filter($queryArray);
     $wipe = explode(',', str_replace(' ', '', $wipe));
     foreach ($queryArray as $key => $value) {
         list($key2) = explode('=', $value);
@@ -136,7 +137,8 @@ function get_active_url($wipe = '', $encode = true)
         }
     }
     $query = implode('&', $queryArray);
-    $url = strtolower($_SERVER['PHP_SELF'] . '?' . $query);
+    $baseURL = config_item('base_url').$_SERVER['REDIRECT_URL'];
+    $url = $query == '' ? $baseURL : ($baseURL. '?' .$query);
     if ($encode) $url = urlencode($url);
     return $url;
 }

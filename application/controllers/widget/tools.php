@@ -15,6 +15,11 @@ class Tools extends Widget_Controller {
     {
         $this->smarty->view('admin/widget/tools/attachment.tpl', $data);
     }
+
+    public function pagination($data){
+        $this->smarty->view('admin/widget/tools/pagination.tpl', $data);
+    }
+
 }
 
 /* End of file form.php */

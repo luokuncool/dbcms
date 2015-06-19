@@ -56,7 +56,7 @@ class Admin_Controller extends MY_Controller
         parent::__construct();
         $this->check_login();
         $data['myTheme'] = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
-        $data['baseURL'] = config_item('base_url') . 'admin';
+        $data['baseURL'] = config_item('base_url') . '/admin';
         $data['systemName'] = config_item('system_name');
         $data['pageSetting'] = config_item('pageSetting');
 		$data['loginName'] = $_SESSION['userInfo']['name'];

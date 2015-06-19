@@ -16,17 +16,11 @@ class Role extends Admin_Controller
      */
     public function index()
     {
+        parent::set_html_header();
         $data['groupList'] = config_item('role_group');
         $data['editable'] = 0;
         $data['searchBlockHeight'] = 42;
         $data['editHandler'] = 'role.editHandler';
-        if (!is_ajax()) {
-            parent::set_html_header();
-            $data['dataGridUrl'] = config_item('base_url') . 'admin/role/index';
-            $this->smarty->view('admin/role/index.tpl', $data);
-            return;
-        }
-
         $map = array();
         $name = I('get.name', '', 'strip_tags,trim');
         $name != '' && $map[] = 'name LIKE "%' . $name . '%"';
@@ -42,11 +36,13 @@ class Role extends Admin_Controller
         $rows = I('get.rows', config_item('pageSetting')['pageSize'], 'intval');
         $map['limit'] = array($rows, ($page - 1) * $rows);
 
-        $list = $this->role_model->get_list($map, 'id,name,status,remark');
+        $list = $this->role_model->get_list($map, 'id,name,status,remark,createTime');
         foreach ($list['rows'] as $key => $value) {
             //$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/role/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
         }
-        echo json_encode($list);
+        $data['list'] = $list;
+        $data['pagination'] = array('page'=>$page, 'total'=>$list['total'], 'rows'=>$rows);
+        $this->smarty->view('admin/role/index.tpl', $data);
     }
 
     /**

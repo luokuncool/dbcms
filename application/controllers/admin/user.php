@@ -25,14 +25,6 @@ class User extends Admin_Controller
      */
     public function index()
     {
-        if (!is_ajax())
-        {
-            parent::set_html_header();
-            $data['dataGridUrl'] = '/admin/user/index';
-            $this->smarty->view('admin/user/index.tpl', $data);
-            return;
-        }
-
         $map = array();
         $sort = $this->input->get('sort');
         $order = $this->input->get('order');
@@ -49,8 +41,10 @@ class User extends Admin_Controller
         $page = I('get.page', '1', 'intval');
         $rows = I('get.rows', config_item('pageSetting')['pageSize'], 'intval');
         $map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
-        $list = $this->user_model->get_list($map, 'id,uName,code,name,enName,email,mobile,userType,status');
-        echo json_encode($list);
+        $list = $this->user_model->get_list($map, 'id,uName,code,name,enName,email,mobile,userType,lastLoginTime,status,createTime');
+        $data['list'] = $list;
+        $data['pagination'] = array('page'=>$page, 'total'=>$list['total'], 'rows'=>$rows);
+        $this->smarty->view('admin/user/index.tpl', $data);
     }
 
     /**
