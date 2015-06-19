@@ -50,6 +50,6 @@
     </div>
 {{/block}}
 {{block name="head"}}
-    <link rel="stylesheet" type="text/css" href="{{$basePath}}/public/static/logo-icon/webfont.css">
+    <link rel="stylesheet" type="text/css" href="{{$basePath}}/static/third/logo-icon/webfont.css">
     <script type="text/javascript">$(Public.run)</script>
 {{/block}}

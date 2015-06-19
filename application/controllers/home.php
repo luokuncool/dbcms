@@ -20,30 +20,13 @@ class Home extends Home_Controller {
      */
     public function index()
     {
-        parent::set_html_header();
-        $accessNodeIds         = $_SESSION['accessNodeIds'];
-        $accessNodeIds         OR exit('账号为配置权限请联系系统管理员！');
-        $data['menuGroupList'] = config_item('node_group');
-        $map[]                 = array('type'=>1);
-        $map['status'] = 1;
-        $map['order_by']       = array('sort', 'asc');
-        $map[]                 = 'id in('.join(',', $accessNodeIds).')';
-        $nodeList              = $this->node_model->get_list($map, 'id,name,code,groupId');
-        $data['nodeList']      = $nodeList['rows'];
-        foreach($data['menuGroupList'] as $groupId => $menuGroup)
-        {
-            $menuList = array();
-            foreach($nodeList['rows'] as $rowKey=>$row)
-            {
-                $groupId == $row['groupId'] && array_push($menuList, $row);
-            }
-            unset($data['menuGroupList'][$groupId]);
-            $menuList && $data['menuGroupList'][$groupId]['menuName'] = $menuGroup;
-            $menuList && $data['menuGroupList'][$groupId]['menuList'] = $menuList;
-        }
-        $data['loginName'] = $_SESSION['userInfo']['name'];
-        $this->smarty->view('home/index/index.tpl', $data);
+        $this->smarty->view('home/home/index.tpl');
     }
+
+	public function icons()
+	{
+		$this->smarty->view('home/home/icons.tpl');
+	}
 
     /**
      * 登陆系统

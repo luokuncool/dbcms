@@ -56,11 +56,20 @@ class Admin_Controller extends MY_Controller
         parent::__construct();
         $this->check_login();
         $data['myTheme'] = isset($_COOKIE['myTheme']) ? $_COOKIE['myTheme'] : 'default';
-        $data['baseUrl'] = config_item('base_url') . 'admin/';
+        $data['baseURL'] = config_item('base_url') . 'admin';
         $data['systemName'] = config_item('system_name');
         $data['pageSetting'] = config_item('pageSetting');
+		$data['loginName'] = $_SESSION['userInfo']['name'];
         $this->smarty->assign($data);
     }
+
+	public function jump($message, $jumpURL, $type = 'success')
+	{
+		$data['message'] = $message;
+		$data['jumpURL'] = $jumpURL;
+		$data['type']    = $type;
+		$this->smarty->view('admin/public/jump.tpl', $data);
+	}
 
     /**
      * 登陆验证
@@ -104,6 +113,8 @@ class Home_Controller extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+		$assign['baseURL'] = 'http://'.$_SERVER['HTTP_HOST'];
+		$this->smarty->assign($assign);
     }
 }
 

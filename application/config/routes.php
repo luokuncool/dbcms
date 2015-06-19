@@ -41,7 +41,7 @@
 /**
  * 前台部分
  */
-$route['default_controller'] = 'admin/home/index';
+$route['default_controller'] = 'home/index';
 $route['404_override'] = '';
 
 //EasyUI

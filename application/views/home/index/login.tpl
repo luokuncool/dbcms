@@ -41,7 +41,7 @@
 		var submitForm = $('#submitForm');
 		submitForm.click(function () {
 			Public.processing();
-			$.post('{{$baseUrl}}login', $('#loginForm').serializeArray(), function (res) {
+			$.post('{{$baseURL}}/login', $('#loginForm').serializeArray(), function (res) {
 				Public.processed();
 				if (res.success) {
 					Public.showMessage(res.message);
