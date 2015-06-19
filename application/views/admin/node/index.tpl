@@ -12,7 +12,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <button class="btn btn-primary pull-right">添加节点</button>
+                    <a href="{{$baseURL}}/node/create" class="btn btn-primary pull-right" role="button">添加</a>
                 </div>
                 <div class="box-body">
                     <table class="table table-striped table-hover">
@@ -34,7 +34,7 @@
                                 <td>{{$node.menuName}}</td>
                                 <td>
                                     <a href="{{$baseURL}}/node/edit/{{$node.id}}" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                    <a href="{{$baseURL}}/node/delete/{{$node.id}}" title="删除"><i class="fa fa-trash"></i></a>
+                                    <a href="{{$baseURL}}/node/remove/?ids={{$node.id}}" title="删除"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         {{/foreach}}

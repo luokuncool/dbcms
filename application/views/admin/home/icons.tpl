@@ -1,4 +1,11 @@
 {{extends file="../extends/layout.tpl"}}
+{{block name="location"}}
+    <h1>图标速查</h1>
+    <ol class="breadcrumb">
+        <li><a href="{{$baseURL}}"><i class="fa fa-home"></i>系统首页</a></li>
+        <li class="active">图标速查</li>
+    </ol>
+{{/block}}
 {{block name="content"}}
     <div class='row'>
         <div class='col-xs-12'>

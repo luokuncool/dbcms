@@ -17,9 +17,9 @@
 
 //节点分组
 $config['node_group'] = array(
-    '1' => '系统设置',
-    '2' => '个人设置',
-    '0' => '未分组',
+    '1' => array('iconCls' => 'fa-wrench', 'groupName' => '系统设置'),
+    '2' => array('iconCls' => 'fa-user', 'groupName' => '个人设置'),
+    '0' => array('iconCls' => '', 'groupName' => '其它'),
 );
 
 //主题列表

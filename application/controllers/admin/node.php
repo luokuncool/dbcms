@@ -36,9 +36,7 @@ class Node extends Admin_Controller
         $res = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId,module');
 		$nodeGroup = config_item('node_group');
         foreach ($res['rows'] as $key => $value) {
-            $pNode = $this->node_model->get_row($value['pId']);
-            $res['rows'][$key]['pNodeName'] = $pNode['name'];
-			$res['rows'][$key]['menuName'] = $nodeGroup[$value['groupId']];
+			$res['rows'][$key]['menuName'] = $nodeGroup[$value['groupId']]['groupName'];
         }
 		$this->node_model->getModules();
 		$assign['nodes'] = $res['rows'];
@@ -47,20 +45,17 @@ class Node extends Admin_Controller
 
     /**
      * 创建
-     *
-     * @param $pId
      */
-    public function create($pId)
+    public function create()
     {
-        $pId = intval($pId);
         if (!is_post()) {
-            $assign['pId'] = $pId;
             $assign['node_group_list'] = config_item('node_group');
+            $assign['modules'] = $this->node_model->getModules();
             $this->smarty->view('admin/node/create.tpl', $assign);
             return;
         }
 
-        $data = $this->validation(0, $pId);
+        $data = $this->validation();
         $id = $this->node_model->insert($data);
         $id OR ajax_exit('添加失败');
 
@@ -123,18 +118,10 @@ class Node extends Admin_Controller
      */
     public function remove()
     {
-        if (!is_post()) {
-            return;
-        }
-        $ids = $this->input->post('ids');
+        $ids = I('ids', '', 'trim,strip_tags');
         regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
-        $result = $this->node_model->delete('id in(' . $ids . ')');
-        $res = array(
-            'message' => $result !== false ? '操作成功' : '操作失败',
-            'success' => $result !== false ? 1 : 0,
-            'reloadType' => 'reloadGrid'
-        );
-        echo_json($res);
+        $this->node_model->delete('id in(' . $ids . ')');
+        parent::jump('操作成功', '/admin/node/index');
     }
 
     /**
@@ -216,7 +203,8 @@ class Node extends Admin_Controller
             'sort' => I('post.sort', 0, 'intval'),
             'groupId' => I('post.groupId', 0, 'intval'),
 			'level' => 1,
-			'isMenu' => I('post.isMenu', 0, 'intval'),
+            'isMenu' => I('post.isMenu', 0, 'intval'),
+            'iconCls' => I('post.iconCls', 'fa-circle-o', 'trim,strip_tags'),
 			'module' => $module,
             'type' => I('post.type', 0, 'intval'),
             'updateTime' => $currentTime,

@@ -49,9 +49,13 @@
                     <select class="form-control" name="groupId">
                         <option value="">--请选择所属菜单组--</option>
                         {{foreach $node_group_list as $node_group}}
-                            <option value="{{$node_group@key}}">{{$node_group}}</option>
+                            <option value="{{$node_group@key}}" {{if $node_group@key == $data.groupId}}selected{{/if}}>{{$node_group.groupName}}</option>
                         {{/foreach}}
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>图标Class</label>
+                    <input type="text" class="form-control" value="{{$data.iconCls|default:'fa-circle-o'}}"  name="iconCls" placeholder="请输入图标Class">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">保存</button>

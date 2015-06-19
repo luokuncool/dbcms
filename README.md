@@ -1,1 +1,1 @@
-#基于EasyUI和CodeIgniter开发的一个后台
+逗比cms（随便起的名字，求不嘲笑），ci+AdminLTE开发的一个内容管理系统 

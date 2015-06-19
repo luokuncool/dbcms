@@ -61,6 +61,7 @@ class Admin_Controller extends MY_Controller
         $data['pageSetting'] = config_item('pageSetting');
 		$data['loginName'] = $_SESSION['userInfo']['name'];
         $this->smarty->assign($data);
+        $this->set_menu();
     }
 
 	public function jump($message, $jumpURL, $type = 'success')
@@ -78,6 +79,7 @@ class Admin_Controller extends MY_Controller
     {
         $rsegmentArray = $this->uri->rsegment_array();
         $thisNode = join('/', array_slice($rsegmentArray, 0, 2));
+        $this->smarty->assign('thisNode', $thisNode);
         $withoutCheckLogin = config_item('withoutCheckLogin');
         if (in_array($thisNode, $withoutCheckLogin)) return;
         if (!isset($_SESSION['userInfo'])) {
@@ -85,6 +87,13 @@ class Admin_Controller extends MY_Controller
             exit();
         }
         $this->check_access($thisNode);
+    }
+
+    protected function getCurrentNode()
+    {
+        $rsegmentArray = $this->uri->rsegment_array();
+        $thisNode = join('/', array_slice($rsegmentArray, 0, 2));
+        return $thisNode;
     }
 
     /**
@@ -103,7 +112,39 @@ class Admin_Controller extends MY_Controller
         if (in_array($thisNode, $withoutCheckAccess)) return;
         $result = in_array($thisNode, $_SESSION['accessNodeCodes']);
         if ($result) return;
-        (is_ajax() OR is_post()) ? ajax_exit('没有操作权限！') : show_404();
+       // (is_ajax() OR is_post()) ? ajax_exit('没有操作权限！') : show_404();
+    }
+
+    protected function set_menu()
+    {
+        $this->load->model('node_model');
+        $accessNodeIds         = $_SESSION['accessNodeIds'];
+        if (!$accessNodeIds) return;
+        $data['menuGroupList'] = config_item('node_group');
+        $map[]                 = array('isMenu'=>1);
+        $map['order_by']       = array('sort', 'asc');
+        $map[]                 = 'id in('.join(',', $accessNodeIds).')';
+        $nodeList              = $this->node_model->get_list($map, 'id,name,code,groupId,iconCls');
+        $data['nodeList']      = $nodeList['rows'];
+        $currentNode = $this->getCurrentNode();
+        foreach($data['menuGroupList'] as $groupId => $menuGroup)
+        {
+            $menuList = array();
+            foreach($nodeList['rows'] as $rowKey=>$row)
+            {
+                if ($groupId == $row['groupId']) {
+                    array_push($menuList, $row);
+                    unset($nodeList['rows'][$rowKey]);
+                }
+                $row['code'] == $currentNode &&  $menuGroup['isCurrentGroup'] = 1;
+            }
+            unset($data['menuGroupList'][$groupId]);
+            if ($menuList) {
+                $data['menuGroupList'][$groupId]['group'] = $menuGroup;
+                $data['menuGroupList'][$groupId]['menuList'] = $menuList;
+            }
+        }
+        $this->smarty->assign('sideMenu', $data);
     }
 
 }
