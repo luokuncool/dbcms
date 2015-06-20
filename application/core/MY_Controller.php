@@ -145,6 +145,20 @@ class Admin_Controller extends MY_Controller
                 $data['menuGroupList'][$groupId]['menuList'] = $menuList;
             }
         }
+
+        $userId = get_uid();
+        $this->load->model(
+            array(
+                'favorite_menu_model','node_model'
+            )
+        );
+
+        $nodeIds   = $this->favorite_menu_model->get_list(array('userId'=>$userId), 'nodeId');
+        $menus = array();
+        foreach($nodeIds['rows'] as $row) {
+            $menus[] = $this->node_model->get_row($row['nodeId'], 'code,name,id,iconCls');
+        }
+        $data['favorite'] = $menus;
         $this->smarty->assign('sideMenu', $data);
     }
 

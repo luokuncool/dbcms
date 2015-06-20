@@ -24,6 +24,12 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
+            {{if $sideMenu['favorite']}}
+                <li class="header">常用菜单</li>
+            {{/if}}
+            {{foreach $sideMenu['favorite'] as $favoriteMenu}}
+                <li><a href="{{$baseURL}}/{{$favoriteMenu.code}}"><i class="fa {{$favoriteMenu.iconCls}}"></i> <span>{{$favoriteMenu.name}}</span></a></li>
+            {{/foreach}}
             <li class="header">常规功能</li>
             {{foreach $sideMenu['menuGroupList'] as $menuGroup}}
                 <li class="treeview {{if $menuGroup.group.isCurrentGroup === 1}}active{{/if}}">
