@@ -41,7 +41,7 @@ class Role extends Admin_Controller
             //$list['rows'][$key]['opt'] = '<a class="easyui-linkbutton icon-add" data-options="iconCls:\'icon-add\'" href="javascript:parent.App.addTab(\'添加节点\', \'/role/create\');" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">&nbsp;</a>';
         }
         $data['list'] = $list;
-        $data['pagination'] = array('page'=>$page, 'total'=>$list['total'], 'rows'=>$rows);
+        $data['pagination'] = array('page' => $page, 'total' => $list['total'], 'rows' => $rows);
         $this->smarty->view('admin/role/index.tpl', $data);
     }
 
@@ -219,13 +219,15 @@ class Role extends Admin_Controller
             $assign['roleId'] = $id;
             $assign['groupList'] = config_item('node_group');
             $assign['dataGridUrl'] = config_item('base_url') . 'admin/role/set_rights';
-            $assign['nodeIds'] = get_field_list($existsNodeIds['rows'], 'nodeId', ',');
+            $assign['nodeIds'] = explode(',', get_field_list($existsNodeIds['rows'], 'nodeId'));
+            $assign['moduleTree'] = $this->node_model->getNodeTree();
             $this->smarty->view('admin/role/set_rights.tpl', $assign);
             return;
         }
 
         if (is_post()) {
-            $nodeIds = array_filter(explode(',', I('post.nodeIds', '', 'strip_tags,trim')));
+            $nodeIds = $this->input->post('nodeIds');
+            $nodeIds = array_keys($nodeIds);
             $nodeRights = array();
             foreach ($nodeIds as $nodeId) {
                 $nodeRights[] = array(

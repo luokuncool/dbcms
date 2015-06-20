@@ -50,6 +50,21 @@ class Node_Model extends Base_Model
         return $this->exists($where);
     }
 
+    public function getNodeTree()
+    {
+        $list = $this->get_list();
+        $nodes = $list['rows'];
+        $moduleTree = array();
+        foreach($nodes as $node) {
+            $moduleTree[$node['module']][] = $node;
+        }
+        return $moduleTree;
+    }
+
+    /**
+     * 获取模块
+     * @return mixed
+     */
 	public function getModules(){
 		$query = $this->db->distinct()->select('module')->get($this->table);
 		$modules = $query->result_array();

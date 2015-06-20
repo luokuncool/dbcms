@@ -1,81 +1,135 @@
-{{extends file="../public/grid.tpl"}}
-{{*数据列表*}}
-{{block name="rowList"}}
-    <tr width="100%">
-        <th data-options="field:'id',align:'center',checkbox:true"></th>
-        <th data-options="field:'code',align:'left',sortable:true,editor:'text'" width="20%">节点代码</th>
-        <th data-options="field:'name',align:'center',sortable:true,editor:'text'" width="10%">显示名</th>
-        <th data-options="field:'pNodeName',align:'center',sortable:false" width="10%">所属模块</th>
-        <th formatter="Role.formatGroupName" data-options="field:'groupId',align:'center',sortable:false" width="15%">
-            所属菜单组
-        </th>
-        <th formatter="Role.formatLevel" data-options="field:'level',align:'center',sortable:true" width="5%">节点类型</th>
-        <th formatter="Role.formatType" data-options="field:'type',align:'center',sortable:true" width="15%">是否菜单</th>
-        <th data-options="field:'sort',align:'center',sortable:true,editor:'numberspinner'" width="10%">序号</th>
-        <th formatter="Public.formatStatus" data-options="field:'status',align:'center',sortable:true" width="13.5%">
-            状态
-        </th>
-    </tr>
+{{extends file="../extends/layout.tpl"}}
+{{block name="location"}}
+    <h1>节点编辑</h1>
+    <ol class="breadcrumb">
+        <li><a href="{{$baseURL}}"><i class="fa fa-home"></i>系统首页</a></li>
+        <li><a href="{{$baseURL}}/node/index">节点管理</a></li>
+        <li class="active">节点编辑</li>
+    </ol>
 {{/block}}
-{{* 搜索栏 *}}
-{{block name="searchBlock"}}
-    <table id="searchBlock" width="100%">
-        <tr>
-            <td width="70" align="right">节点代码：</td>
-            <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="code"/></td>
-            <td width="100" align="right">显示名：</td>
-            <td width="70" colspan="2"><input class="easyui-textbox" data-options="width:200" type="text" name="name"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="100" align="right">状态：</td>
-            <td width="70">
-                <select class="easyui-combobox" data-options="editable:false,width:200,height:24" name="status">
-                    <option value="">请选择</option>
-                    <option value="1">启用</option>
-                    <option value="0">禁用</option>
-                </select>
-            </td>
-            <td>&nbsp;</td>
-            <td><a class="easyui-linkbutton" id="searchButton" data-options="height:24"><i
-                        class="iconfont icon-sousuo"></i>检索</a></td>
-            <td align="right">
-                <a class="easyui-linkbutton" onclick="Public.setRights();"><i class="iconfont icon-baocun"></i>提交保存</a>
-            </td>
-        </tr>
-    </table>
+{{block name="content"}}
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" method="post" action="">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <input type="checkbox" id="checkAll" class="square" />
+                        <label for="checkAll">全选</label>
+                    </div>
+                </div>
+                {{foreach $moduleTree as $nodes}}
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <input type="checkbox" id="{{$nodes@key}}" value="1" class="square"
+                                   {{if $data['isMenu']}}checked{{/if}}/>
+                            <label for="{{$nodes@key}}">{{$nodes@key}}</label>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <div class="box">
+                            <div class="box-body">
+                                {{foreach $nodes as $node}}
+                                    <input name="nodeIds[{{$node.id}}]" type="checkbox" class="square" id="node-{{$node.id}}" {{if in_array($node.id, $nodeIds)}}checked{{/if}}>
+                                    <label for="node-{{$node.id}}"> {{$node.name}}</label>
+                                {{/foreach}}
+                            </div>
+                        </div>
+                    </div>
+                {{/foreach}}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
 {{/block}}
-{{block name="script"}}
+{{block name="stylesheets"}}
+    <!-- DATA TABLES -->
+    <link href="/static/third/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+    <!-- Theme style -->
+    <link href="/static/third/plugins/iCheck/all.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+    .checkbox label {
+        font-size: 13px;
+        min-height: 18px;
+        padding: 0 10px;
+    }
+    </style>
+{{/block}}
+{{block name="scripts"}}
+    <div id="alertModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示框</h4>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- DATA TABES SCRIPT -->
+    <script src="/static/third/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/static/third/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <!-- SlimScroll -->
+    <script src="/static/third/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/static/third/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='/static/third/plugins/fastclick/fastclick.min.js'></script>
+    <!-- page script -->
     <script type="text/javascript">
-    var Role = {};
-    /**
-     * 格式化菜单组名
-     * @param field
-     * @param row
-     * @returns {*}
-     */
-    Role.formatGroupName = function (field, row) {
-        var groupList = eval('({{$groupList|json_encode}})');
-        return groupList[field] ? groupList[field] : '--';
-    };
-    !function (Public, parentWin) {
-        Public.setRights = function () {
-            Public.processing();
-            $.post('{{$baseUrl}}role/set_rights/{{$roleId}}', {nodeIds: Public.getIds()}, Public.successHandler, 'text');
-        };
-        window.Public = Public;
-    }(Public, window.parent);
-
     $(function () {
-        //设置表格对象
-        var gridOptions = Public.getGrid().datagrid('options');
-        gridOptions.onLoadSuccess = function () {
-            //选中已有用户
-            var existsNodeIds = [{{$nodeIds}}];
-            for (var i = 0; i < existsNodeIds.length; i++) {
-                Public.getGrid().datagrid('selectRecord', existsNodeIds[i]);
+        $('input[type="checkbox"].square, input[type="radio"].square').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'icheckbox_minimal-blue'
+        });
+        $('#createModuleBtn').click(function () {
+            var newModuleInput = $('#newModuleInput'),
+                newModuleName = newModuleInput.val();
+            if (newModuleName == '') {
+                newModuleInput.focus();
+                return;
             }
-        };
+            var exist = false;
+            $('[name=module] option').each(function () {
+                if ($(this).text() == newModuleName) {
+                    exist = true;
+                }
+            });
+            if (exist) {
+                $('[name=module]').val(newModuleName);
+                return;
+            }
+            $('[name=module]').append('<option>' + newModuleName + '</option>').val(newModuleName);
+        });
+
+        $('form[method=post]').submit(function (e) {
+            e.preventDefault();
+            var postData = $(this).serializeArray(),
+                self = this,
+                submitText = $('[type=submit]').text(),
+                fn = arguments.callee;
+            $(this).unbind('submit', fn);
+            console.log(postData);
+            $(this).find('[type=submit]').text('请稍等...').attr('disabled', true);
+            $.post($(this).attr('action') || location.href, postData, function (res) {
+                $(self).find('[type=submit]').text(submitText).removeAttr('disabled');
+                $(self).bind('submit', fn);
+                if (res.success) {
+                    //location.reload();
+                    return;
+                }
+                $('#alertModal .modal-body').text(res.message);
+                $('#alertModal').modal('show');
+            }, 'json');
+        });
     });
     </script>
 {{/block}}

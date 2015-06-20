@@ -33,9 +33,10 @@
                                 <td>{{$role.createTime|date_format:'Y-m-d'}}</td>
                                 <td>{{$role.remark}}</td>
                                 <td>
-                                    <a href="{{$baseURL}}/node/edit/{{$node.id}}" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                    <a href="{{$baseURL}}/node/remove/?ids={{$node.id}}" title="删除"><i
-                                            class="fa fa-trash"></i></a>
+                                    <a href="{{$baseURL}}/role/edit/{{$role.id}}" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                    <a href="{{$baseURL}}/role/remove/?ids={{$role.id}}" title="删除"><i class="fa fa-trash"></i></a>
+                                    &nbsp;&nbsp;
+                                    <a href="{{$baseURL}}/role/set_rights/{{$role.id}}" title="授权">授权</a>
                                 </td>
                             </tr>
                         {{/foreach}}
