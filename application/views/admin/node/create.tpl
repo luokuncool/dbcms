@@ -73,17 +73,7 @@
     <link href="/static/third/plugins/iCheck/all.css" rel="stylesheet" type="text/css"/>
 {{/block}}
 {{block name="scripts"}}
-    <div id="alertModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">提示框</h4>
-                </div>
-                <div class="modal-body"></div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    {{include file="../includes/submit_form.tpl"}}
     <!-- DATA TABES SCRIPT -->
     <script src="/static/third/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="/static/third/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>

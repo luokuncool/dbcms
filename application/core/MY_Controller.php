@@ -59,7 +59,8 @@ class Admin_Controller extends MY_Controller
         $data['baseURL'] = config_item('base_url') . '/admin';
         $data['systemName'] = config_item('system_name');
         $data['pageSetting'] = config_item('pageSetting');
-		$data['loginName'] = $_SESSION['userInfo']['name'];
+        $data['loginName'] = $_SESSION['userInfo']['name'];
+        $data['face'] = $_SESSION['userInfo']['face'];
         $this->smarty->assign($data);
         $this->set_menu();
     }
@@ -135,8 +136,8 @@ class Admin_Controller extends MY_Controller
                 if ($groupId == $row['groupId']) {
                     array_push($menuList, $row);
                     unset($nodeList['rows'][$rowKey]);
+                    $row['code'] == $currentNode &&  $menuGroup['isCurrentGroup'] = 1;
                 }
-                $row['code'] == $currentNode &&  $menuGroup['isCurrentGroup'] = 1;
             }
             unset($data['menuGroupList'][$groupId]);
             if ($menuList) {

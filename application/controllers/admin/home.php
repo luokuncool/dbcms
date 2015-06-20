@@ -100,6 +100,7 @@ class Home extends Admin_Controller {
         echo_json(
             array(
                 'success' => 1,
+                'redirect' => '/admin',
                 'message' => '登陆成功！'
             )
         );

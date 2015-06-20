@@ -4,10 +4,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="/static/admin/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <img src="{{$face|default:'/static/admin/img/avatar.png'}}" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>超级管理员</p>
+                <p>{{$loginName}}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
         </div>

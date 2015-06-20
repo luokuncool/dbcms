@@ -26,15 +26,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {{foreach $list.rows as $role}}
+                        {{foreach $list.rows as $user}}
                             <tr>
-                                <td>{{$role.uName}}</td>
-                                <td>{{$role.name}}</td>
-                                <td>{{$role.lastLoginTime|date_format:'Y-m-d'}}</td>
-                                <td>{{$role.createTime|date_format:'Y-m-d'}}</td>
+                                <td>{{$user.uName}}</td>
+                                <td>{{$user.name}}</td>
+                                <td>{{$user.lastLoginTime|date_format:'Y-m-d'}}</td>
+                                <td>{{$user.createTime|date_format:'Y-m-d'}}</td>
                                 <td>
-                                    <a href="{{$baseURL}}/user/edit/{{$node.id}}" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                    <a href="{{$baseURL}}/user/remove/?ids={{$node.id}}" title="删除"><i
+                                    <a href="{{$baseURL}}/user/edit/{{$user.id}}" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                    <a href="{{$baseURL}}/user/set_role/{{$user.id}}" title="设置角色"><i class="fa fa-group"></i></a>&nbsp;&nbsp;
+                                    <a href="{{$baseURL}}/user/remove/?ids={{$user.id}}" title="删除"><i
                                             class="fa fa-trash"></i></a>
                                 </td>
                             </tr>

@@ -7,13 +7,12 @@
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3>150</h3>
-
-                    <p>New Orders</p>
+                    <p>待处理订单</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">查看更多<i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -22,7 +21,7 @@
             <div class="small-box bg-green">
                 <div class="inner">
                     <h3>53<sup style="font-size: 20px">%</sup></h3>
-                    <p>Bounce Rate</p>
+                    <p>订单成交率</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -36,13 +35,12 @@
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <h3>44</h3>
-
-                    <p>User Registrations</p>
+                    <p>会员数量</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">查看会员<i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -51,8 +49,7 @@
             <div class="small-box bg-red">
                 <div class="inner">
                     <h3>65</h3>
-
-                    <p>Unique Visitors</p>
+                    <p>今日访问</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
@@ -71,27 +68,7 @@
             <div class="box box-solid bg-green-gradient">
                 <div class="box-header">
                     <i class="fa fa-calendar"></i>
-
                     <h3 class="box-title">Calendar</h3>
-                    <!-- tools box -->
-                    <div class="pull-right box-tools">
-                        <!-- button with a dropdown -->
-                        <div class="btn-group">
-                            <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i
-                                    class="fa fa-bars"></i></button>
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                <li><a href="#">Add new event</a></li>
-                                <li><a href="#">Clear events</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">View calendar</a></li>
-                            </ul>
-                        </div>
-                        <button class="btn btn-success btn-sm" data-widget="collapse"><i
-                                class="fa fa-minus"></i></button>
-                        <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                    <!-- /. tools -->
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">

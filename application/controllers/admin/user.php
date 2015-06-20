@@ -96,30 +96,27 @@ class User extends Admin_Controller
      */
     public function set_role($id){
         $id = intval($id);
-        if (!is_post())
+        if (!is_ajax())
         {
-            $this->load->model('role_user_model');
+            $this->load->model(array('role_user_model', 'role_model'));
             parent::set_html_header();
             //已选中角色
             $assign['roleUsers']         = $this->role_user_model->get_list(array('userId'=>$id), 'roleId');
-            $roleIds = '';
+            $roleIds = array();
             $rows = $assign['roleUsers']['rows'];
             foreach($rows as $row) {
-                $roleIds .= $roleIds !== ''  ?  ','.$row['roleId'] : $row['roleId'];
+                array_push($roleIds, $row['roleId']);
             }
             $assign['roleIds'] = $roleIds;
-            $assign['searchBlockHeight'] = 42;
             $assign['userId']            = $id;
-            $assign['dataGridUrl']     = config_item('base_url') . 'admin/role/index';
+            $list = $this->role_model->get_list();
+            $assign['list'] = $list;
 
             $this->smarty->view('admin/user/set_role.tpl', $assign);
             return;
         }
-        $data['groupList']   = config_item('role_group');
-        $data['editable']    = 0;
-        $data['searchBlockHeight'] = 42;
-        $data['editHandler'] = 'role.editHandler';
-        $roleIds = array_filter(explode(',', I('post.roles', '', 'strip_tags,trim')));
+        $roleIds = $this->input->post('roles');
+        $roleIds = array_keys($roleIds);
         $this->load->model('role_user_model');
         $roleUsers = array();
         foreach($roleIds as $roleId) {

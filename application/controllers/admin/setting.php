@@ -147,4 +147,29 @@ class Setting extends Admin_Controller {
         );
     }
 
+    public function set_info()
+    {
+        $this->load->model('user_model');
+        $id = get_uid();
+        $assign['node_group_list'] = config_item('node_group');
+        $assign['data'] = $this->user_model->get_row($id);
+        $assign['fileName1'] = array('fileName'=>'upload1');
+        $assign['fileName2'] = array('fileName'=>'upload2');
+        if (!is_post())
+        {
+            $this->smarty->view('admin/setting/set_info.tpl', $assign);
+            return;
+        }
+        $update['name'] = I('post.name', '', 'strip_tags,trim');
+        $update['face'] = I('post.face', '', 'strip_tags,trim');
+        $update['email'] = I('post.email', '', 'strip_tags,trim');
+        $update['updateTime'] = time();
+        $result = $this->user_model->update(array('id'=>$id), $update);
+        $res['message'] = $result ? '保存成功' : '保存失败';
+        $id && $res['closeSelf'] = 1;
+        $id && $res['success'] = 1;
+        $res['reloadType'] = 'reloadGrid';
+        echo json_encode($res);
+    }
+
 }

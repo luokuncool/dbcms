@@ -24,12 +24,12 @@
 <body class="login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="/"><b>Admin</b>LTE</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">登录系统</p>
-        <form id="loginForm" action="" method="post">
+        <form action="" method="post">
             <div class="form-group has-feedback">
                 <input type="text" name="uName" class="form-control" placeholder="请输入用户名"/>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -53,52 +53,23 @@
                 <!-- /.col -->
             </div>
         </form>
-        <a href="#">忘记密码？</a><br>
     </div>
     <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-<div id="alert" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">提示框</h4>
-            </div>
-            <div class="modal-body"></div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 <!-- jQuery 2.1.4 -->
 <script src="/static/third/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.2 JS -->
 <script src="/static/third/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- iCheck -->
 <script src="/static/third/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-<script>
+{{include file="../includes/submit_form.tpl"}}
+<script type="text/javascript">
 $(function () {
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%' // optional
-    });
-    $('#loginForm').submit(function (e) {
-        e.preventDefault();
-        var postData = $(this).serializeArray(),
-            self = this,
-            fn = arguments.callee;
-        $(this).unbind('submit', fn);
-        $('[type=submit]').text('登录中...').attr('disabled', true);
-        $.post('{{$baseURL}}/home/login', postData, function (res) {
-            if (res.success) {
-                location.reload();
-                return;
-            }
-            $('#alert .modal-body').text(res.message);
-            $('#alert').modal('show');
-            $('[type=submit]').text('登录').removeAttr('disabled');
-            $(self).bind('submit', fn);
-        }, 'json');
     });
 });
 </script>
