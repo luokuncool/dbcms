@@ -39,7 +39,7 @@
                 </li>
             {{/foreach}}
             <li class="header">开发者专用</li>
-            <li><a href="{{$baseURL}}/home/icons"><i class="fa fa-circle-o text-red"></i> <span>图标速查</span></a></li>
+            <li><a href="{{$baseURL}}/home/icons"><i class="fa fa-book text-red"></i> <span>图标速查</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

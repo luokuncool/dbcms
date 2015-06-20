@@ -29,10 +29,6 @@ class Node extends Admin_Controller
         $name = I('get.name', '', 'strip_tags,trim');
         $name != '' && $map[] = 'name LIKE "%' . $name . '%"';
 
-        $page = I('get.page', '1', 'intval');
-        $rows = I('get.rows', config_item('pageSetting')['pageSize'], 'intval');
-        $map['limit'] = array($rows, ($page - 1) * $rows);
-
         $res = $this->node_model->get_list($map, 'id,name,code,status,level,type,sort,pId,groupId,module');
 		$nodeGroup = config_item('node_group');
         foreach ($res['rows'] as $key => $value) {

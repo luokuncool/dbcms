@@ -1,22 +1,20 @@
 {{extends file="../extends/layout.tpl"}}
 {{block name="location"}}
-    <h1>节点编辑</h1>
+    <h1>{{$data.name}} - 授权</h1>
     <ol class="breadcrumb">
         <li><a href="{{$baseURL}}"><i class="fa fa-home"></i>系统首页</a></li>
-        <li><a href="{{$baseURL}}/node/index">节点管理</a></li>
-        <li class="active">节点编辑</li>
+        <li><a href="{{$baseURL}}/role/index">角色管理管理</a></li>
+        <li class="active">角色授权</li>
     </ol>
 {{/block}}
 {{block name="content"}}
     <div class="row">
         <div class="col-md-12">
             <form role="form" method="post" action="">
-                <div class="form-group">
                     <div class="checkbox">
                         <input type="checkbox" id="checkAll" class="square" />
                         <label for="checkAll">全选</label>
                     </div>
-                </div>
                 {{foreach $moduleTree as $nodes}}
                     <div class="form-group">
                         <div class="checkbox">
@@ -90,24 +88,17 @@
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'icheckbox_minimal-blue'
         });
-        $('#createModuleBtn').click(function () {
-            var newModuleInput = $('#newModuleInput'),
-                newModuleName = newModuleInput.val();
-            if (newModuleName == '') {
-                newModuleInput.focus();
-                return;
-            }
-            var exist = false;
-            $('[name=module] option').each(function () {
-                if ($(this).text() == newModuleName) {
-                    exist = true;
-                }
-            });
-            if (exist) {
-                $('[name=module]').val(newModuleName);
-                return;
-            }
-            $('[name=module]').append('<option>' + newModuleName + '</option>').val(newModuleName);
+
+        $('#checkAll').on('ifChecked', function () {
+            $('input[type=checkbox]').iCheck('check');
+        }).on('ifUnchecked', function () {
+            $('input[type=checkbox]').iCheck('uncheck');
+        });
+
+        $('.form-group input[type=checkbox]').on('ifChecked', function () {
+            $(this).parents('.form-group').next().find('input[type=checkbox]').iCheck('check');
+        }).on('ifUnchecked', function () {
+            $(this).parents('.form-group').next().find('input[type=checkbox]').iCheck('uncheck');
         });
 
         $('form[method=post]').submit(function (e) {
@@ -115,19 +106,21 @@
             var postData = $(this).serializeArray(),
                 self = this,
                 submitText = $('[type=submit]').text(),
-                fn = arguments.callee;
+                fn = arguments.callee,
+                alertModal = $('#alertModal');
             $(this).unbind('submit', fn);
-            console.log(postData);
             $(this).find('[type=submit]').text('请稍等...').attr('disabled', true);
             $.post($(this).attr('action') || location.href, postData, function (res) {
                 $(self).find('[type=submit]').text(submitText).removeAttr('disabled');
                 $(self).bind('submit', fn);
+                alertModal.find('.modal-body').text(res.message);
+                alertModal.modal('show');
                 if (res.success) {
+                    setTimeout(function () {
+                        alertModal.modal('hide');
+                    }, 1000);
                     //location.reload();
-                    return;
                 }
-                $('#alertModal .modal-body').text(res.message);
-                $('#alertModal').modal('show');
             }, 'json');
         });
     });

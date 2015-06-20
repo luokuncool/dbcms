@@ -218,7 +218,7 @@ class Role extends Admin_Controller
             $existsNodeIds = $this->role_node_model->get_list(array('roleId' => $id), 'nodeId');
             $assign['roleId'] = $id;
             $assign['groupList'] = config_item('node_group');
-            $assign['dataGridUrl'] = config_item('base_url') . 'admin/role/set_rights';
+            $assign['data'] = $this->role_model->get_row($id);
             $assign['nodeIds'] = explode(',', get_field_list($existsNodeIds['rows'], 'nodeId'));
             $assign['moduleTree'] = $this->node_model->getNodeTree();
             $this->smarty->view('admin/role/set_rights.tpl', $assign);

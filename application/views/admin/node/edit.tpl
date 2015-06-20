@@ -125,18 +125,21 @@
             var postData = $(this).serializeArray(),
                 self = this,
                 submitText = $('[type=submit]').text(),
-                fn = arguments.callee;
+                fn = arguments.callee,
+                alertModal = $('#alertModal');
             $(this).unbind('submit', fn);
             $(this).find('[type=submit]').text('请稍等...').attr('disabled', true);
             $.post($(this).attr('action') || location.href, postData, function (res) {
                 $(self).find('[type=submit]').text(submitText).removeAttr('disabled');
                 $(self).bind('submit', fn);
+                alertModal.find('.modal-body').text(res.message);
+                alertModal.modal('show');
                 if (res.success) {
+                    setTimeout(function () {
+                        alertModal.modal('hide');
+                    }, 1000);
                     //location.reload();
-                    return;
                 }
-                $('#alertModal .modal-body').text(res.message);
-                $('#alertModal').modal('show');
             }, 'json');
         });
     });

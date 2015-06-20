@@ -19,7 +19,7 @@
 $config['node_group'] = array(
     '1' => array('iconCls' => 'fa-wrench', 'groupName' => '系统设置'),
     '2' => array('iconCls' => 'fa-user', 'groupName' => '个人设置'),
-    '0' => array('iconCls' => '', 'groupName' => '其它'),
+    '0' => array('iconCls' => 'fa-archive', 'groupName' => '其它'),
 );
 
 //主题列表
