@@ -1,10 +1,10 @@
 {{extends file="../extends/layout.tpl"}}
 {{block name="location"}}
-    <h1>{{$data.name}} - 授权</h1>
+    <h1>常用菜单设置</h1>
     <ol class="breadcrumb">
         <li><a href="{{$baseURL}}"><i class="fa fa-home"></i>系统首页</a></li>
-        <li><a href="{{$baseURL}}/role/index">角色管理管理</a></li>
-        <li class="active">角色授权</li>
+        <li><a href="#">个人设置</a></li>
+        <li class="active">常用菜单设置</li>
     </ol>
 {{/block}}
 {{block name="content"}}
@@ -57,7 +57,6 @@
 {{/block}}
 {{block name="scripts"}}
     {{include file="../includes/submit_form.tpl"}}
-    <script src="/static/third/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <!-- SlimScroll -->
     <script src="/static/third/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- iCheck 1.0.1 -->

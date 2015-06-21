@@ -67,16 +67,11 @@
     <!-- /.row -->
 {{/block}}
 {{block name="stylesheets"}}
-    <!-- DATA TABLES -->
-    <link href="/static/third/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
     <!-- Theme style -->
     <link href="/static/third/plugins/iCheck/all.css" rel="stylesheet" type="text/css"/>
 {{/block}}
 {{block name="scripts"}}
     {{include file="../includes/submit_form.tpl"}}
-    <!-- DATA TABES SCRIPT -->
-    <script src="/static/third/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="/static/third/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <!-- SlimScroll -->
     <script src="/static/third/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- iCheck 1.0.1 -->
@@ -108,29 +103,6 @@
                 return;
             }
             $('[name=module]').append('<option>'+newModuleName+'</option>').val(newModuleName);
-        });
-
-        $('form[method=post]').submit(function (e) {
-            e.preventDefault();
-            var postData = $(this).serializeArray(),
-                self = this,
-                submitText = $('[type=submit]').text(),
-                fn = arguments.callee,
-                alertModal = $('#alertModal');
-            $(this).unbind('submit', fn);
-            $(this).find('[type=submit]').text('请稍等...').attr('disabled', true);
-            $.post($(this).attr('action') || location.href, postData, function (res) {
-                $(self).find('[type=submit]').text(submitText).removeAttr('disabled');
-                $(self).bind('submit', fn);
-                alertModal.find('.modal-body').text(res.message);
-                alertModal.modal('show');
-                if (res.success) {
-                    setTimeout(function () {
-                        alertModal.modal('hide');
-                    }, 1000);
-                    //location.reload();
-                }
-            }, 'json');
         });
     });
     </script>

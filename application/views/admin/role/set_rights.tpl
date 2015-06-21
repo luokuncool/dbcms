@@ -57,7 +57,6 @@
 {{/block}}
 {{block name="scripts"}}
     {{include file="../includes/submit_form.tpl"}}
-    <script src="/static/third/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <!-- SlimScroll -->
     <script src="/static/third/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- iCheck 1.0.1 -->

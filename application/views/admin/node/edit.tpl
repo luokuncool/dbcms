@@ -67,16 +67,11 @@
     <!-- /.row -->
 {{/block}}
 {{block name="stylesheets"}}
-    <!-- DATA TABLES -->
-    <link href="/static/third/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
     <!-- Theme style -->
     <link href="/static/third/plugins/iCheck/all.css" rel="stylesheet" type="text/css"/>
 {{/block}}
 {{block name="scripts"}}
     {{include file="../includes/submit_form.tpl"}}
-    <!-- DATA TABES SCRIPT -->
-    <script src="/static/third/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="/static/third/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <!-- SlimScroll -->
     <script src="/static/third/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- iCheck 1.0.1 -->
