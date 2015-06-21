@@ -33,7 +33,8 @@ class Role extends Admin_Controller
         $map['order_by'] = array($sort, $order);
 
         $page = I('get.page', '1', 'intval');
-        $rows = I('get.rows', config_item('pageSetting')['pageSize'], 'intval');
+        $pageSetting = config_item('pageSetting');
+        $rows = I('get.rows', $pageSetting['pageSize'], 'intval');
         $map['limit'] = array($rows, ($page - 1) * $rows);
 
         $list = $this->role_model->get_list($map, 'id,name,status,remark,createTime');
@@ -52,7 +53,7 @@ class Role extends Admin_Controller
     {
         if (!is_post()) {
             $data['role_group_list'] = config_item('role_group');
-            $data['data'] = $this->role_model->get_row($id);
+            $data['data'] = $this->role_model->get_row();
             $this->smarty->view('admin/role/create.tpl', $data);
             return;
         }

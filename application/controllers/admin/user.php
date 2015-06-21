@@ -39,7 +39,8 @@ class User extends Admin_Controller
         $name != '' && $map[] = 'name LIKE "%'.$name.'%"';
 
         $page = I('get.page', '1', 'intval');
-        $rows = I('get.rows', config_item('pageSetting')['pageSize'], 'intval');
+        $pageSetting = config_item('pageSetting');
+        $rows = I('get.rows', $pageSetting['pageSize'], 'intval');
         $map['limit'] = array($rows, ($page ? $page-1 : 0)*$rows);
         $list = $this->user_model->get_list($map, 'id,uName,code,name,enName,email,mobile,userType,lastLoginTime,status,createTime');
         $data['list'] = $list;
