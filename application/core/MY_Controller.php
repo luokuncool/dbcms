@@ -156,8 +156,10 @@ class Admin_Controller extends MY_Controller
         $nodeIds   = $this->favorite_menu_model->get_list(array('userId'=>$userId), 'nodeId');
         $menus = array();
         foreach($nodeIds['rows'] as $row) {
-            $menus[] = $this->node_model->get_row($row['nodeId'], 'code,name,id,iconCls');
+            $node =  $this->node_model->get_row($row['nodeId'], 'code,name,id,iconCls');
+            $node['id'] && $menus[] = $node;
         }
+        $menus = array_filter($menus);
         $data['favorite'] = $menus;
         $this->smarty->assign('sideMenu', $data);
     }

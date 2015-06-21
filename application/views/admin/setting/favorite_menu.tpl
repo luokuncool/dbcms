@@ -1,55 +1,88 @@
-{{extends file="../public/grid.tpl"}}
-{{block name="searchBlock"}}
-    <table id="searchBlock" width="100%">
-        <tr>
-            <td width="100" align="right">菜单名称：</td>
-            <td width="70"><input class="easyui-textbox" data-options="width:200" type="text" name="name"/></td>
-            <td>&nbsp;&nbsp;<a class="easyui-linkbutton" id="searchButton"><i class="iconfont icon-sousuo"></i>检索</a>
-            </td>
-            <td align="right">
-                <a class="easyui-linkbutton" onclick="Node.setFavoriteMenu();"><i class="iconfont icon-baocun"></i>设为常用</a>
-            </td>
-        </tr>
-    </table>
+{{extends file="../extends/layout.tpl"}}
+{{block name="location"}}
+    <h1>{{$data.name}} - 授权</h1>
+    <ol class="breadcrumb">
+        <li><a href="{{$baseURL}}"><i class="fa fa-home"></i>系统首页</a></li>
+        <li><a href="{{$baseURL}}/role/index">角色管理管理</a></li>
+        <li class="active">角色授权</li>
+    </ol>
 {{/block}}
-{{block name="rowList"}}
-    <tr width="100%">
-        <th data-options="field:'id',align:'center',checkbox:true"></th>
-        <th data-options="field:'name',align:'center',sortable:true,editor:'text'" width="10%">菜单名称</th>
-        <th formatter="Node.formatCode" data-options="field:'code',align:'left',sortable:true,editor:'text'"
-            width="88%">地址
-        </th>
-    </tr>
+{{block name="content"}}
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" method="post" action="">
+                <div class="checkbox">
+                    <input type="checkbox" id="checkAll" class="square"/>
+                    <label for="checkAll">全选</label>
+                </div>
+                {{foreach $moduleTree as $nodes}}
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <input type="checkbox" id="{{$nodes@key}}" value="1" class="square"
+                                   {{if $data['isMenu']}}checked{{/if}}/>
+                            <label for="{{$nodes@key}}">{{$nodes@key}}</label>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <div class="box">
+                            <div class="box-body">
+                                {{foreach $nodes as $node}}
+                                    <input name="nodeIds[{{$node.id}}]" type="checkbox" class="square"
+                                           id="node-{{$node.id}}" {{if in_array($node.id, $nodeIds)}}checked{{/if}}>
+                                    <label for="node-{{$node.id}}"> {{$node.name}}</label>
+                                {{/foreach}}
+                            </div>
+                        </div>
+                    </div>
+                {{/foreach}}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
 {{/block}}
-{{block name="script"}}
+{{block name="stylesheets"}}
+    <!-- Theme style -->
+    <link href="/static/third/plugins/iCheck/all.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+    .checkbox label {
+        font-size: 13px;
+        min-height: 18px;
+        padding: 0 10px;
+    }
+    </style>
+{{/block}}
+{{block name="scripts"}}
+    {{include file="../includes/submit_form.tpl"}}
+    <script src="/static/third/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <!-- SlimScroll -->
+    <script src="/static/third/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="/static/third/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='/static/third/plugins/fastclick/fastclick.min.js'></script>
+    <!-- page script -->
     <script type="text/javascript">
-    var Node = Object();
-
-    /**
-     * 输出超链接
-     */
-    Node.formatCode = function (field, row) {
-        return '<a class="easyui-linkbutton" href="javascript:Public.addTab(\'' + row.name + '\', \'{{$baseUrl}}' + field + '\')" data-options="" style="padding:0 5px 0 0; border-radius: 2px 2px 2px;">{{$baseUrl}}' + field + '</a>';
-    };
-
-    /**
-     * 提交选中用户
-     */
-    Node.setFavoriteMenu = function () {
-        Public.processing();
-        $.post('{{$baseUrl}}setting/set_favorite_menu', {nodeIds: Public.getIds()}, Public.successHandler, 'text');
-    };
-
     $(function () {
-        //设置表格对象
-        var gridOptions = Public.getGrid().datagrid('options');
-        gridOptions.onLoadSuccess = function () {
-            //已有菜单
-            var existsMenus = [{{$nodeIds}}];
-            for (var i = 0; i < existsMenus.length; i++) {
-                Public.getGrid().datagrid('selectRecord', existsMenus[i]);
-            }
-        };
+        $('input[type="checkbox"].square, input[type="radio"].square').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'icheckbox_minimal-blue'
+        });
+
+        $('#checkAll').on('ifChecked', function () {
+            $('input[type=checkbox]').iCheck('check');
+        }).on('ifUnchecked', function () {
+            $('input[type=checkbox]').iCheck('uncheck');
+        });
+
+        $('.form-group input[type=checkbox]').on('ifChecked', function () {
+            $(this).parents('.form-group').next().find('input[type=checkbox]').iCheck('check');
+        }).on('ifUnchecked', function () {
+            $(this).parents('.form-group').next().find('input[type=checkbox]').iCheck('uncheck');
+        });
     });
     </script>
 {{/block}}

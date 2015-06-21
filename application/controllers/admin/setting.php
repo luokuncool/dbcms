@@ -40,41 +40,39 @@ class Setting extends Admin_Controller {
      */
     public function favorite_menu()
     {
+
+        $this->load->model(array('node_model', 'favorite_menu_model'));
+        $userId = get_uid();
         if (!is_ajax()) {
-            $userId = get_uid();
-            $this->load->model('favorite_menu_model');
-            //已有常用菜单
-            $assign['menus']         = $this->favorite_menu_model->get_list(array('userId'=>$userId), 'nodeId');
-            $nodeIds = '';
-            $rows = $assign['menus']['rows'];
-            foreach($rows as $row) {
-                $nodeIds .= $nodeIds !== ''  ?  ','.$row['nodeId'] : $row['nodeId'];
-            }
-            $assign['nodeIds']           = $nodeIds;
-            $assign['dataGridUrl'] = config_item('base_url') . 'admin/setting/favorite_menu';
+            parent::set_html_header();
+            $existsNodeIds = $this->favorite_menu_model->get_list(array('userId' => $userId), 'nodeId');
+            $assign['nodeIds'] = explode(',', get_field_list($existsNodeIds['rows'], 'nodeId'));
+            $assign['moduleTree'] = $this->node_model->getNodeTree(true);
             $this->smarty->view('admin/setting/favorite_menu.tpl', $assign);
             return;
         }
-        $this->load->model('node_model');
 
-        $where[] = array(
-            'status' => 1,
-            'type' => 1
+        $nodeIds = $this->input->post('nodeIds');
+        $nodeIds = array_keys($nodeIds);
+        $favoriteMenu = array();
+        foreach($nodeIds as $nodeId) {
+            $favoriteMenu[] = array(
+                'userId' => $userId,
+                'nodeId' => $nodeId
+            );
+        }
+        $this->favorite_menu_model->delete(array('userId'=>$userId));
+        if ($nodeIds) {
+            $result = $this->favorite_menu_model->batch_insert($favoriteMenu);
+            $result OR ajax_exit('保存失败');
+        }
+        echo json_encode(
+            array(
+                'message' => '保存成功',
+                'redirect' => '/admin',
+                'success' => 1
+            )
         );
-
-        $sort  = I('get.sort', 'code', 'strip_tags,trim');
-        $order = I('get.order', 'asc', 'strip_tags,trim');
-        $where['order_by'] = array($sort, $order);
-
-        $name    = I('get.name', '', 'strip_tags,trim');
-        $name   != '' && $where[] = 'name LIKE "%'.$name.'%"';
-
-        $page = I('get.page', '1', 'intval');
-        $rows = I('get.rows', config_item('pageSize'), 'intval');
-        $map['limit'] = array($rows, ($page-1)*$rows);
-
-        $res = $this->node_model->get_list($where, 'id,code,name,sort');
-        echo_json($res);
     }
 
     /**
