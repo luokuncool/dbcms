@@ -137,7 +137,7 @@ function get_active_url($wipe = '', $encode = true)
         }
     }
     $query = implode('&', $queryArray);
-    $baseURL = config_item('base_url').$_SERVER['REDIRECT_URL'];
+    $baseURL = current_url();
     $url = $query == '' ? $baseURL : ($baseURL. '?' .$query);
     if ($encode) $url = urlencode($url);
     return $url;
