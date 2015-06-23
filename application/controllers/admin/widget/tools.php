@@ -29,7 +29,7 @@ class Tools extends Widget_Controller {
         sort($pages);
         $data['pages'] = $pages;
         $activeURL = get_active_url('page', false);
-        $data['pageURL'] = strpos('?', $activeURL) === false ? $activeURL . '?page=' : '&page=';
+        $data['pageURL'] = $activeURL .(strpos($activeURL, '?') === false ? '?page=' : '&page=');
         $this->smarty->view('admin/widget/tools/pagination.tpl', $data);
     }
 
