@@ -12,15 +12,15 @@
         <div class="col-md-6">
             <form role="form" method="post" action="">
                 <div class="form-group">
-                    <label>操作代码</label>
+                    <label>操作代码 <i class="text-red">*</i></label>
                     <input type="text" name="code" value="{{$data.code}}" class="form-control" placeholder="输入操作代码">
                 </div>
                 <div class="form-group">
-                    <label>名称</label>
+                    <label>名称 <i class="text-red">*</i></label>
                     <input type="text" class="form-control" value="{{$data.name}}"  name="name" placeholder="请输入节点名称">
                 </div>
                 <div class="form-group">
-                    <label>所属模块</label>
+                    <label>所属模块 <i class="text-red">*</i></label>
                     <select class="form-control" name="module">
                         {{foreach $modules as $module}}
                             <option {{if $module['module'] == $data['module']}}selected{{/if}}>{{$module.module}}</option>

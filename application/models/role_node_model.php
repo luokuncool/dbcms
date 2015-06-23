@@ -19,7 +19,6 @@ class Role_Node_Model extends Base_Model
     public function __construct()
     {
         parent::__construct();
-        $this->load->database();
     }
 
     /**

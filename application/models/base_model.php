@@ -25,7 +25,7 @@ class Base_model extends CI_Model
 {
     protected static $_inited = FALSE;
 
-    public $db_group = 'default';
+    public $db_group = NULL;
 
     public static $ci = NULL;
 
@@ -65,22 +65,22 @@ class Base_model extends CI_Model
     {
         parent::__construct();
         $this->load->driver('Cache', config_item('cache_type'));
-        /*if (is_null($this->db_group))
+        if (is_null($this->db_group))
         {
           $active_group = 'default';
           include(APPPATH . 'config/database.php');
           $this->db_group = $active_group;
         }
 
-        $this->db = $this->load->database($this->db_group, TRUE);
+        $this->{$this->db_group} = $this->load->database($this->db_group, TRUE);
 
         if(self::$_inited)
         {
           return;
         }
-        self::$_inited = TRUE;*/
+        self::$_inited = TRUE;
 
-        //self::$ci =& get_instance();
+        self::$ci =& get_instance();
     }
 
     /**
@@ -98,13 +98,13 @@ class Base_model extends CI_Model
      */
     public function get($where)
     {
-        $this->db->from($this->table);
+        $this->{$this->db_group}->from($this->table);
         if (is_array($where)) {
-            $where && $this->db->where($where);
+            $where && $this->{$this->db_group}->where($where);
         } elseif (is_string($where)) {
-            $where && $this->db->where($where, null, false);
+            $where && $this->{$this->db_group}->where($where, null, false);
         }
-        $data = $this->db->get()->result_array();
+        $data = $this->{$this->db_group}->get()->result_array();
         return $data;
     }
 
@@ -117,8 +117,8 @@ class Base_model extends CI_Model
      */
     public function join($table, $cond, $type = '')
     {
-        $this->db->join($table, $cond, $type);
-        return $this->db;
+        $this->{$this->db_group}->join($table, $cond, $type);
+        return $this->{$this->db_group};
     }
 
     /**
@@ -133,7 +133,7 @@ class Base_model extends CI_Model
      */
     public function get_where($where = NULL)
     {
-        return $this->db->get_where($this->table, $where, $this->limit, $this->offset);
+        return $this->{$this->db_group}->get_where($this->table, $where, $this->limit, $this->offset);
     }
 
     /**
@@ -147,7 +147,7 @@ class Base_model extends CI_Model
     {
         $table = (!is_null($table)) ? $table : $this->table;
 
-        $query = $this->db->select($fields)->get($table);
+        $query = $this->{$this->db_group}->select($fields)->get($table);
 
         return $query->result_array();
     }
@@ -169,8 +169,8 @@ class Base_model extends CI_Model
         }
 
         if (!$cacheRow) {
-            $this->db->where($this->pk_name, $id);
-            $row = $this->db->get($this->table)->row_array();
+            $this->{$this->db_group}->where($this->pk_name, $id);
+            $row = $this->{$this->db_group}->get($this->table)->row_array();
         } else {
             $row = $cacheRow;
         }
@@ -195,20 +195,20 @@ class Base_model extends CI_Model
             // Perform conditions from the $where array
             foreach (array('limit', 'offset', 'order_by', 'like') as $key) {
                 if (isset($where[$key])) {
-                    call_user_func(array($this->db, $key), $where[$key]);
+                    call_user_func(array($this->{$this->db_group}, $key), $where[$key]);
                     unset($where[$key]);
                 }
             }
             if (isset($where['where_in'])) {
                 foreach ($where['where_in'] as $key => $value) {
                     if (!empty($value))
-                        $this->db->where_in($key, $value);
+                        $this->{$this->db_group}->where_in($key, $value);
                 }
                 unset($where['where_in']);
             }
-            $this->db->where($where);
+            $this->{$this->db_group}->where($where);
         }
-        $query = $this->db->get($table);
+        $query = $this->{$this->db_group}->get($table);
         return $query->row_array();
     }
 
@@ -231,8 +231,8 @@ class Base_model extends CI_Model
 
         $this->_process_where($where, $table);
 
-        $this->db->select('group_concat(distinct ' . $field . ') as result');
-        $query = $this->db->get($table);
+        $this->{$this->db_group}->select('group_concat(distinct ' . $field . ') as result');
+        $query = $this->{$this->db_group}->get($table);
 
         if ($query->num_rows() > 0) {
             $result = $query->row_array();
@@ -283,12 +283,12 @@ class Base_model extends CI_Model
         $data = array();
 
         $table = (!is_null($table)) ? $table : $this->table;
-        $this->db->start_cache();
+        $this->{$this->db_group}->start_cache();
 
         // Perform conditions from the $where array
         foreach (array('like') as $key) {
             if (isset($where[$key])) {
-                call_user_func_array(array($this->db, $key), array($where[$key]));
+                call_user_func_array(array($this->{$this->db_group}, $key), array($where[$key]));
                 unset($where[$key]);
             }
         }
@@ -296,7 +296,7 @@ class Base_model extends CI_Model
          {
              foreach($where['where_in'] as $key => $value)
              {
-                 $this->db->where_in($key, $value);
+                 $this->{$this->db_group}->where_in($key, $value);
              }
              unset($where['where_in']);
          }
@@ -306,27 +306,27 @@ class Base_model extends CI_Model
             foreach ($where as $cond => $value) {
                 if (is_string($cond) && in_array($cond, array('limit', 'offset', 'order_by'))) continue;
                 if (is_string($cond)) {
-                    $this->db->where($cond, $value);
+                    $this->{$this->db_group}->where($cond, $value);
                 } else {
-                    $this->db->where($value);
+                    $this->{$this->db_group}->where($value);
                 }
                 unset($where[$cond]);
             }
         }
-        $total = $this->db->count_all_results($this->table);
+        $total = $this->{$this->db_group}->count_all_results($this->table);
         foreach (array('limit', 'offset', 'order_by') as $key) {
             if (isset($where[$key])) {
-                call_user_func_array(array($this->db, $key), $where[$key]);
+                call_user_func_array(array($this->{$this->db_group}, $key), $where[$key]);
                 unset($where[$key]);
             }
         }
-        $this->db->select($this->pk_name, FALSE);
+        $this->{$this->db_group}->select($this->pk_name, FALSE);
 
-        $query = $this->db->get($table);
+        $query = $this->{$this->db_group}->get($table);
         if ($query->num_rows > 0)
             $data = $query->result_array();
-        $this->db->stop_cache();
-        $this->db->flush_cache();
+        $this->{$this->db_group}->stop_cache();
+        $this->{$this->db_group}->flush_cache();
 
         $rows = array();
         foreach ($data as $key => $value) {
@@ -356,16 +356,16 @@ class Base_model extends CI_Model
         $link_table = $prefix . $parent_table . '_' . $items_table;
 
         // Items table primary key detection
-        $fields = $this->db->list_fields($items_table);
+        $fields = $this->{$this->db_group}->list_fields($items_table);
         $items_table_pk = $fields[0];
 
         // Parent table primary key detection
-        $fields = $this->db->list_fields($parent_table);
+        $fields = $this->{$this->db_group}->list_fields($parent_table);
         $parent_table_pk = $fields[0];
 
-        $this->db->where($parent_table_pk, $parent_id);
-        $this->db->select($items_table_pk);
-        $query = $this->db->get($link_table);
+        $this->{$this->db_group}->where($parent_table_pk, $parent_id);
+        $this->{$this->db_group}->select($items_table_pk);
+        $query = $this->{$this->db_group}->get($link_table);
 
         foreach ($query->result() as $row) {
             $data[] = $row->$items_table_pk;
@@ -398,19 +398,19 @@ class Base_model extends CI_Model
         }
 
         // Items table primary key detection
-        $fields = $this->db->list_fields($items_table);
+        $fields = $this->{$this->db_group}->list_fields($items_table);
         $items_table_pk = $fields[0];
 
         // ORDER BY
         if (!is_null($order_by))
-            $this->db->order_by($order_by);
+            $this->{$this->db_group}->order_by($order_by);
 
         // WHERE
         if (is_array($where) && !empty($where))
-            $this->db->where($where);
+            $this->{$this->db_group}->where($where);
 
         // Query
-        $query = $this->db->get($items_table);
+        $query = $this->{$this->db_group}->get($items_table);
 
         foreach ($query->result() as $row) {
             if (is_array($field)) {
@@ -491,9 +491,9 @@ class Base_model extends CI_Model
 
         $this->_process_where($where, $table);
 
-        $this->db->select("group_concat(" . $field . " separator ',') as ids", FALSE);
+        $this->{$this->db_group}->select("group_concat(" . $field . " separator ',') as ids", FALSE);
 
-        $query = $this->db->get($table);
+        $query = $this->{$this->db_group}->get($table);
 
         $data = $query->row_array();
 
@@ -519,13 +519,13 @@ class Base_model extends CI_Model
     {
         $table = (!is_null($table)) ? $table : $this->table;
 
-        $this->db->select_max($field, 'maximum');
+        $this->{$this->db_group}->select_max($field, 'maximum');
 
         if (!is_null($where)) {
-            $this->db->where($where);
+            $this->{$this->db_group}->where($where);
         }
 
-        $query = $this->db->get($table);
+        $query = $this->{$this->db_group}->get($table);
 
         if ($query->num_rows() > 0) {
             $row = $query->row();
@@ -539,11 +539,11 @@ class Base_model extends CI_Model
     {
         $data = array();
 
-        $this->db->like($this->table . '.' . $field, $term);
+        $this->{$this->db_group}->like($this->table . '.' . $field, $term);
 
-        $this->db->limit($limit);
+        $this->{$this->db_group}->limit($limit);
 
-        $query = $this->db->get($this->table);
+        $query = $this->{$this->db_group}->get($this->table);
 
         if ($query->num_rows() > 0) {
             $data = $query->result_array();
@@ -560,7 +560,7 @@ class Base_model extends CI_Model
     public function get_pk_name($table = NULL)
     {
         if (!is_null($table)) {
-            $fields = $this->db->field_data($table);
+            $fields = $this->{$this->db_group}->field_data($table);
 
             foreach ($fields as $field) {
                 if ($field->primary_key) {
@@ -614,9 +614,9 @@ class Base_model extends CI_Model
 
         $data = $this->clean_data($data, $table);
 
-        $this->db->insert($table, $data);
+        $this->{$this->db_group}->insert($table, $data);
 
-        $insertId = $this->db->insert_id();
+        $insertId = $this->{$this->db_group}->insert_id();
         //更新缓存
         if ($insertId) $this->update_cache(array($this->pk_name => $insertId));
         return $insertId;
@@ -634,9 +634,9 @@ class Base_model extends CI_Model
 
         $data = $this->clean_data($data, $table);
 
-        $insert_query = $this->db->insert_string($table, $data);
+        $insert_query = $this->{$this->db_group}->insert_string($table, $data);
         $insert_query = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $insert_query);
-        $inserted = $this->db->query($insert_query);
+        $inserted = $this->{$this->db_group}->query($insert_query);
 
 
         return $inserted;
@@ -656,14 +656,14 @@ class Base_model extends CI_Model
         $table = (FALSE !== $table) ? $table : $this->table;
         $data = $this->clean_data($data, $table);
         if (is_array($where)) {
-            $this->db->where($where);
+            $this->{$this->db_group}->where($where);
         } else {
-            $this->db->where($where, null, false);
+            $this->{$this->db_group}->where($where, null, false);
         }
-        $this->db->update($table, $data);
-        $affected = $this->db->affected_rows();
+        $this->{$this->db_group}->update($table, $data);
+        $affected = $this->{$this->db_group}->affected_rows();
         $affected && $this->update_cache($where);
-        return (int)$this->db->affected_rows();
+        return (int)$this->{$this->db_group}->affected_rows();
     }
 
     /**
@@ -681,10 +681,10 @@ class Base_model extends CI_Model
         if (is_array($where)) {
             $this->_process_where($where, $table);
         } else {
-            $this->db->where($where);
+            $this->{$this->db_group}->where($where);
         }
-        $result = $this->db->delete($table);
-        return (int)$this->db->affected_rows();
+        $result = $this->{$this->db_group}->delete($table);
+        return (int)$this->{$this->db_group}->affected_rows();
     }
 
     /**
@@ -702,23 +702,23 @@ class Base_model extends CI_Model
         // Perform conditions from the $where array
         foreach (array('limit', 'offset', 'order_by', 'like') as $key) {
             if (isset($where[$key])) {
-                call_user_func(array($this->db, $key), $where[$key]);
+                call_user_func(array($this->{$this->db_group}, $key), $where[$key]);
                 unset($where[$key]);
             }
         }
 
         if (isset($where['where_in'])) {
             foreach ($where['where_in'] as $key => $value) {
-                $this->db->where_in($key, $value);
+                $this->{$this->db_group}->where_in($key, $value);
             }
             unset($where['where_in']);
         }
 
         if (is_array($where) && !empty($where)) {
-            $this->db->where($where);
+            $this->{$this->db_group}->where($where);
         }
 
-        $query = $this->db->count_all_results($table);
+        $query = $this->{$this->db_group}->count_all_results($table);
 
         return (int)$query;
     }
@@ -736,9 +736,9 @@ class Base_model extends CI_Model
     public function count_all($results = FALSE)
     {
         if ($results !== FALSE) {
-            $query = $this->db->count_all_results($this->table);
+            $query = $this->{$this->db_group}->count_all_results($this->table);
         } else {
-            $query = $this->db->count_all($this->table);
+            $query = $this->{$this->db_group}->count_all($this->table);
         }
         return (int)$query;
     }
@@ -759,20 +759,20 @@ class Base_model extends CI_Model
             unset($where['order_by']);
 
         if (isset($where['like'])) {
-            $this->db->like($where['like']);
+            $this->{$this->db_group}->like($where['like']);
             unset($where['like']);
         }
         if (!empty ($where)) {
             foreach ($where as $cond => $value) {
                 if (is_string($cond)) {
-                    $this->db->where($cond, $value);
+                    $this->{$this->db_group}->where($cond, $value);
                 } else {
-                    $this->db->where($value);
+                    $this->{$this->db_group}->where($value);
                 }
             }
         }
-        $this->db->from($table);
-        return $this->db->count_all_results();
+        $this->{$this->db_group}->from($table);
+        return $this->{$this->db_group}->count_all_results();
     }
 
     /**
@@ -784,7 +784,7 @@ class Base_model extends CI_Model
      */
     public function empty_table()
     {
-        $this->db->empty_table($this->table);
+        $this->{$this->db_group}->empty_table($this->table);
     }
 
     /**
@@ -803,7 +803,7 @@ class Base_model extends CI_Model
             $this->_process_where($where, $table);
         }
 
-        $query = $this->db->get($table);
+        $query = $this->{$this->db_group}->get($table);
 
         if ($query->num_rows() > 0) {
             return FALSE;
@@ -825,9 +825,9 @@ class Base_model extends CI_Model
     public function exists($where = NULL, $table = NULL)
     {
         $table = (!is_null($table)) ? $table : $this->table;
-        is_string($where) && $this->db->where($where, null, false);
-        is_array($where) && $this->db->where($where);
-        $query = $this->db->from($table)->get();
+        is_string($where) && $this->{$this->db_group}->where($where, null, false);
+        is_array($where) && $this->{$this->db_group}->where($where);
+        $query = $this->{$this->db_group}->from($table)->get();
 
         if ($query->num_rows() > 0)
             return TRUE;
@@ -889,7 +889,7 @@ class Base_model extends CI_Model
 
         $table = (!is_null($table)) ? $table : $this->table;
 
-        $query = $this->db->query("SHOW FULL COLUMNS FROM " . $table);
+        $query = $this->{$this->db_group}->query("SHOW FULL COLUMNS FROM " . $table);
 
         $fields = $query->result_array();
 
@@ -938,7 +938,7 @@ class Base_model extends CI_Model
     public function has_field($field, $table = NULL)
     {
         $table = (!is_null($table)) ? $table : $this->table;
-        $fields = $this->db->list_fields($table);
+        $fields = $this->{$this->db_group}->list_fields($table);
         if (in_array($field, $fields)) return TRUE;
         return FALSE;
     }
@@ -958,7 +958,7 @@ class Base_model extends CI_Model
         if (!empty($data)) {
             $table = ($table !== FALSE) ? $table : $this->table;
 
-            $fields = $this->db->list_fields($table);
+            $fields = $this->{$this->db_group}->list_fields($table);
 
             $fields = array_fill_keys($fields, '');
 
@@ -991,16 +991,16 @@ class Base_model extends CI_Model
             // Perform conditions from the $where array
             foreach (array('limit', 'offset', 'order_by', 'like') as $key) {
                 if (isset($where[$key])) {
-                    call_user_func(array($this->db, $key), $where[$key]);
+                    call_user_func(array($this->{$this->db_group}, $key), $where[$key]);
                     unset($where[$key]);
                 }
             }
 
-            $this->db->order_by('ordering ASC');
-            $this->db->set('ordering', '@rank:=@rank+1', FALSE);
-            $this->db->where($where);
+            $this->{$this->db_group}->order_by('ordering ASC');
+            $this->{$this->db_group}->set('ordering', '@rank:=@rank+1', FALSE);
+            $this->{$this->db_group}->where($where);
 
-            return $this->db->update($table);
+            return $this->{$this->db_group}->update($table);
         }
     }
 
@@ -1052,7 +1052,7 @@ class Base_model extends CI_Model
         if (isset($this->_list_fields[$this->db_group . '_' . $table]))
             return $this->_list_fields[$this->db_group . '_' . $table];
 
-        $this->_list_fields[$this->db_group . '_' . $table] = $this->db->list_fields($table);
+        $this->_list_fields[$this->db_group . '_' . $table] = $this->{$this->db_group}->list_fields($table);
 
         return $this->_list_fields[$this->db_group . '_' . $table];
     }
@@ -1070,12 +1070,12 @@ class Base_model extends CI_Model
         if (!empty($where) && is_array($where)) {
             foreach (array('limit', 'offset', 'like') as $key) {
                 if (isset($where[$key])) {
-                    call_user_func(array($this->db, $key), $where[$key]);
+                    call_user_func(array($this->{$this->db_group}, $key), $where[$key]);
                     unset($where[$key]);
                 }
             }
             if (isset($where['order_by'])) {
-                $this->db->order_by($where['order_by'], NULL, FALSE);
+                $this->{$this->db_group}->order_by($where['order_by'], NULL, FALSE);
                 unset($where['order_by']);
             }
             if (isset($where['where_in'])) {
@@ -1084,13 +1084,13 @@ class Base_model extends CI_Model
                     foreach ($values as $k => $value) {
                         if (strtolower($value) == 'null') {
                             unset($values[$k]);
-                            $this->db->where("(" . $key . " in ('" . implode("','", $values) . "') OR " . $key . " IS NULL)", NULL, FALSE);
+                            $this->{$this->db_group}->where("(" . $key . " in ('" . implode("','", $values) . "') OR " . $key . " IS NULL)", NULL, FALSE);
                             $processed = TRUE;
                             break;
                         }
                     }
                     if (!$processed)
-                        $this->db->where_in($key, $values, FALSE);
+                        $this->{$this->db_group}->where_in($key, $values, FALSE);
                 }
                 unset($where['where_in']);
             }
@@ -1101,18 +1101,18 @@ class Base_model extends CI_Model
                     $protect = !(substr($field, -5) == ' like');
                 if (is_string($field)) {
                     if ($value == 'NULL' && is_string($value)) {
-                        $this->db->where($field . ' IS NULL', NULL, FALSE);
+                        $this->{$this->db_group}->where($field . ' IS NULL', NULL, FALSE);
                     } elseif ($field == "RAW") {
-                        $this->db->where($value, NULL, FALSE);
+                        $this->{$this->db_group}->where($value, NULL, FALSE);
                     } else {
                         if (strpos($field, '.') > 0) {
-                            $this->db->where($field, $value, $protect);
+                            $this->{$this->db_group}->where($field, $value, $protect);
                         } else {
-                            $this->db->where($table . '.' . $field, $value, $protect);
+                            $this->{$this->db_group}->where($table . '.' . $field, $value, $protect);
                         }
                     }
                 } else {
-                    $this->db->where($value);
+                    $this->{$this->db_group}->where($value);
                 }
             }
         }
@@ -1124,7 +1124,7 @@ class Base_model extends CI_Model
      */
     public function last_query()
     {
-        return $this->db->last_query();
+        return $this->{$this->db_group}->last_query();
     }
 
     /**
@@ -1136,7 +1136,7 @@ class Base_model extends CI_Model
      */
     public function table_exists($table)
     {
-        return $this->db->table_exists($table);
+        return $this->{$this->db_group}->table_exists($table);
     }
 
     /**
@@ -1148,7 +1148,7 @@ class Base_model extends CI_Model
      */
     public function query($sql)
     {
-        return $this->db->query($sql);
+        return $this->{$this->db_group}->query($sql);
     }
 
     /**
@@ -1159,7 +1159,7 @@ class Base_model extends CI_Model
     private function update_cache($where)
     {
         if (!$this->is_cache) return;
-        $idsNew = $this->db->where($where)->select($this->pk_name)->get($this->table)->result_array();
+        $idsNew = $this->{$this->db_group}->where($where)->select($this->pk_name)->get($this->table)->result_array();
         $idsNew = explode(',', get_field_list($idsNew, $this->pk_name));
 
         $idsOld = $this->cache->get(config_item('changedRow'));

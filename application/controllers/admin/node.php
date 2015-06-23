@@ -16,7 +16,8 @@ class Node extends Admin_Controller
      */
     public function index()
     {
-        $map = array();
+		$this->output->enable_profiler(true);
+		$map = array();
         $sort = I('get.sort', 'code', 'strip_tags,trim');
         $order = I('get.order', 'asc', 'strip_tags,trim');
         $map['order_by'] = array($sort, $order);

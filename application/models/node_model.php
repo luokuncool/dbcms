@@ -19,7 +19,6 @@ class Node_Model extends Base_Model
     public function __construct()
     {
         parent::__construct();
-        $this->load->database();
     }
 
     /**
@@ -67,7 +66,7 @@ class Node_Model extends Base_Model
      * @return mixed
      */
 	public function getModules(){
-		$query = $this->db->distinct()->select('module')->get($this->table);
+		$query = $this->{$this->db_group}->distinct()->select('module')->get($this->table);
 		$modules = $query->result_array();
 		return $modules;
 	}

@@ -11,7 +11,7 @@ class User_Model extends Base_Model
 
     public $table = 'user';
 
-    public $is_cache = TRUE;
+    public $is_cache = FALSE;
 
     /**
      * 构造函数
@@ -19,7 +19,6 @@ class User_Model extends Base_Model
     public function __construct()
     {
         parent::__construct();
-        $this->load->database();
     }
 
     /**

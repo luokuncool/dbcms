@@ -22,6 +22,7 @@
                             <th>账户名称</th>
                             <th>最近登陆时间</th>
                             <th>创建时间</th>
+                            <th>用户状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -32,6 +33,13 @@
                                 <td>{{$user.name}}</td>
                                 <td>{{$user.lastLoginTime|date_format:'Y-m-d'}}</td>
                                 <td>{{$user.createTime|date_format:'Y-m-d'}}</td>
+                                <td>
+                                    {{if $user['status'] == 1}}
+                                        <i class="text-green">启用</i>
+                                    {{else}}
+                                        <i class="text-red">禁用</i>
+                                    {{/if}}
+                                </td>
                                 <td>
                                     <a href="{{$baseURL}}/user/edit/{{$user.id}}" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                     <a href="{{$baseURL}}/user/set_role/{{$user.id}}" title="设置角色"><i class="fa fa-group"></i></a>&nbsp;&nbsp;
@@ -48,6 +56,7 @@
                             <th>账户名称</th>
                             <th>最近登陆时间</th>
                             <th>创建时间</th>
+                            <th>用户状态</th>
                             <th>操作</th>
                         </tr>
                         </tfoot>

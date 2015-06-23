@@ -92,7 +92,12 @@ class Home extends Admin_Controller {
         $roleIds OR ajax_exit('此用户为授权，请联系系统管理员授权！');
         $accessNodeIds = $this->role_node_model->get_list(array('roleId in('.$roleIds.')'), 'nodeId');
         $accessNodeIds = get_field_list($accessNodeIds['rows'], 'nodeId');
-        $accessNodeList = $this->node_model->get_list(array('id in('.$accessNodeIds.')'), 'code');
+
+		if ($result['id'] == 0) { //超级管理员
+			$accessNodeList = $this->node_model->get_list(array(), 'code');
+		} else {
+			$accessNodeList = $this->node_model->get_list(array('id in('.$accessNodeIds.')'), 'code');
+		}
         $_SESSION['accessNodeCodes'] = explode(',', get_field_list($accessNodeList['rows'], 'code', ','));
         $_SESSION['accessNodeIds'] = explode(',', $accessNodeIds);
         $_SESSION['userInfo'] = $result;

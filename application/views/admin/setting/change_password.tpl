@@ -12,17 +12,17 @@
         <div class="col-md-6">
             <form role="form" method="post" action="">
                 <div class="form-group">
-                    <label>旧密码</label>
+                    <label>旧密码 <i class="text-red">*</i></label>
                     <input type="password" name="oldPassword" value="{{$data.code}}" class="form-control"
                            placeholder="输入旧密码">
                 </div>
                 <div class="form-group">
-                    <label>新密码</label>
+                    <label>新密码 <i class="text-red">*</i></label>
                     <input type="password" class="form-control" value="{{$data.name}}" name="password"
                            placeholder="请输入新密码">
                 </div>
                 <div class="form-group">
-                    <label>确认密码</label>
+                    <label>确认密码 <i class="text-red">*</i></label>
                     <input type="password" class="form-control" value="{{$data.name}}" name="rePassword"
                            placeholder="请再次输入新密码">
                 </div>

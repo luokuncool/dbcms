@@ -25,7 +25,7 @@ class User extends Admin_Controller
      */
     public function index()
     {
-        $map = array();
+        $map = array('id >' => 0);
         $sort = $this->input->get('sort');
         $order = $this->input->get('order');
         $sort && $order && $map['order_by'] = array($sort, $order);
@@ -59,6 +59,22 @@ class User extends Admin_Controller
             return;
         }
         $data['uName'] = I('post.uName', '', 'strip_tags,trim');
+		regex($data['uName'], 'require') OR ajax_exit('请输入登录名!');
+		$this->user_model->exists(array('uName'=>$data['uName'])) && ajax_exit('该用户已经存在!');
+
+		$data['password'] = I('post.password', '', 'trim');
+		regex($data['password'], 'require') OR ajax_exit('请输入登陆密码!');
+		$rePassword = I('post.rePassword', '', 'trim');
+		$rePassword == $data['password'] OR ajax_exit('两次密码输入不一致!');
+		$data['password'] = md5($data['password']);
+
+		$data['name'] = I('post.name', '', 'trim,strip_tags');
+		regex($data['name'], 'require') OR ajax_exit('请输入用户名!');
+
+		$data['status'] = I('post.status', 0, 'intval');
+		$data['email'] = I('post.email', '', 'trim,strip_tags');
+		$data['createUid'] = get_uid();
+		$data['createTime'] = time();
         $id = $this->node_model->insert($data);
         $res['message'] = $id ? '添加成功' : '添加失败';
         $id && $res['closeSelf'] = 1;
@@ -75,20 +91,34 @@ class User extends Admin_Controller
         $id = intval($id);
         $assign['node_group_list'] = config_item('node_group');
         $assign['data'] = $this->user_model->get_row($id);
-        $assign['fileName1'] = array('fileName'=>'upload1');
-        $assign['fileName2'] = array('fileName'=>'upload2');
         if (!is_post())
         {
             $this->smarty->view('admin/user/edit.tpl', $assign);
             return;
         }
-        $update['uName'] = I('post.uName', '', 'strip_tags,trim');
-        $update['name'] = I('post.name', '', 'strip_tags,trim');
-        $result = $this->user_model->update(array('id'=>$id), $update);
+		$data['uName'] = I('post.uName', '', 'strip_tags,trim');
+		regex($data['uName'], 'require') OR ajax_exit('请输入登录名!');
+		if ($assign['data']['uName'] != $data['uName'] &&
+			$this->user_model->exists(array('uName' => $data['uName']))
+		) {
+			ajax_exit('该用户已经存在!');
+		}
+
+		if ($data['password'] != '') {
+			$data['password'] = I('post.password', '', 'trim');
+			regex($data['password'], 'require') OR ajax_exit('请输入登陆密码!');
+			$rePassword = I('post.rePassword', '', 'trim');
+			$rePassword == $data['password'] OR ajax_exit('两次密码输入不一致!');
+			$data['password'] = md5($data['password']);
+		}
+
+		$data['name'] = I('post.name', '', 'trim,strip_tags');
+		regex($data['name'], 'require') OR ajax_exit('请输入用户名!');
+
+		$data['status'] = I('post.status', 0, 'intval');
+		$data['email'] = I('post.email', '', 'trim,strip_tags');
+        $result = $this->user_model->update(array('id'=>$id), $data);
         $res['message'] = $result ? '保存成功' : '保存失败';
-        $id && $res['closeSelf'] = 1;
-        $id && $res['success'] = 1;
-        $res['reloadType'] = 'reloadGrid';
         echo json_encode($res);
     }
 
@@ -142,19 +172,11 @@ class User extends Admin_Controller
      */
     public function remove()
     {
-        if (!is_post()) {
-            return;
-        }
-        $ids     = I('post.ids', '', 'strip_tags,trim');
-        regex($ids, 'require') OR ajax_exit('请选择要删除的行！');
-        $result = $this->user_model->delete('id in('.$ids.')');
-        $res = array(
-            'message' => $result  !== false  ? '操作成功' : '操作失败',
-            'reloadType' => 'reloadGrid',
-            'success' => $result  !== false  ? 1 : 0,
-        );
-        echo_json($res);
-    }
+		$ids = I('ids', '', 'trim,strip_tags');
+		$this->user_model->delete('id in(' . $ids . ')');
+		parent::jump('操作成功', '/admin/node/index');
+
+	}
 
     /**
      * 禁用
