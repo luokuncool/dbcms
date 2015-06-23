@@ -50,9 +50,8 @@ class Node_Model extends Base_Model
         return $this->exists($where);
     }
 
-    public function getNodeTree($isMenu = false)
+    public function getNodeTree($where = array(), $isMenu = false)
     {
-        $where = array();
         $isMenu && $where[] = array('isMenu'=>1);
         $list = $this->get_list($where);
         $nodes = $list['rows'];

@@ -40,14 +40,14 @@ class Setting extends Admin_Controller {
      */
     public function favorite_menu()
     {
-
         $this->load->model(array('node_model', 'favorite_menu_model'));
         $userId = get_uid();
         if (!is_ajax()) {
             parent::set_html_header();
             $existsNodeIds = $this->favorite_menu_model->get_list(array('userId' => $userId), 'nodeId');
             $assign['nodeIds'] = explode(',', get_field_list($existsNodeIds['rows'], 'nodeId'));
-            $assign['moduleTree'] = $this->node_model->getNodeTree(true);
+			$where = array('where_in' => array('id' => get_access_nodeIds(true)));
+            $assign['moduleTree'] = $this->node_model->getNodeTree($where, true);
             $this->smarty->view('admin/setting/favorite_menu.tpl', $assign);
             return;
         }

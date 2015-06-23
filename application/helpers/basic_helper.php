@@ -474,3 +474,18 @@ function is_ajax()
 {
     return IS_AJAX OR isset($_REQUEST['ajaxRequest']);
 }
+
+/**
+ * 获取可以访问节点ID
+ * @author Quentin
+ * @since  2015-06-23
+ * @access public
+ *
+ * @param bool $isArray
+ *
+ * @return mixed
+ */
+function get_access_nodeIds($isArray = false)
+{
+	return $isArray ? $_SESSION['accessNodeIds'] : join(',', $_SESSION['accessNodeIds']);
+}

@@ -286,20 +286,20 @@ class Base_model extends CI_Model
         $this->db->start_cache();
 
         // Perform conditions from the $where array
-        foreach (array('where_in', 'like') as $key) {
+        foreach (array('like') as $key) {
             if (isset($where[$key])) {
                 call_user_func_array(array($this->db, $key), array($where[$key]));
                 unset($where[$key]);
             }
         }
-        /* if (isset($where['where_in']))
+         if (isset($where['where_in']))
          {
              foreach($where['where_in'] as $key => $value)
              {
                  $this->db->where_in($key, $value);
              }
              unset($where['where_in']);
-         }*/
+         }
 
 
         if (!empty ($where)) {

@@ -113,7 +113,7 @@ class Admin_Controller extends MY_Controller
         if (in_array($thisNode, $withoutCheckAccess)) return;
         $result = in_array($thisNode, $_SESSION['accessNodeCodes']);
         if ($result) return;
-       // (is_ajax() OR is_post()) ? ajax_exit('没有操作权限！') : show_404();
+        (is_ajax() OR is_post()) ? ajax_exit('没有操作权限！') : show_error('您没有操作该功能权限!', 403, '权限不够');
     }
 
     protected function set_menu()
@@ -153,7 +153,7 @@ class Admin_Controller extends MY_Controller
             )
         );
 
-        $nodeIds   = $this->favorite_menu_model->get_list(array('userId'=>$userId), 'nodeId');
+        $nodeIds   = $this->favorite_menu_model->get_list(array('userId'=>$userId, 'where_in'=>array('nodeId'=>get_access_nodeIds(true))), 'nodeId');
         $menus = array();
         foreach($nodeIds['rows'] as $row) {
             $node =  $this->node_model->get_row($row['nodeId'], 'code,name,id,iconCls');
